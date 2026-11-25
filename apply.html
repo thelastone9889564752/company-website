@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">สมัครงาน | บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.94); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .popup-animate { animation: popIn 0.18s ease-out; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 overflow-x-hidden min-h-screen flex flex-col">
+
+    <!-- ป๊อปอัพแจ้งเตือนกลางจอ -->
+    <div id="center-popup" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 backdrop-blur-[2px] p-4">
+        <div class="popup-animate bg-white w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 p-6 text-center space-y-4">
+            <div id="popup-icon-wrap" class="w-16 h-16 mx-auto rounded-full flex items-center justify-center text-3xl bg-emerald-100 text-emerald-600">
+                <i id="popup-icon" class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="space-y-1.5">
+                <h3 id="popup-title" class="text-xl font-bold text-slate-900">ส่งใบสมัครสำเร็จ</h3>
+                <p id="popup-message" class="text-sm text-slate-600 leading-relaxed">
+                    ระบบบันทึกข้อมูลใบสมัครของคุณเรียบร้อยแล้ว ฝ่ายบุคคลจะติดต่อกลับตามข้อมูลที่ให้ไว้
+                </p>
+            </div>
+            <button type="button" id="popup-close-btn" onclick="closeCenterPopup()" class="w-full py-3 px-5 rounded-xl bg-blue-950 hover:bg-blue-900 text-white font-semibold text-sm transition">
+                ตกลง
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-3">
+            <a id="home-logo-link" href="./index.html" class="flex items-center gap-3 min-w-0">
+                <div class="w-11 h-11 bg-white rounded-lg border border-slate-200 p-1 flex items-center justify-center shrink-0">
+                    <img src="./Logo customers/Logo_servex.jpg" alt="โลโก้บริษัท" class="w-full h-full object-contain">
+                </div>
+                <div class="min-w-0">
+                    <p id="header-company-name" class="text-xs sm:text-sm font-bold text-blue-950 truncate">
+                        บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด
+                    </p>
+                    <p id="header-portal-label" class="text-[11px] text-slate-500">
+                        ระบบรับสมัครงานออนไลน์
+                    </p>
+                </div>
+            </a>
+
+            <div class="flex items-center gap-2 shrink-0">
+                <div class="inline-flex rounded-lg bg-slate-100 p-0.5 border border-slate-200">
+                    <button type="button" id="btn-lang-th" onclick="setFormLanguage('th')" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition">
+                        TH
+                    </button>
+                    <button type="button" id="btn-lang-en" onclick="setFormLanguage('en')" class="px-2.5 py-1 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition">
+                        EN
+                    </button>
+                </div>
+
+                <a id="back-home-btn" href="./index.html#careers" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold text-blue-950 bg-slate-100 hover:bg-slate-200 transition">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span id="back-home-text">กลับหน้าหลัก</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Form -->
+    <main class="flex-1 py-10 sm:py-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="bg-white rounded-2xl shadow-md border border-slate-200/90 overflow-hidden">
+                
+                <!-- Banner -->
+                <div class="bg-gradient-to-r from-blue-950 via-blue-900 to-slate-900 text-white px-6 sm:px-8 py-7">
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-400/40 mb-2">
+                        <i class="fa-solid fa-briefcase mr-1"></i> APPLICATION FORM
+                    </span>
+                    <h1 id="form-main-title" class="text-2xl sm:text-3xl font-bold">แบบฟอร์มสมัครงาน</h1>
+                    <p id="form-main-desc" class="text-sm text-slate-300 mt-1">
+                        กรุณาเลือกตำแหน่ง พื้นที่ปฏิบัติงาน และกรอกข้อมูลให้ครบถ้วนเพื่อให้ฝ่ายบุคคลติดต่อกลับ
+                    </p>
+                </div>
+
+                <form id="application-form" class="p-6 sm:p-8 space-y-8">
+
+                    <!-- ส่วนที่ 1: เลือกหมวดตำแหน่ง และพื้นที่ปฏิบัติงาน -->
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-2 border-b border-slate-200 pb-2.5">
+                            <span class="w-7 h-7 rounded-full bg-blue-900 text-white text-xs font-bold flex items-center justify-center">1</span>
+                            <h2 id="sec1-title" class="text-lg font-bold text-blue-950">ตำแหน่งและพื้นที่ปฏิบัติงาน</h2>
+                        </div>
+
+                        <!-- ปุ่มเลือกหมวดตำแหน่ง 3 หมวด -->
+                        <div>
+                            <label id="job-label" class="block text-sm font-semibold text-slate-700 mb-2">
+                                หมวดตำแหน่งที่สมัคร <span class="text-red-500">*</span>
+                            </label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
+                                <button type="button" data-job-card="cit" onclick="selectJob('cit')" class="job-card p-3.5 rounded-xl border-2 text-left transition border-slate-200 hover:border-blue-400">
+                                    <p class="text-xs font-semibold text-amber-600">01 • CIT</p>
+                                    <p id="card-title-cit" class="font-bold text-slate-900 text-sm mt-0.5">บริการขนส่งทรัพย์สินมีค่า</p>
+                                </button>
+                                <button type="button" data-job-card="security" onclick="selectJob('security')" class="job-card p-3.5 rounded-xl border-2 text-left transition border-slate-200 hover:border-blue-400">
+                                    <p class="text-xs font-semibold text-amber-600">02 • Security</p>
+                                    <p id="card-title-security" class="font-bold text-slate-900 text-sm mt-0.5">บริการรักษาความปลอดภัย</p>
+                                </button>
+                                <button type="button" data-job-card="cleaning" onclick="selectJob('cleaning')" class="job-card p-3.5 rounded-xl border-2 text-left transition border-slate-200 hover:border-blue-400">
+                                    <p class="text-xs font-semibold text-amber-600">03 • Cleaning</p>
+                                    <p id="card-title-cleaning" class="font-bold text-slate-900 text-sm mt-0.5">บริการทำความสะอาด</p>
+                                </button>
+                            </div>
+
+                            <select id="job-position" name="jobPosition" required onchange="syncJobCards()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-900">
+                                <option id="opt-job-placeholder" value="">-- เลือกตำแหน่งงาน --</option>
+                                <option id="opt-job-cit" value="บริการขนส่งทรัพย์สินมีค่า">บริการขนส่งทรัพย์สินมีค่า</option>
+                                <option id="opt-job-security" value="บริการรักษาความปลอดภัย">บริการรักษาความปลอดภัย</option>
+                                <option id="opt-job-cleaning" value="บริการทำความสะอาด">บริการทำความสะอาด</option>
+                            </select>
+                        </div>
+
+                        <!-- Dropdown จังหวัด -> เขต (กทม./ปริมณฑล) หรือ อำเภอ (ต่างจังหวัด) -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <p id="work-zone-heading" class="text-xs font-bold text-blue-900 mb-1">
+                                    เขตที่สนใจปฏิบัติงาน
+                                </p>
+                                <label id="province-label" for="province" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                                    จังหวัด <span class="text-red-500">*</span>
+                                </label>
+                                <select id="province" name="province" required onchange="handleProvinceChange()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-900">
+                                    <option id="opt-prov-placeholder" value="">-- เลือกจังหวัด --</option>
+                                </select>
+                            </div>
+
+                            <div class="sm:pt-[20px]">
+                                <label id="area-label" for="area" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                                    เขต / อำเภอ <span class="text-red-500">*</span>
+                                </label>
+                                <select id="area" name="area" required disabled class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-slate-100 text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-900">
+                                    <option id="opt-area-placeholder" value="">-- เลือกจังหวัดก่อน --</option>
+                                </select>
+                                <p id="region-badge" class="mt-1.5 text-xs font-medium text-slate-500">
+                                    กรุณาเลือกจังหวัดเพื่อแสดงรายชื่อเขตหรืออำเภอ
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- ช่องกรอกเพิ่มเติมกรณีต่างจังหวัดหรือต้องการระบุอำเภอ/ตำบลเจาะจง -->
+                        <div id="extra-area-box" class="hidden bg-amber-50/70 border border-amber-200 rounded-xl p-4">
+                            <label for="area-note" id="area-note-label" class="block text-xs sm:text-sm font-semibold text-slate-800 mb-1.5">
+                                ระบุอำเภอ / ตำบลเพิ่มเติม (ถ้าต้องการ)
+                            </label>
+                            <input type="text" id="area-note" name="areaNote" placeholder="เช่น อำเภอเมือง / ตำบลในพื้นที่ที่สะดวกปฏิบัติงาน" class="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-900">
+                        </div>
+                    </div>
+
+                    <!-- ส่วนที่ 2: ข้อมูลส่วนตัวผู้สมัคร -->
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-2 border-b border-slate-200 pb-2.5">
+                            <span class="w-7 h-7 rounded-full bg-blue-900 text-white text-xs font-bold flex items-center justify-center">2</span>
+                            <h2 id="sec2-title" class="text-lg font-bold text-blue-950">ข้อมูลส่วนตัวผู้สมัคร</h2>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="sm:col-span-2">
+                                <label id="fullname-label" for="full-name" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                                    ชื่อ - นามสกุล <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" id="full-name" name="fullName" required placeholder="เช่น นายสมชาย ใจดี" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label id="age-label" for="age" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                                        อายุ (ปี) <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="number" id="age" name="age" min="18" max="65" required placeholder="25" class="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900">
+                                </div>
+
+                                <div>
+                                    <label id="gender-label" for="gender" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                                        เพศ <span class="text-red-500">*</span>
+                                    </label>
+                                    <select id="gender" name="gender" required class="w-full rounded-xl border border-slate-300 px-2.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-900">
+                                        <option id="opt-gender-placeholder" value="">เลือก</option>
+                                        <option id="opt-gender-male" value="ชาย">ชาย</option>
+                                        <option id="opt-gender-female" value="หญิง">หญิง</option>
+                                        <option id="opt-gender-other" value="อื่นๆ">อื่นๆ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ที่อยู่แบบ: รหัสไปรษณีย์ -> ตำบล -> อำเภอ -> จังหวัด -->
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 space-y-4">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <p id="addr-section-title" class="text-sm font-bold text-blue-950">
+                                    พื้นที่ที่อยู่ปัจจุบัน <span class="text-red-500">*</span>
+                                </p>
+                                <span id="postcode-status" class="text-xs font-medium text-slate-500">
+                                    กรอกรหัสไปรษณีย์ 5 หลักเพื่อกรองตำบล อำเภอ และจังหวัด
+                                </span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                                <!-- 1. รหัสไปรษณีย์ -->
+                                <div>
+                                    <label id="postcode-label" for="postcode" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                                        รหัสไปรษณีย์ <span class="text-red-500">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="postcode"
+                                        name="postcode"
+                                        inputmode="numeric"
+                                        pattern="[0-9]{5}"
+                                        maxlength="5"
+                                        required
+                                        placeholder="เช่น 72160"
+                                        oninput="handlePostcodeInput()"
+                                        class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-900"
+                                    >
+                                </div>
+
+                                <!-- 2. ตำบล / แขวง (รหัสไปรษณีย์เดียวกัน) -->
+                                <div>
+                                    <label id="subdistrict-label" for="subdistrict" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                                        ตำบล / แขวง <span class="text-red-500">*</span>
+                                    </label>
+                                    <select
+                                        id="subdistrict"
+                                        name="subdistrict"
+                                        required
+                                        disabled
+                                        onchange="handleSubdistrictChange()"
+                                        class="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm bg-slate-100 text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-900"
+                                    >
+                                        <option id="opt-subdistrict-placeholder" value="">-- กรอกรหัสไปรษณีย์ก่อน --</option>
+                                    </select>
+                                </div>
+
+                                <!-- 3. อำเภอ / เขต (รหัสไปรษณีย์เดียวกัน) -->
+                                <div>
+                                    <label id="district-addr-label" for="addr-district" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                                        อำเภอ / เขต <span class="text-red-500">*</span>
+                                    </label>
+                                    <select
+                                        id="addr-district"
+                                        name="addrDistrict"
+                                        required
+                                        disabled
+                                        onchange="handleDistrictChange()"
+                                        class="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm bg-slate-100 text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-900"
+                                    >
+                                        <option id="opt-district-addr-placeholder" value="">-- รอเลือกตำบล/รหัส --</option>
+                                    </select>
+                                </div>
+
+                                <!-- 4. จังหวัด (รหัสไปรษณีย์เดียวกัน) -->
+                                <div>
+                                    <label id="province-addr-label" for="addr-province" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                                        จังหวัด <span class="text-red-500">*</span>
+                                    </label>
+                                    <select
+                                        id="addr-province"
+                                        name="addrProvince"
+                                        required
+                                        disabled
+                                        class="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm bg-slate-100 text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-900"
+                                    >
+                                        <option id="opt-province-addr-placeholder" value="">-- รอเลือกตำบล/รหัส --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label id="phone-label" for="phone" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                                    เบอร์โทรศัพท์ติดต่อ <span class="text-red-500">*</span>
+                                </label>
+                                <input type="tel" id="phone" name="phone" required placeholder="08X-XXX-XXXX" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900">
+                            </div>
+
+                            <div>
+                                <label id="email-label" for="email" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                                    อีเมลติดต่อ <span class="text-xs font-normal text-slate-400">(ไม่บังคับ)</span>
+                                </label>
+                                <input type="email" id="email" name="email" placeholder="name@example.com (ถ้ามี)" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ปุ่มส่งใบสมัคร -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-end gap-3">
+                        <button type="reset" id="reset-btn" onclick="resetFormState()" class="w-full sm:w-auto px-5 py-3 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-sm font-semibold transition">
+                            ล้างข้อมูล
+                        </button>
+                        <button type="submit" id="submit-btn" class="w-full sm:w-auto px-7 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-blue-950 text-sm font-bold shadow-md transition inline-flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span id="submit-btn-text">ส่งใบสมัครงาน</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-blue-950 text-slate-400 py-6 text-center text-xs">
+        © 2026 Bangkok Servex Security Guard and Business Services Co., Ltd. All Rights Reserved.
+    </footer>
+
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkdiFEQZtvaqUcoUitwurJ9OXKEPlV0czJjV_3brUybqy_wIHKJZGKbHo7FmaX4Wbw/exec';
+        const REMOTE_GEOGRAPHY_URL = 'https://raw.githubusercontent.com/thailand-geography-data/thailand-geography-json/main/src/geography.json';
+
+        let currentFormLang = 'th';
+
+        let POSTAL_RECORDS = [
+            { zip: '72160', subdistrict: 'บ้านดอน', district: 'อู่ทอง', province: 'สุพรรณบุรี' },
+            { zip: '72160', subdistrict: 'จรเข้สามพัน', district: 'อู่ทอง', province: 'สุพรรณบุรี' },
+            { zip: '72160', subdistrict: 'ดอนคา', district: 'อู่ทอง', province: 'สุพรรณบุรี' },
+            { zip: '72160', subdistrict: 'หนองโอ่ง', district: 'อู่ทอง', province: 'สุพรรณบุรี' },
+            { zip: '72160', subdistrict: 'สระยายโสม', district: 'อู่ทอง', province: 'สุพรรณบุรี' },
+            { zip: '72160', subdistrict: 'กระจัน', district: 'อู่ทอง', province: 'สุพรรณบุรี' },
+            { zip: '72160', subdistrict: 'พลับพลาไชย', district: 'อู่ทอง', province: 'สุพรรณบุรี' },
+            { zip: '72160', subdistrict: 'ยุ้งทะลาย', district: 'อู่ทอง', province: 'สุพรรณบุรี' },
+            { zip: '72160', subdistrict: 'เจดีย์', district: 'อู่ทอง', province: 'สุพรรณบุรี' },
+            { zip: '10330', subdistrict: 'ปทุมวัน', district: 'ปทุมวัน', province: 'กรุงเทพมหานคร' },
+            { zip: '10330', subdistrict: 'ลุมพินี', district: 'ปทุมวัน', province: 'กรุงเทพมหานคร' },
+            { zip: '10330', subdistrict: 'รองเมือง', district: 'ปทุมวัน', province: 'กรุงเทพมหานคร' },
+            { zip: '10330', subdistrict: 'วังใหม่', district: 'ปทุมวัน', province: 'กรุงเทพมหานคร' },
+            { zip: '10110', subdistrict: 'คลองเตย', district: 'คลองเตย', province: 'กรุงเทพมหานคร' },
+            { zip: '10110', subdistrict: 'คลองเตยเหนือ', district: 'วัฒนา', province: 'กรุงเทพมหานคร' },
+            { zip: '10110', subdistrict: 'พระโขนง', district: 'คลองเตย', province: 'กรุงเทพมหานคร' },
+            { zip: '10110', subdistrict: 'พระโขนงเหนือ', district: 'วัฒนา', province: 'กรุงเทพมหานคร' },
+            { zip: '11120', subdistrict: 'บางพูด', district: 'ปากเกร็ด', province: 'นนทบุรี' },
+            { zip: '11120', subdistrict: 'บ้านใหม่', district: 'ปากเกร็ด', province: 'นนทบุรี' },
+            { zip: '11120', subdistrict: 'บางตลาด', district: 'ปากเกร็ด', province: 'นนทบุรี' },
+            { zip: '11120', subdistrict: 'คลองเกลือ', district: 'ปากเกร็ด', province: 'นนทบุรี' },
+            { zip: '12120', subdistrict: 'คลองหนึ่ง', district: 'คลองหลวง', province: 'ปทุมธานี' },
+            { zip: '12120', subdistrict: 'คลองสอง', district: 'คลองหลวง', province: 'ปทุมธานี' },
+            { zip: '12120', subdistrict: 'คลองสาม', district: 'คลองหลวง', province: 'ปทุมธานี' },
+            { zip: '72000', subdistrict: 'รั้วใหญ่', district: 'เมืองสุพรรณบุรี', province: 'สุพรรณบุรี' },
+            { zip: '72000', subdistrict: 'ท่าพี่เลี้ยง', district: 'เมืองสุพรรณบุรี', province: 'สุพรรณบุรี' },
+            { zip: '72000', subdistrict: 'สนามชัย', district: 'เมืองสุพรรณบุรี', province: 'สุพรรณบุรี' }
+        ];
+
+        async function loadFullThaiPostalDataset() {
+            try {
+                const res = await fetch(REMOTE_GEOGRAPHY_URL);
+                if (!res.ok) return;
+                const rows = await res.json();
+                if (!Array.isArray(rows) || rows.length === 0) return;
+
+                const mapped = [];
+                rows.forEach((r) => {
+                    const zip = String(r.postalCode || r.zip_code || '').trim();
+                    const subdistrict = String(r.subdistrictNameTh || r.subdistrict || '').trim();
+                    const district = String(r.districtNameTh || r.district || '').trim();
+                    const province = String(r.provinceNameTh || r.province || '').trim();
+                    if (/^\d{5}$/.test(zip) && subdistrict && district && province) {
+                        mapped.push({ zip, subdistrict, district, province });
+                    }
+                });
+
+                if (mapped.length > 0) {
+                    const seen = new Set();
+                    POSTAL_RECORDS = [...mapped, ...POSTAL_RECORDS].filter((item) => {
+                        const key = `${item.zip}|${item.subdistrict}|${item.district}|${item.province}`;
+                        if (seen.has(key)) return false;
+                        seen.add(key);
+                        return true;
+                    });
+                    const currentZip = document.getElementById('postcode').value.trim();
+                    if (currentZip.length === 5) handlePostcodeInput();
+                }
+            } catch (_) {
+                // ใช้ข้อมูลในตัวหากโหลดข้อมูลภายนอกไม่สำเร็จ
+            }
+        }
+
+        const BKK_METRO_PROVINCES = new Set([
+            'กรุงเทพมหานคร',
+            'นนทบุรี',
+            'ปทุมธานี',
+            'สมุทรปราการ',
+            'สมุทรสาคร',
+            'นครปฐม'
+        ]);
+
+        const GEO_DATA = {
+            'กรุงเทพมหานคร': {
+                enName: 'Bangkok',
+                areas: [
+                    ['เขตปทุมวัน', 'Pathum Wan'], ['เขตพระโขนง', 'Phra Khanong'], ['เขตบางรัก', 'Bang Rak'],
+                    ['เขตสาทร', 'Sathon'], ['เขตยานนาวา', 'Yan Nawa'], ['เขตคลองเตย', 'Khlong Toei'],
+                    ['เขตวัฒนา', 'Watthana'], ['เขตห้วยขวาง', 'Huai Khwang'], ['เขตดินแดง', 'Din Daeng'],
+                    ['เขตพญาไท', 'Phaya Thai'], ['เขตราชเทวี', 'Ratchathewi'], ['เขตบางกะปิ', 'Bang Kapi'],
+                    ['เขตสวนหลวง', 'Suan Luang'], ['เขตประเวศ', 'Prawet'], ['เขตบางนา', 'Bang Na'],
+                    ['เขตจตุจักร', 'Chatuchak'], ['เขตหลักสี่', 'Lak Si'], ['เขตดอนเมือง', 'Don Mueang'],
+                    ['เขตสายไหม', 'Sai Mai'], ['เขตบางเขน', 'Bang Khen'], ['เขตลาดพร้าว', 'Lat Phrao'],
+                    ['เขตบึงกุ่ม', 'Bueng Kum'], ['เขตคันนายาว', 'Khanna Yao'], ['เขตสะพานสูง', 'Saphan Sung'],
+                    ['เขตวังทองหลาง', 'Wang Thonglang'], ['เขตคลองสามวา', 'Khlong Sam Wa'], ['เขตหนองจอก', 'Nong Chok'],
+                    ['เขตมีนบุรี', 'Min Buri'], ['เขตบางแค', 'Bang Khae'], ['เขตภาษีเจริญ', 'Phasi Charoen'],
+                    ['เขตหนองแขม', 'Nong Khaem'], ['เขตตลิ่งชัน', 'Taling Chan'], ['เขตทวีวัฒนา', 'Thawi Watthana'],
+                    ['เขตบางขุนเทียน', 'Bang Khun Thian'], ['เขตทุ่งครุ', 'Thung Khru'], ['เขตราษฎร์บูรณะ', 'Rat Burana'],
+                    ['เขตจอมทอง', 'Chom Thong'], ['เขตบางกอกน้อย', 'Bangkok Noi'], ['เขตบางกอกใหญ่', 'Bangkok Yai'],
+                    ['เขตธนบุรี', 'Thon Buri'], ['เขตคลองสาน', 'Khlong San'], ['เขตบางพลัด', 'Bang Phlat'],
+                    ['เขตดุสิต', 'Dusit'], ['เขตพระนคร', 'Phra Nakhon'], ['เขตป้อมปราบศัตรูพ่าย', 'Pom Prap Sattru Phai'],
+                    ['เขตสัมพันธวงศ์', 'Samphanthawong'], ['เขตบางซื่อ', 'Bang Sue'], ['เขตบางคอแหลม', 'Bang Kho Laem']
+                ]
+            },
+            'นนทบุรี': {
+                enName: 'Nonthaburi',
+                areas: [['อำเภอเมืองนนทบุรี', 'Mueang Nonthaburi'], ['อำเภอบางกรวย', 'Bang Kruai'], ['อำเภอบางใหญ่', 'Bang Yai'], ['อำเภอบางบัวทอง', 'Bang Bua Thong'], ['อำเภอไทรน้อย', 'Sai Noi'], ['อำเภอปากเกร็ด', 'Pak Kret']]
+            },
+            'ปทุมธานี': {
+                enName: 'Pathum Thani',
+                areas: [['อำเภอเมืองปทุมธานี', 'Mueang Pathum Thani'], ['อำเภอคลองหลวง', 'Khlong Luang'], ['อำเภอธัญบุรี', 'Thanyaburi'], ['อำเภอหนองเสือ', 'Nong Suea'], ['อำเภอลาดหลุมแก้ว', 'Lat Lum Kaeo'], ['อำเภอลำลูกกา', 'Lam Luk Ka'], ['อำเภอสามโคก', 'Sam Khok']]
+            },
+            'สมุทรปราการ': {
+                enName: 'Samut Prakan',
+                areas: [['อำเภอเมืองสมุทรปราการ', 'Mueang Samut Prakan'], ['อำเภอบางบ่อ', 'Bang Bo'], ['อำเภอบางพลี', 'Bang Phli'], ['อำเภอพระประแดง', 'Phra Pradaeng'], ['อำเภอพระสมุทรเจดีย์', 'Phra Samut Chedi'], ['อำเภอบางเสาธง', 'Bang Sao Thong']]
+            },
+            'สมุทรสาคร': {
+                enName: 'Samut Sakhon',
+                areas: [['อำเภอเมืองสมุทรสาคร', 'Mueang Samut Sakhon'], ['อำเภอกระทุ่มแบน', 'Krathum Baen'], ['อำเภอบ้านแพ้ว', 'Ban Phaeo']]
+            },
+            'นครปฐม': {
+                enName: 'Nakhon Pathom',
+                areas: [['อำเภอเมืองนครปฐม', 'Mueang Nakhon Pathom'], ['อำเภอกำแพงแสน', 'Kamphaeng Saen'], ['อำเภอนครชัยศรี', 'Nakhon Chai Si'], ['อำเภอดอนตูม', 'Don Tum'], ['อำเภอบางเลน', 'Bang Len'], ['อำเภอสามพราน', 'Sam Phran'], ['อำเภอพุทธมณฑล', 'Phutthamonthon']]
+            },
+            'ชลบุรี': {
+                enName: 'Chonburi',
+                areas: [['อำเภอเมืองชลบุรี', 'Mueang Chonburi'], ['อำเภอบ้านบึง', 'Ban Bueng'], ['อำเภอหนองใหญ่', 'Nong Yai'], ['อำเภอบางละมุง', 'Bang Lamung'], ['อำเภอพานทอง', 'Phan Thong'], ['อำเภอพนัสนิคม', 'Phanat Nikhom'], ['อำเภอศรีราชา', 'Si Racha'], ['อำเภอเกาะสีชัง', 'Ko Si Chang'], ['อำเภอสัตหีบ', 'Sattahip'], ['อำเภอบ่อทอง', 'Bo Thong'], ['อำเภอเกาะจันทร์', 'Ko Chan']]
+            },
+            'ระยอง': {
+                enName: 'Rayong',
+                areas: [['อำเภอเมืองระยอง', 'Mueang Rayong'], ['อำเภอบ้านค่าย', 'Ban Khai'], ['อำเภอแกลง', 'Klaeng'], ['อำเภอวังจันทร์', 'Wang Chan'], ['อำเภอบ้านฉาง', 'Ban Chang'], ['อำเภอปลวกแดง', 'Pluak Daeng'], ['อำเภอเขาชะเมา', 'Khao Chamao'], ['อำเภอนิคมพัฒนา', 'Nikhom Phatthana']]
+            },
+            'ฉะเชิงเทรา': {
+                enName: 'Chachoengsao',
+                areas: [['อำเภอเมืองฉะเชิงเทรา', 'Mueang Chachoengsao'], ['อำเภอบางคล้า', 'Bang Khla'], ['อำเภอบางน้ำเปรี้ยว', 'Bang Nam Priao'], ['อำเภอบางปะกง', 'Bang Pakong'], ['อำเภอบ้านโพธิ์', 'Ban Pho'], ['อำเภอพนมสารคาม', 'Phanom Sarakham'], ['อำเภอราชสาส์น', 'Ratchasan'], ['อำเภอสนามชัยเขต', 'Sanam Chai Khet'], ['อำเภอแปลงยาว', 'Pleng Yao'], ['อำเภอท่าตะเกียบ', 'Tha Takiap'], ['อำเภอคลองเขื่อน', 'Khlong Khuean']]
+            },
+            'พระนครศรีอยุธยา': {
+                enName: 'Phra Nakhon Si Ayutthaya',
+                areas: [['อำเภอพระนครศรีอยุธยา', 'Phra Nakhon Si Ayutthaya'], ['อำเภอท่าเรือ', 'Tha Ruea'], ['อำเภอนครหลวง', 'Nakhon Luang'], ['อำเภอบางไทร', 'Bang Sai'], ['อำเภอบางบาล', 'Bang Ban'], ['อำเภอบางปะอิน', 'Bang Pa-in'], ['อำเภอบางปะหัน', 'Bang Pahan'], ['อำเภอผักไห่', 'Phak Hai'], ['อำเภอภาชี', 'Phachi'], ['อำเภอลาดบัวหลวง', 'Lat Bua Luang'], ['อำเภอวังน้อย', 'Wang Noi'], ['อำเภอเสนา', 'Sena'], ['อำเภอบางซ้าย', 'Bang Sai'], ['อำเภออุทัย', 'Uthai'], ['อำเภอมหาราช', 'Maha Rat'], ['อำเภอบ้านแพรก', 'Ban Phraek']]
+            },
+            'สระบุรี': {
+                enName: 'Saraburi',
+                areas: [['อำเภอเมืองสระบุรี', 'Mueang Saraburi'], ['อำเภอแก่งคอย', 'Kaeng Khoi'], ['อำเภอหนองแค', 'Nong Khae'], ['อำเภอวิหารแดง', 'Wihan Daeng'], ['อำเภอหนองแซง', 'Nong Saeng'], ['อำเภอบ้านหมอ', 'Ban Mo'], ['อำเภอดอนพุด', 'Don Phut'], ['อำเภอหนองโดน', 'Nong Don'], ['อำเภอพระพุทธบาท', 'Phra Phutthabat'], ['อำเภอเสาไห้', 'Sao Hai'], ['อำเภอมวกเหล็ก', 'Muak Lek'], ['อำเภอวังม่วง', 'Wang Muang'], ['อำเภอเฉลิมพระเกียรติ', 'Chaloem Phra Kiat']]
+            },
+            'นครราชสีมา': {
+                enName: 'Nakhon Ratchasima',
+                areas: [['อำเภอเมืองนครราชสีมา', 'Mueang Nakhon Ratchasima'], ['อำเภอปากช่อง', 'Pak Chong'], ['อำเภอสีคิ้ว', 'Sikhio'], ['อำเภอสูงเนิน', 'Sung Noen'], ['อำเภอขามทะเลสอ', 'Kham Thale So'], ['อำเภอด่านขุนทด', 'Dan Khun Thot'], ['อำเภอพิมาย', 'Phimai'], ['อำเภอโชคชัย', 'Chok Chai'], ['อำเภอครบุรี', 'Khon Buri'], ['อำเภอปักธงชัย', 'Pak Thong Chai']]
+            },
+            'ขอนแก่น': {
+                enName: 'Khon Kaen',
+                areas: [['อำเภอเมืองขอนแก่น', 'Mueang Khon Kaen'], ['อำเภอบ้านไผ่', 'Ban Phai'], ['อำเภอพล', 'Phon'], ['อำเภอชุมแพ', 'Chum Phae'], ['อำเภอน้ำพอง', 'Nam Phong'], ['อำเภอหนองเรือ', 'Nong Ruea'], ['อำเภอแวงน้อย', 'Waeng Noi'], ['อำเภอแวงใหญ่', 'Waeng Yai'], ['อำเภออุบลรัตน์', 'Ubolratana']]
+            },
+            'เชียงใหม่': {
+                enName: 'Chiang Mai',
+                areas: [['อำเภอเมืองเชียงใหม่', 'Mueang Chiang Mai'], ['อำเภอหางดง', 'Hang Dong'], ['อำเภอสารภี', 'Saraphi'], ['อำเภอสันทราย', 'San Sai'], ['อำเภอแม่ริม', 'Mae Rim'], ['อำเภอสันกำแพง', 'San Kamphaeng'], ['อำเภอดอยสะเก็ด', 'Doi Saket'], ['อำเภอฝาง', 'Fang'], ['อำเภอจอมทอง', 'Chom Thong'], ['อำเภอแม่แตง', 'Mae Taeng']]
+            },
+            'ภูเก็ต': {
+                enName: 'Phuket',
+                areas: [['อำเภอเมืองภูเก็ต', 'Mueang Phuket'], ['อำเภอกะทู้', 'Kathu'], ['อำเภอถลาง', 'Thalang']]
+            },
+            'สงขลา': {
+                enName: 'Songkhla',
+                areas: [['อำเภอเมืองสงขลา', 'Mueang Songkhla'], ['อำเภอหาดใหญ่', 'Hat Yai'], ['อำเภอสะเดา', 'Sadao'], ['อำเภอจะนะ', 'Chana'], ['อำเภอนาทวี', 'Na Thawi'], ['อำเภอเทพา', 'Thepha'], ['อำเภอรัตภูมิ', 'Rattaphum'], ['อำเภอระโนด', 'Ranot'], ['อำเภอสิงหนคร', 'Singhanakhon']]
+            },
+            'จังหวัดอื่นๆ (ระบุอำเภอด้านล่าง)': {
+                enName: 'Other Provinces (Specify Below)',
+                areas: [['อื่นๆ / ระบุอำเภอเพิ่มเติม', 'Other / Specify District Below']]
+            }
+        };
+
+        const FORM_I18N = {
+            th: {
+                pageTitle: 'สมัครงาน | บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด',
+                companyName: 'บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด',
+                portalLabel: 'ระบบรับสมัครงานออนไลน์',
+                backHome: 'กลับหน้าหลัก',
+                mainTitle: 'แบบฟอร์มสมัครงาน',
+                mainDesc: 'กรุณาเลือกตำแหน่ง พื้นที่ปฏิบัติงาน และกรอกข้อมูลให้ครบถ้วนเพื่อให้ฝ่ายบุคคลติดต่อกลับ',
+                sec1Title: 'ตำแหน่งและพื้นที่ปฏิบัติงาน',
+                jobLabel: 'หมวดตำแหน่งที่สมัคร <span class="text-red-500">*</span>',
+                jobCit: 'บริการขนส่งทรัพย์สินมีค่า',
+                jobSecurity: 'บริการรักษาความปลอดภัย',
+                jobCleaning: 'บริการทำความสะอาด',
+                jobPlaceholder: '-- เลือกตำแหน่งงาน --',
+                workZoneHeading: 'เขตที่สนใจปฏิบัติงาน',
+                provLabel: 'จังหวัด <span class="text-red-500">*</span>',
+                provPlaceholder: '-- เลือกจังหวัด --',
+                areaDefaultLabel: 'เขต / อำเภอ <span class="text-red-500">*</span>',
+                areaPlaceholder: '-- เลือกจังหวัดก่อน --',
+                regionDefaultBadge: 'กรุณาเลือกจังหวัดเพื่อแสดงรายชื่อเขตหรืออำเภอ',
+                regionMetroBadge: 'โซน: กรุงเทพมหานครและปริมณฑล',
+                regionOtherBadge: 'โซน: ต่างจังหวัด',
+                areaNoteLabel: 'ระบุอำเภอ / ตำบลเพิ่มเติม (กรณีไม่อยู่ในรายการหรือต้องการระบุเพิ่ม)',
+                areaNotePlaceholder: 'เช่น อำเภอเมือง / ตำบลในพื้นที่ที่สะดวกปฏิบัติงาน',
+                sec2Title: 'ข้อมูลส่วนตัวผู้สมัคร',
+                fullnameLabel: 'ชื่อ - นามสกุล <span class="text-red-500">*</span>',
+                fullnamePlaceholder: 'เช่น นายสมชาย ใจดี',
+                ageLabel: 'อายุ (ปี) <span class="text-red-500">*</span>',
+                genderLabel: 'เพศ <span class="text-red-500">*</span>',
+                genderPlaceholder: 'เลือก',
+                genderMale: 'ชาย',
+                genderFemale: 'หญิง',
+                genderOther: 'อื่นๆ',
+                addrSectionTitle: 'พื้นที่ที่อยู่ปัจจุบัน <span class="text-red-500">*</span>',
+                postcodeHintInit: 'กรอกรหัสไปรษณีย์ 5 หลักเพื่อกรองตำบล อำเภอ และจังหวัด',
+                postcodeLabel: 'รหัสไปรษณีย์ <span class="text-red-500">*</span>',
+                subdistrictLabel: 'ตำบล / แขวง <span class="text-red-500">*</span>',
+                subdistrictPlaceholder: '-- กรอกรหัสไปรษณีย์ก่อน --',
+                districtAddrLabel: 'อำเภอ / เขต <span class="text-red-500">*</span>',
+                districtAddrPlaceholder: '-- รอรหัสไปรษณีย์ --',
+                provinceAddrLabel: 'จังหวัด <span class="text-red-500">*</span>',
+                provinceAddrPlaceholder: '-- รอรหัสไปรษณีย์ --',
+                phoneLabel: 'เบอร์โทรศัพท์ติดต่อ <span class="text-red-500">*</span>',
+                emailLabel: 'อีเมลติดต่อ <span class="text-xs font-normal text-slate-400">(ไม่บังคับ)</span>',
+                emailPlaceholder: 'name@example.com (ถ้ามี)',
+                resetBtn: 'ล้างข้อมูล',
+                submitBtn: 'ส่งใบสมัครงาน',
+                submittingBtn: 'กำลังส่งข้อมูล...',
+                popupSuccessTitle: 'ส่งใบสมัครสำเร็จ',
+                popupSuccessMsg: 'บันทึกข้อมูลใบสมัครเข้าสู่ระบบเรียบร้อยแล้ว ฝ่ายบุคคลจะติดต่อกลับตามช่องทางที่คุณระบุ',
+                popupErrorTitle: 'ส่งใบสมัครไม่สำเร็จ',
+                popupErrorMsg: 'ไม่สามารถส่งข้อมูลไปยังระบบได้ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตหรือลองใหม่อีกครั้ง',
+                popupOkBtn: 'ตกลง'
+            },
+            en: {
+                pageTitle: 'Careers | Bangkok Servex Security Guard and Business Services Co., Ltd.',
+                companyName: 'Bangkok Servex Security Guard and Business Services Co., Ltd.',
+                portalLabel: 'Online Job Application Portal',
+                backHome: 'Back to Home',
+                mainTitle: 'Job Application Form',
+                mainDesc: 'Please select your position, work location, and fill out your details so our HR team can contact you.',
+                sec1Title: 'Position & Work Location',
+                jobLabel: 'Position Category <span class="text-red-500">*</span>',
+                jobCit: 'Cash-in-Transit Service',
+                jobSecurity: 'Security Guard Service',
+                jobCleaning: 'Cleaning Service',
+                jobPlaceholder: '-- Select a Position --',
+                workZoneHeading: 'Preferred Work District / Area',
+                provLabel: 'Province <span class="text-red-500">*</span>',
+                provPlaceholder: '-- Select Province --',
+                areaDefaultLabel: 'District / Sub-district <span class="text-red-500">*</span>',
+                areaPlaceholder: '-- Select Province First --',
+                regionDefaultBadge: 'Select a province to view available districts.',
+                regionMetroBadge: 'Zone: Bangkok & Metropolitan Area',
+                regionOtherBadge: 'Zone: Upcountry / Provincial',
+                areaNoteLabel: 'Additional District / Sub-district Details (Optional)',
+                areaNotePlaceholder: 'e.g. Mueang District or preferred work area',
+                sec2Title: 'Applicant Personal Information',
+                fullnameLabel: 'Full Name <span class="text-red-500">*</span>',
+                fullnamePlaceholder: 'e.g. Somchai Jaidee',
+                ageLabel: 'Age <span class="text-red-500">*</span>',
+                genderLabel: 'Gender <span class="text-red-500">*</span>',
+                genderPlaceholder: 'Select',
+                genderMale: 'Male',
+                genderFemale: 'Female',
+                genderOther: 'Other',
+                addrSectionTitle: 'Current Area / Address <span class="text-red-500">*</span>',
+                postcodeHintInit: 'Enter a 5-digit postal code to filter sub-district, district & province',
+                postcodeLabel: 'Postal Code <span class="text-red-500">*</span>',
+                subdistrictLabel: 'Sub-district <span class="text-red-500">*</span>',
+                subdistrictPlaceholder: '-- Enter Postal Code First --',
+                districtAddrLabel: 'District <span class="text-red-500">*</span>',
+                districtAddrPlaceholder: '-- Waiting for Postal Code --',
+                provinceAddrLabel: 'Province <span class="text-red-500">*</span>',
+                provinceAddrPlaceholder: '-- Waiting for Postal Code --',
+                phoneLabel: 'Phone Number <span class="text-red-500">*</span>',
+                emailLabel: 'Email Address <span class="text-xs font-normal text-slate-400">(Optional)</span>',
+                emailPlaceholder: 'name@example.com (optional)',
+                resetBtn: 'Clear Form',
+                submitBtn: 'Submit Application',
+                submittingBtn: 'Submitting...',
+                popupSuccessTitle: 'Application Submitted',
+                popupSuccessMsg: 'Your application has been recorded successfully. Our HR team will contact you soon.',
+                popupErrorTitle: 'Submission Failed',
+                popupErrorMsg: 'Unable to submit your application. Please check your connection and try again.',
+                popupOkBtn: 'OK'
+            }
+        };
+
+        const provinceSelect = document.getElementById('province');
+        const areaSelect = document.getElementById('area');
+        const areaLabel = document.getElementById('area-label');
+        const regionBadge = document.getElementById('region-badge');
+        const extraAreaBox = document.getElementById('extra-area-box');
+        const areaNoteLabel = document.getElementById('area-note-label');
+        const jobSelect = document.getElementById('job-position');
+
+        const postcodeInput = document.getElementById('postcode');
+        const subdistrictSelect = document.getElementById('subdistrict');
+        const districtAddrSelect = document.getElementById('addr-district');
+        const provinceAddrSelect = document.getElementById('addr-province');
+        const postcodeStatus = document.getElementById('postcode-status');
+
+        let filteredZipMatches = [];
+
+        function setSelectDisabledStyle(el, disabled, placeholderText) {
+            el.disabled = disabled;
+            el.innerHTML = `<option value="">${placeholderText}</option>`;
+            el.className = disabled
+                ? 'w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm bg-slate-100 text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-900'
+                : 'w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-900';
+        }
+
+        function populateDistrictAndProvinceOptions(matches, preferredDistrict = '', preferredProvince = '') {
+            const districts = [...new Set(matches.map((m) => m.district).filter(Boolean))];
+            const provinces = [...new Set(matches.map((m) => m.province).filter(Boolean))];
+
+            setSelectDisabledStyle(
+                districtAddrSelect,
+                false,
+                currentFormLang === 'en' ? '-- Select District --' : '-- เลือกอำเภอ / เขต --'
+            );
+            districts.forEach((d) => {
+                const opt = document.createElement('option');
+                opt.value = d;
+                opt.textContent = d;
+                districtAddrSelect.appendChild(opt);
+            });
+            if (preferredDistrict && districts.includes(preferredDistrict)) {
+                districtAddrSelect.value = preferredDistrict;
+            } else if (districts.length === 1) {
+                districtAddrSelect.value = districts[0];
+            }
+
+            setSelectDisabledStyle(
+                provinceAddrSelect,
+                false,
+                currentFormLang === 'en' ? '-- Select Province --' : '-- เลือกจังหวัด --'
+            );
+            provinces.forEach((p) => {
+                const opt = document.createElement('option');
+                opt.value = p;
+                opt.textContent = p;
+                provinceAddrSelect.appendChild(opt);
+            });
+            if (preferredProvince && provinces.includes(preferredProvince)) {
+                provinceAddrSelect.value = preferredProvince;
+            } else if (provinces.length === 1) {
+                provinceAddrSelect.value = provinces[0];
+            }
+        }
+
+        function handlePostcodeInput() {
+            const t = FORM_I18N[currentFormLang];
+            const cleaned = postcodeInput.value.replace(/\D/g, '').slice(0, 5);
+            if (postcodeInput.value !== cleaned) postcodeInput.value = cleaned;
+
+            filteredZipMatches = [];
+
+            if (cleaned.length < 5) {
+                setSelectDisabledStyle(subdistrictSelect, true, t.subdistrictPlaceholder);
+                setSelectDisabledStyle(districtAddrSelect, true, t.districtAddrPlaceholder);
+                setSelectDisabledStyle(provinceAddrSelect, true, t.provinceAddrPlaceholder);
+                postcodeStatus.textContent = t.postcodeHintInit;
+                postcodeStatus.className = 'text-xs font-medium text-slate-500';
+                return;
+            }
+
+            const matches = POSTAL_RECORDS.filter((r) => String(r.zip) === cleaned);
+            filteredZipMatches = matches;
+
+            if (matches.length > 0) {
+                setSelectDisabledStyle(
+                    subdistrictSelect,
+                    false,
+                    currentFormLang === 'en'
+                        ? `-- Select Sub-district (${matches.length}) --`
+                        : `-- เลือกตำบล / แขวง (${matches.length} แห่ง) --`
+                );
+
+                matches.forEach((item, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = String(idx);
+                    opt.textContent = item.subdistrict;
+                    subdistrictSelect.appendChild(opt);
+                });
+
+                populateDistrictAndProvinceOptions(matches);
+
+                if (matches.length === 1) {
+                    subdistrictSelect.value = '0';
+                    handleSubdistrictChange();
+                }
+
+                postcodeStatus.textContent = currentFormLang === 'en'
+                    ? `Postal ${cleaned}: ${matches.length} sub-district(s) available`
+                    : `รหัส ${cleaned}: กรองได้ ${matches.length} ตำบล/แขวง`;
+                postcodeStatus.className = 'text-xs font-semibold text-emerald-700';
+            } else {
+                setSelectDisabledStyle(subdistrictSelect, true, t.subdistrictPlaceholder);
+                setSelectDisabledStyle(districtAddrSelect, true, t.districtAddrPlaceholder);
+                setSelectDisabledStyle(provinceAddrSelect, true, t.provinceAddrPlaceholder);
+                postcodeStatus.textContent = currentFormLang === 'en'
+                    ? `No postal match for ${cleaned} in dataset`
+                    : `ไม่พบรหัสไปรษณีย์ ${cleaned} ในฐานข้อมูล`;
+                postcodeStatus.className = 'text-xs font-medium text-amber-700';
+            }
+        }
+
+        function handleSubdistrictChange() {
+            const val = subdistrictSelect.value;
+            if (val === '') return;
+            const chosen = filteredZipMatches[Number(val)];
+            if (chosen) {
+                populateDistrictAndProvinceOptions(filteredZipMatches, chosen.district, chosen.province);
+            }
+        }
+
+        function handleDistrictChange() {
+            const selectedDistrict = districtAddrSelect.value;
+            if (!selectedDistrict) return;
+            const matchingProvinces = [
+                ...new Set(
+                    filteredZipMatches
+                        .filter((m) => m.district === selectedDistrict)
+                        .map((m) => m.province)
+                        .filter(Boolean)
+                )
+            ];
+            if (matchingProvinces.length === 1) {
+                provinceAddrSelect.value = matchingProvinces[0];
+            }
+        }
+
+        function showCenterPopup(isSuccess, title, message) {
+            const t = FORM_I18N[currentFormLang];
+            const modal = document.getElementById('center-popup');
+            const iconWrap = document.getElementById('popup-icon-wrap');
+            const icon = document.getElementById('popup-icon');
+            const popupTitle = document.getElementById('popup-title');
+            const popupMessage = document.getElementById('popup-message');
+            const closeBtn = document.getElementById('popup-close-btn');
+
+            if (isSuccess) {
+                iconWrap.className = 'w-16 h-16 mx-auto rounded-full flex items-center justify-center text-3xl bg-emerald-100 text-emerald-600';
+                icon.className = 'fa-solid fa-circle-check';
+            } else {
+                iconWrap.className = 'w-16 h-16 mx-auto rounded-full flex items-center justify-center text-3xl bg-red-100 text-red-600';
+                icon.className = 'fa-solid fa-circle-xmark';
+            }
+
+            popupTitle.textContent = title;
+            popupMessage.textContent = message;
+            closeBtn.textContent = t.popupOkBtn;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeCenterPopup() {
+            const modal = document.getElementById('center-popup');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function populateProvinces(selectedValue = '') {
+            const t = FORM_I18N[currentFormLang];
+            provinceSelect.innerHTML = `<option value="">${t.provPlaceholder}</option>`;
+            Object.keys(GEO_DATA).forEach((provKey) => {
+                const opt = document.createElement('option');
+                opt.value = provKey;
+                opt.textContent = currentFormLang === 'en' ? GEO_DATA[provKey].enName : provKey;
+                if (provKey === selectedValue) opt.selected = true;
+                provinceSelect.appendChild(opt);
+            });
+        }
+
+        function handleProvinceChange(selectedAreaValue = '') {
+            const t = FORM_I18N[currentFormLang];
+            const prov = provinceSelect.value;
+            areaSelect.innerHTML = '';
+
+            if (!prov || !GEO_DATA[prov]) {
+                areaSelect.disabled = true;
+                areaSelect.className = 'w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-slate-100 text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-900';
+                areaSelect.innerHTML = `<option value="">${t.areaPlaceholder}</option>`;
+                areaLabel.innerHTML = t.areaDefaultLabel;
+                regionBadge.textContent = t.regionDefaultBadge;
+                regionBadge.className = 'mt-1.5 text-xs font-medium text-slate-500';
+                extraAreaBox.classList.add('hidden');
+                return;
+            }
+
+            const isMetro = BKK_METRO_PROVINCES.has(prov);
+            const areas = GEO_DATA[prov].areas || [];
+
+            areaSelect.disabled = false;
+            areaSelect.className = 'w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-900';
+
+            if (isMetro) {
+                if (currentFormLang === 'en') {
+                    areaLabel.innerHTML = 'District <span class="text-red-500">*</span>';
+                    areaSelect.innerHTML = '<option value="">-- Select District --</option>';
+                } else {
+                    areaLabel.innerHTML = prov === 'กรุงเทพมหานคร'
+                        ? 'เขต <span class="text-red-500">*</span>'
+                        : 'เขต / อำเภอ <span class="text-red-500">*</span>';
+                    areaSelect.innerHTML = `<option value="">-- เลือก${prov === 'กรุงเทพมหานคร' ? 'เขต' : 'อำเภอ'} --</option>`;
+                }
+                regionBadge.textContent = t.regionMetroBadge;
+                regionBadge.className = 'mt-1.5 text-xs font-semibold text-blue-800';
+                extraAreaBox.classList.add('hidden');
+            } else {
+                areaLabel.innerHTML = currentFormLang === 'en'
+                    ? 'District <span class="text-red-500">*</span>'
+                    : 'อำเภอ <span class="text-red-500">*</span>';
+                regionBadge.textContent = t.regionOtherBadge;
+                regionBadge.className = 'mt-1.5 text-xs font-semibold text-amber-700';
+                areaNoteLabel.textContent = t.areaNoteLabel;
+                extraAreaBox.classList.remove('hidden');
+                areaSelect.innerHTML = currentFormLang === 'en'
+                    ? '<option value="">-- Select District --</option>'
+                    : '<option value="">-- เลือกอำเภอ --</option>';
+            }
+
+            areas.forEach(([thArea, enArea]) => {
+                const opt = document.createElement('option');
+                opt.value = thArea;
+                opt.textContent = currentFormLang === 'en' ? enArea : thArea;
+                if (thArea === selectedAreaValue) opt.selected = true;
+                areaSelect.appendChild(opt);
+            });
+        }
+
+        function setFormLanguage(lang) {
+            currentFormLang = lang === 'en' ? 'en' : 'th';
+            document.documentElement.lang = currentFormLang;
+
+            const t = FORM_I18N[currentFormLang];
+            const prevProv = provinceSelect.value;
+            const prevArea = areaSelect.value;
+            const prevJob = jobSelect.value;
+            const prevGender = document.getElementById('gender').value;
+
+            document.getElementById('page-title').textContent = t.pageTitle;
+            document.getElementById('header-company-name').textContent = t.companyName;
+            document.getElementById('header-portal-label').textContent = t.portalLabel;
+            document.getElementById('back-home-text').textContent = t.backHome;
+            document.getElementById('home-logo-link').href = `./index.html?lang=${currentFormLang}`;
+            document.getElementById('back-home-btn').href = `./index.html?lang=${currentFormLang}#careers`;
+
+            document.getElementById('form-main-title').textContent = t.mainTitle;
+            document.getElementById('form-main-desc').textContent = t.mainDesc;
+            document.getElementById('sec1-title').textContent = t.sec1Title;
+            document.getElementById('job-label').innerHTML = t.jobLabel;
+            document.getElementById('card-title-cit').textContent = t.jobCit;
+            document.getElementById('card-title-security').textContent = t.jobSecurity;
+            document.getElementById('card-title-cleaning').textContent = t.jobCleaning;
+
+            document.getElementById('opt-job-placeholder').textContent = t.jobPlaceholder;
+            document.getElementById('opt-job-cit').textContent = t.jobCit;
+            document.getElementById('opt-job-security').textContent = t.jobSecurity;
+            document.getElementById('opt-job-cleaning').textContent = t.jobCleaning;
+            jobSelect.value = prevJob;
+
+            document.getElementById('work-zone-heading').textContent = t.workZoneHeading;
+            document.getElementById('province-label').innerHTML = t.provLabel;
+            document.getElementById('area-note').placeholder = t.areaNotePlaceholder;
+
+            document.getElementById('sec2-title').textContent = t.sec2Title;
+            document.getElementById('fullname-label').innerHTML = t.fullnameLabel;
+            document.getElementById('full-name').placeholder = t.fullnamePlaceholder;
+            document.getElementById('age-label').innerHTML = t.ageLabel;
+            document.getElementById('gender-label').innerHTML = t.genderLabel;
+
+            document.getElementById('opt-gender-placeholder').textContent = t.genderPlaceholder;
+            document.getElementById('opt-gender-male').textContent = t.genderMale;
+            document.getElementById('opt-gender-female').textContent = t.genderFemale;
+            document.getElementById('opt-gender-other').textContent = t.genderOther;
+            document.getElementById('gender').value = prevGender;
+
+            document.getElementById('addr-section-title').innerHTML = t.addrSectionTitle;
+            document.getElementById('postcode-label').innerHTML = t.postcodeLabel;
+            document.getElementById('subdistrict-label').innerHTML = t.subdistrictLabel;
+            document.getElementById('district-addr-label').innerHTML = t.districtAddrLabel;
+            document.getElementById('province-addr-label').innerHTML = t.provinceAddrLabel;
+
+            if (postcodeInput.value.trim().length < 5) {
+                postcodeStatus.textContent = t.postcodeHintInit;
+                postcodeStatus.className = 'text-xs font-medium text-slate-500';
+                setSelectDisabledStyle(subdistrictSelect, true, t.subdistrictPlaceholder);
+                setSelectDisabledStyle(districtAddrSelect, true, t.districtAddrPlaceholder);
+                setSelectDisabledStyle(provinceAddrSelect, true, t.provinceAddrPlaceholder);
+            }
+
+            document.getElementById('phone-label').innerHTML = t.phoneLabel;
+            document.getElementById('email-label').innerHTML = t.emailLabel;
+            document.getElementById('email').placeholder = t.emailPlaceholder;
+            document.getElementById('reset-btn').textContent = t.resetBtn;
+            document.getElementById('submit-btn-text').textContent = t.submitBtn;
+
+            const btnTh = document.getElementById('btn-lang-th');
+            const btnEn = document.getElementById('btn-lang-en');
+            if (currentFormLang === 'th') {
+                btnTh.className = 'px-2.5 py-1 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition';
+                btnEn.className = 'px-2.5 py-1 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition';
+            } else {
+                btnEn.className = 'px-2.5 py-1 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition';
+                btnTh.className = 'px-2.5 py-1 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition';
+            }
+
+            populateProvinces(prevProv);
+            handleProvinceChange(prevArea);
+        }
+
+        function selectJob(jobKey) {
+            const map = {
+                cit: 'บริการขนส่งทรัพย์สินมีค่า',
+                security: 'บริการรักษาความปลอดภัย',
+                cleaning: 'บริการทำความสะอาด'
+            };
+            if (map[jobKey]) {
+                jobSelect.value = map[jobKey];
+                syncJobCards();
+            }
+        }
+
+        function syncJobCards() {
+            const val = jobSelect.value;
+            const reverseMap = {
+                'บริการขนส่งทรัพย์สินมีค่า': 'cit',
+                'บริการรักษาความปลอดภัย': 'security',
+                'บริการทำความสะอาด': 'cleaning'
+            };
+            const activeKey = reverseMap[val] || '';
+
+            document.querySelectorAll('.job-card').forEach((card) => {
+                const isSelected = card.getAttribute('data-job-card') === activeKey;
+                card.className = isSelected
+                    ? 'job-card p-3.5 rounded-xl border-2 text-left transition border-blue-900 bg-blue-50/70'
+                    : 'job-card p-3.5 rounded-xl border-2 text-left transition border-slate-200 hover:border-blue-400';
+            });
+        }
+
+        function resetFormState() {
+            setTimeout(() => {
+                syncJobCards();
+                handleProvinceChange();
+                handlePostcodeInput();
+            }, 0);
+        }
+
+        (function initPage() {
+            const params = new URLSearchParams(window.location.search);
+            const langParam = (params.get('lang') || 'th').toLowerCase();
+            setFormLanguage(langParam === 'en' ? 'en' : 'th');
+
+            const jobParam = (params.get('job') || '').toLowerCase();
+            if (jobParam) {
+                selectJob(jobParam);
+            }
+
+            loadFullThaiPostalDataset();
+        })();
+
+        document.getElementById('application-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const t = FORM_I18N[currentFormLang];
+            const submitBtn = document.getElementById('submit-btn');
+            const submitBtnText = document.getElementById('submit-btn-text');
+
+            const prov = provinceSelect.value;
+            const regionType = BKK_METRO_PROVINCES.has(prov) ? 'กรุงเทพมหานครและปริมณฑล' : 'ต่างจังหวัด';
+            const extraNote = document.getElementById('area-note').value.trim();
+            const areaValue = extraNote ? `${areaSelect.value} (${extraNote})` : areaSelect.value;
+
+            const zipVal = postcodeInput.value.trim();
+            const subVal = subdistrictSelect.value;
+            const chosen = subVal !== '' ? filteredZipMatches[Number(subVal)] : null;
+            const subdistrictName = chosen ? chosen.subdistrict : '';
+            const distVal = districtAddrSelect.value.trim();
+            const provAddrVal = provinceAddrSelect.value.trim();
+
+            const formattedAddress = [
+                subdistrictName ? `ตำบล/แขวง ${subdistrictName}` : '',
+                distVal ? `อำเภอ/เขต ${distVal}` : '',
+                provAddrVal ? `จังหวัด ${provAddrVal}` : '',
+                zipVal ? `รหัสไปรษณีย์ ${zipVal}` : ''
+            ].filter(Boolean).join(' ');
+
+            const payload = {
+                submittedAt: new Date().toISOString(),
+                jobPosition: jobSelect.value,
+                regionType: regionType,
+                province: prov,
+                area: areaValue,
+                fullName: document.getElementById('full-name').value.trim(),
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value,
+                address: formattedAddress,
+                phone: document.getElementById('phone').value.trim(),
+                email: document.getElementById('email').value.trim()
+            };
+
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            submitBtnText.textContent = t.submittingBtn;
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify(payload)
+                });
+
+                e.target.reset();
+                resetFormState();
+                showCenterPopup(true, t.popupSuccessTitle, t.popupSuccessMsg);
+            } catch (err) {
+                showCenterPopup(false, t.popupErrorTitle, `${t.popupErrorMsg}\n(${err.message || 'Network Error'})`);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+                submitBtnText.textContent = t.submitBtn;
+            }
+        });
+    </script>
+</body>
+</html>
