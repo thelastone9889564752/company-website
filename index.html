@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th" class="scroll-smooth">
+<html lang="th" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-slate-50 text-slate-800 overflow-x-hidden">
 
     <!-- แจ้งเตือนการคัดลอกข้อมูล -->
     <div id="copy-toast" class="fixed bottom-5 right-5 z-50 hidden bg-blue-950 text-white border border-amber-400/60 px-4 py-2.5 rounded-xl shadow-xl text-xs sm:text-sm items-center gap-2">
@@ -32,20 +32,20 @@
     </div>
 
     <!-- Navbar หลัก (Sticky + Dropdown + ปุ่มสลับภาษาต่อท้ายติดต่อเรา) -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center gap-4 h-24">
+    <header class="bg-white shadow-md sticky top-0 z-50 w-full">
+        <div class="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center gap-2 sm:gap-4 py-3 lg:py-0 lg:h-24">
                 
-                <!-- โลโก้และชื่อบริษัท -->
-                <a href="#" class="flex items-center space-x-3 shrink-0">
-                    <div class="w-14 h-14 bg-white rounded-lg flex items-center justify-center border border-slate-200 shadow overflow-hidden p-1 shrink-0">
+                <!-- โลโก้และชื่อบริษัท (ปรับให้ตัดบรรทัดได้บนมือถือ แต่เรียงบรรทัดเดียวบนจอใหญ่) -->
+                <a href="#" class="flex items-center space-x-2.5 sm:space-x-3 min-w-0 flex-1 lg:flex-initial">
+                    <div class="w-11 h-11 sm:w-14 sm:h-14 bg-white rounded-lg flex items-center justify-center border border-slate-200 shadow overflow-hidden p-1 shrink-0">
                         <img src="./Logo customers/Logo_servex.jpg" alt="โลโก้บริษัท กรุงเทพเซอร์เว็กซ์" class="w-full h-full object-contain">
                     </div>
-                    <div>
-                        <h1 data-i18n="company_name_th" class="text-sm xl:text-base font-bold text-blue-950 leading-tight whitespace-nowrap">
+                    <div class="min-w-0">
+                        <h1 data-i18n="company_name_th" class="text-xs sm:text-sm xl:text-base font-bold text-blue-950 leading-snug lg:whitespace-nowrap">
                             บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด
                         </h1>
-                        <p data-i18n="company_name_en" class="text-[11px] xl:text-xs text-slate-500 font-medium tracking-wider mt-0.5 whitespace-nowrap">
+                        <p data-i18n="company_name_en" class="text-[10px] sm:text-[11px] xl:text-xs text-slate-500 font-medium tracking-wide mt-0.5 leading-tight lg:whitespace-nowrap">
                             BANGKOK SERVEX SECURITY GUARD AND BUSINESS SERVICES CO., LTD.
                         </p>
                     </div>
@@ -57,7 +57,7 @@
                         หน้าแรก
                     </a>
 
-                    <!-- Dropdown: Company Profile (เพิ่มสะพานล่องหน pt-2 กันเมาส์หลุด) -->
+                    <!-- Dropdown: Company Profile -->
                     <div class="relative dropdown">
                         <button type="button" class="px-3 py-2 rounded-md text-sm xl:text-base font-medium text-slate-700 hover:text-blue-900 hover:bg-slate-100 flex items-center whitespace-nowrap">
                             <span data-i18n="nav_about">เกี่ยวกับเรา</span>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
 
-                    <!-- Dropdown: Our Services (เพิ่มสะพานล่องหน pt-2 กันเมาส์หลุด + แก้ไอคอน Cleaning) -->
+                    <!-- Dropdown: Our Services -->
                     <div class="relative dropdown">
                         <button type="button" class="px-3 py-2 rounded-md text-sm xl:text-base font-medium text-slate-700 hover:text-blue-900 hover:bg-slate-100 flex items-center whitespace-nowrap">
                             <span data-i18n="nav_services">บริการของเรา</span>
@@ -143,8 +143,8 @@
                 </nav>
 
                 <!-- ปุ่มเมนูสำหรับมือถือ -->
-                <div class="lg:hidden">
-                    <button type="button" id="mobile-menu-btn" class="p-2 rounded-md text-slate-600 hover:text-blue-900 hover:bg-slate-100">
+                <div class="lg:hidden shrink-0">
+                    <button type="button" id="mobile-menu-btn" aria-label="เปิดเมนู" class="p-2 rounded-md text-slate-600 hover:text-blue-900 hover:bg-slate-100">
                         <i class="fa-solid fa-bars text-xl"></i>
                     </button>
                 </div>
@@ -153,18 +153,18 @@
 
         <!-- เมนูสำหรับมือถือ (ซ่อนไว้เริ่มต้น) -->
         <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 px-4 pt-2 pb-4 space-y-1">
-            <a href="#home" data-i18n="nav_home" class="block px-3 py-2 rounded-md text-base font-medium text-blue-900 bg-blue-50">หน้าแรก</a>
-            <a href="#philosophy" data-i18n="nav_about" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">เกี่ยวกับเรา</a>
-            <a href="#services" data-i18n="nav_services" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">บริการของเรา</a>
-            <a href="#customers" data-i18n="nav_customers" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">ลูกค้าของเรา</a>
-            <a href="#news" data-i18n="nav_news" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">ข่าวสาร</a>
-            <a href="#contact" data-i18n="nav_contact" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-900 text-center mt-2">ติดต่อเรา</a>
+            <a href="#home" onclick="closeMobileMenu()" data-i18n="nav_home" class="block px-3 py-2 rounded-md text-base font-medium text-blue-900 bg-blue-50">หน้าแรก</a>
+            <a href="#philosophy" onclick="closeMobileMenu()" data-i18n="nav_about" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">เกี่ยวกับเรา</a>
+            <a href="#services" onclick="closeMobileMenu()" data-i18n="nav_services" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">บริการของเรา</a>
+            <a href="#customers" onclick="closeMobileMenu()" data-i18n="nav_customers" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">ลูกค้าของเรา</a>
+            <a href="#news" onclick="closeMobileMenu()" data-i18n="nav_news" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">ข่าวสาร</a>
+            <a href="#contact" onclick="closeMobileMenu()" data-i18n="nav_contact" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-900 text-center mt-2">ติดต่อเรา</a>
             <div class="pt-2 flex justify-center">
                 <div class="inline-flex rounded-lg bg-slate-100 p-0.5 border border-slate-200">
-                    <button type="button" id="mobile-btn-lang-th" onclick="setLanguage('th')" class="px-3 py-1 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition">
+                    <button type="button" id="mobile-btn-lang-th" onclick="setLanguage('th'); closeMobileMenu();" class="px-3 py-1 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition">
                         TH
                     </button>
-                    <button type="button" id="mobile-btn-lang-en" onclick="setLanguage('en')" class="px-3 py-1 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition">
+                    <button type="button" id="mobile-btn-lang-en" onclick="setLanguage('en'); closeMobileMenu();" class="px-3 py-1 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition">
                         EN
                     </button>
                 </div>
@@ -172,9 +172,9 @@
         </div>
     </header>
 
-    <!-- Hero Section (ขยายสเกลกรอบภาพให้กว้างขึ้น แบ่ง 1 กรอบใหญ่เป็น 3 ภาพย่อย + ขยับขนาดฟอนต์) -->
-    <section id="home" class="relative bg-gradient-to-r from-blue-950 via-blue-900 to-slate-900 text-white py-16 lg:py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-r from-blue-950 via-blue-900 to-slate-900 text-white py-14 sm:py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
             <!-- ส่วนหัวข้อความหลัก -->
             <div class="max-w-3xl space-y-5">
                 <div data-i18n="hero_badge" class="inline-block px-3.5 py-1.5 bg-blue-800/60 border border-blue-700 rounded-full text-amber-400 text-xs sm:text-sm font-medium">
@@ -183,11 +183,11 @@
                 <h2 data-i18n="hero_title" class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
                     "เป็นเลิศในบริการ <span class="text-amber-400">คืองานของเรา"</span>
                 </h2>
-                <p data-i18n="hero_desc" class="text-slate-300 text-lg sm:text-xl font-light leading-relaxed">
-                    ผู้เชี่ยวชาญด้านบริการขนส่งเงินสดและทรัพย์สินมีค่าด้วยรถยนต์หุ้มเกราะนิรภัย (CIT)<br>
+                <p data-i18n="hero_desc" class="text-slate-300 text-base sm:text-xl font-light leading-relaxed">
+                    ผู้เชี่ยวชาญด้านบริการขนส่งเงินสดและทรัพย์สินมีค่าด้วยรถยนต์หุ้มเกราะนิรภัย (CIT)<br class="hidden sm:inline">
                     ระบบรักษาความปลอดภัย และการจัดหาบุคลากรคุณภาพครบวงจรตามมาตรฐานสากล
                 </p>
-                <div class="flex flex-wrap gap-4 pt-1">
+                <div class="flex flex-wrap gap-3 sm:gap-4 pt-1">
                     <a href="#services" data-i18n="cta_services" class="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-blue-950 font-semibold rounded-lg shadow-lg transition">
                         ดูบริการทั้งหมด
                     </a>
@@ -233,7 +233,7 @@
         </div>
     </section>
 
-    <!-- Section: Philosophy, History & Directors (รองรับลิงก์ #philosophy, #history, #directors) -->
+    <!-- Section: Philosophy, History & Directors -->
     <section id="philosophy" class="py-16 bg-white">
         <div id="history" class="scroll-mt-24"></div>
         <div id="directors" class="scroll-mt-24"></div>
@@ -281,7 +281,7 @@
         </div>
     </section>
 
-    <!-- Section: Our Services (จัดเป็น Card 4 บริการหลักแทนเมนูย่อยเดิม) -->
+    <!-- Section: Our Services -->
     <section id="services" class="py-20 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-14">
@@ -338,73 +338,73 @@
         </div>
     </section>
 
-    <!-- Section: Our Customers (กรอบรูปโลโก้ใหญ่ขึ้นเหนือชื่อบริษัทลูกค้า) -->
+    <!-- Section: Our Customers -->
     <section id="customers" class="py-16 bg-white border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10">
                 <h3 data-i18n="customers_heading" class="text-2xl font-bold text-slate-900">ลูกค้าที่ไว้วางใจใช้บริการ</h3>
                 <p data-i18n="customers_sub" class="text-sm text-slate-500 mt-1">สถาบันการเงินและองค์กรชั้นนำระดับประเทศ</p>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
                 <!-- ลูกค้า 1 -->
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
-                    <div class="w-36 h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
                         <img src="./Logo customers/LogoBangkokbank.webp" alt="ธนาคารกรุงเทพ" class="max-h-16 max-w-full w-auto object-contain">
                     </div>
                     <span data-i18n="cust_bbl" class="font-semibold text-slate-800 text-sm">ธนาคารกรุงเทพ (BBL)</span>
                 </div>
 
                 <!-- ลูกค้า 2 -->
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
-                    <div class="w-36 h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
                         <img src="./Logo customers/Logo Bank of China.png" alt="Bank of China" class="max-h-16 max-w-full w-auto object-contain">
                     </div>
                     <span class="font-semibold text-slate-800 text-sm">Bank of China</span>
                 </div>
 
                 <!-- ลูกค้า 3 -->
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
-                    <div class="w-36 h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
                         <img src="./Logo customers/LogoUOB.webp" alt="ธนาคารยูโอบี" class="max-h-16 max-w-full w-auto object-contain">
                     </div>
                     <span data-i18n="cust_uob" class="font-semibold text-slate-800 text-sm">ธนาคารยูโอบี (UOB)</span>
                 </div>
 
                 <!-- ลูกค้า 4 -->
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
-                    <div class="w-36 h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
                         <img src="./Logo customers/LogoSCB.png" alt="ธนาคารไทยพาณิชย์" class="max-h-16 max-w-full w-auto object-contain">
                     </div>
                     <span data-i18n="cust_scb" class="font-semibold text-slate-800 text-sm">ธนาคารไทยพาณิชย์ (SCB)</span>
                 </div>
 
                 <!-- ลูกค้า 5 -->
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
-                    <div class="w-36 h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
                         <img src="./Logo customers/krungsri-370x150.png" alt="ธนาคารกรุงศรีอยุธยา" class="max-h-16 max-w-full w-auto object-contain">
                     </div>
                     <span data-i18n="cust_bay" class="font-semibold text-slate-800 text-sm">ธนาคารกรุงศรีอยุธยา</span>
                 </div>
 
                 <!-- ลูกค้า 6 -->
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
-                    <div class="w-36 h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
                         <img src="./Logo customers/images.png" alt="LH Bank" class="max-h-16 max-w-full w-auto object-contain">
                     </div>
                     <span class="font-semibold text-slate-800 text-sm">LH Bank</span>
                 </div>
 
                 <!-- ลูกค้า 7 -->
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
-                    <div class="w-36 h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
                         <img src="./Logo customers/Logo_Themall.png" alt="The Mall Group" class="max-h-16 max-w-full w-auto object-contain">
                     </div>
                     <span class="font-semibold text-slate-800 text-sm">The Mall Group</span>
                 </div>
 
                 <!-- ลูกค้า 8 -->
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
-                    <div class="w-36 h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center gap-1.5 overflow-hidden">
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center gap-1.5 overflow-hidden">
                         <img src="./Logo customers/LogoCantral.png" alt="Central Phuket" class="max-h-14 max-w-[48%] w-auto object-contain">
                         <img src="./Logo customers/LogoMix.jpg" alt="BTS / King Power และองค์กรอื่นๆ" class="max-h-14 max-w-[48%] w-auto object-contain">
                     </div>
@@ -414,7 +414,7 @@
         </div>
     </section>
 
-    <!-- Section: News & Announcements (รองรับลิงก์ #news) -->
+    <!-- Section: News & Announcements -->
     <section id="news" class="py-16 bg-slate-50 border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-2">
@@ -456,7 +456,7 @@
         </div>
     </section>
 
-    <!-- Footer & Contact (รวมข้อมูลติดต่อและสาขา) -->
+    <!-- Footer & Contact -->
     <footer id="contact" class="bg-blue-950 text-slate-300 pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-blue-900">
             <div>
@@ -517,7 +517,7 @@
                     </li>
                     <li class="flex flex-wrap items-center gap-1.5">
                         <i class="fa-solid fa-envelope mr-1 text-amber-400"></i>
-                        <a href="mailto:webmaster@bangkokservex.co.th" class="hover:text-white underline">webmaster@bangkokservex.co.th</a>
+                        <a href="mailto:webmaster@bangkokservex.co.th" class="hover:text-white underline break-all">webmaster@bangkokservex.co.th</a>
                         <button type="button" onclick="copyText('webmaster@bangkokservex.co.th', 'คัดลอกอีเมลแล้ว', 'Email address copied')" class="ml-1 text-xs text-slate-400 hover:text-white" title="คัดลอกอีเมล">
                             <i class="fa-regular fa-copy"></i>
                         </button>
@@ -546,6 +546,10 @@
             menu.classList.toggle('hidden');
         });
 
+        function closeMobileMenu() {
+            menu.classList.add('hidden');
+        }
+
         let currentLang = 'th';
 
         const translations = {
@@ -568,7 +572,7 @@
                 srv4_short: 'บริการงานรักษาความสะอาดครบวงจร',
                 hero_badge: '<i class="fa-solid fa-award mr-1.5"></i> ก่อตั้งตั้งแต่ปี พ.ศ. 2545 • ทุนจดทะเบียน 60 ล้านบาท',
                 hero_title: '"เป็นเลิศในบริการ <span class="text-amber-400">คืองานของเรา"</span>',
-                hero_desc: 'ผู้เชี่ยวชาญด้านบริการขนส่งเงินสดและทรัพย์สินมีค่าด้วยรถยนต์หุ้มเกราะนิรภัย (CIT)<br>ระบบรักษาความปลอดภัย และการจัดหาบุคลากรคุณภาพครบวงจรตามมาตรฐานสากล',
+                hero_desc: 'ผู้เชี่ยวชาญด้านบริการขนส่งเงินสดและทรัพย์สินมีค่าด้วยรถยนต์หุ้มเกราะนิรภัย (CIT)<br class="hidden sm:inline">ระบบรักษาความปลอดภัย และการจัดหาบุคลากรคุณภาพครบวงจรตามมาตรฐานสากล',
                 cta_services: 'ดูบริการทั้งหมด',
                 cta_contact: 'ติดต่อสอบถามข้อมูล',
                 hero_img1: 'เจ้าหน้าที่ขนส่งทรัพย์สินมีค่า',
@@ -634,7 +638,7 @@
                 srv4_short: 'Comprehensive Cleaning Services',
                 hero_badge: '<i class="fa-solid fa-award mr-1.5"></i> Established in 2002 • Registered Capital of THB 60 Million',
                 hero_title: '"Excellence in Service <span class="text-amber-400">Is Our Commitment"</span>',
-                hero_desc: 'A trusted specialist in armored cash-in-transit (CIT) and high-value asset transportation,<br>security services, and qualified business support personnel delivered to international standards.',
+                hero_desc: 'A trusted specialist in armored cash-in-transit (CIT) and high-value asset transportation,<br class="hidden sm:inline">security services, and qualified business support personnel delivered to international standards.',
                 cta_services: 'Explore All Services',
                 cta_contact: 'Request Information',
                 hero_img1: 'Cash-in-Transit (CIT) Officer',
