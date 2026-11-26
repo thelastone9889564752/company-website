@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด</title>
+    <!-- นำเข้า Tailwind CSS สำหรับจัด Layout แบบสมัยใหม่ -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- นำเข้าฟอนต์ภาษาไทย Prompt จาก Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- นำเข้า FontAwesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+        /* แอนิเมชันสำหรับ Dropdown */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.15s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 overflow-x-hidden">
+
+    <!-- แจ้งเตือนการคัดลอกข้อมูล -->
+    <div id="copy-toast" class="fixed bottom-5 right-5 z-50 hidden bg-blue-950 text-white border border-amber-400/60 px-4 py-2.5 rounded-xl shadow-xl text-xs sm:text-sm items-center gap-2">
+        <i class="fa-solid fa-circle-check text-amber-400"></i>
+        <span id="copy-toast-text">คัดลอกเรียบร้อยแล้ว</span>
+    </div>
+
+    <!-- Navbar หลัก (Sticky + Dropdown + ปุ่มสลับภาษาต่อท้ายติดต่อเรา) -->
+    <header class="bg-white shadow-md sticky top-0 z-50 w-full">
+        <div class="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-6 xl:px-8">
+            <div class="flex justify-between items-center gap-2 lg:gap-3 xl:gap-4 py-3 lg:py-0 lg:h-24">
+                
+                <!-- โลโก้และชื่อบริษัท -->
+                <a href="#" class="flex items-center space-x-2.5 sm:space-x-3 min-w-0 flex-1">
+                    <div class="w-11 h-11 sm:w-12 sm:h-12 xl:w-14 xl:h-14 bg-white rounded-lg flex items-center justify-center border border-slate-200 shadow overflow-hidden p-1 shrink-0">
+                        <img src="./Logo customers/Logo_servex.jpg" alt="โลโก้บริษัท กรุงเทพเซอร์เว็กซ์" class="w-full h-full object-contain">
+                    </div>
+                    <div class="min-w-0">
+                        <h1 data-i18n="company_name_th" class="text-xs sm:text-sm 2xl:text-base font-bold text-blue-950 leading-snug lg:whitespace-nowrap">
+                            บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด
+                        </h1>
+                        <p data-i18n="company_name_en" class="text-[10px] sm:text-[11px] text-slate-500 font-medium tracking-wide mt-0.5 leading-tight lg:whitespace-nowrap">
+                            BANGKOK SERVEX SECURITY GUARD AND BUSINESS SERVICES CO., LTD.
+                        </p>
+                    </div>
+                </a>
+
+                <!-- เมนูหลัก (Desktop) -->
+                <nav class="hidden lg:flex items-center gap-1 xl:gap-1.5 shrink-0">
+                    <a href="#home" data-i18n="nav_home" class="px-2.5 xl:px-3 py-2 rounded-md text-xs xl:text-sm font-medium text-blue-900 bg-blue-50 whitespace-nowrap">
+                        หน้าแรก
+                    </a>
+
+                    <!-- Dropdown: Company Profile -->
+                    <div class="relative dropdown">
+                        <button type="button" class="px-2.5 xl:px-3 py-2 rounded-md text-xs xl:text-sm font-medium text-slate-700 hover:text-blue-900 hover:bg-slate-100 flex items-center whitespace-nowrap">
+                            <span data-i18n="nav_about">เกี่ยวกับเรา</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] ml-1 text-slate-400"></i>
+                        </button>
+                        <div class="dropdown-menu hidden absolute left-0 top-full pt-2 w-64 z-50">
+                            <div class="bg-white rounded-xl shadow-xl border border-slate-100 py-2">
+                                <a href="#philosophy" onclick="switchAboutTab('philosophy')" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-900">
+                                    <i class="fa-solid fa-bullseye w-5 text-blue-600"></i>
+                                    <span data-i18n="sub_philosophy">ปรัชญาและวิสัยทัศน์</span>
+                                </a>
+                                <a href="#history" onclick="switchAboutTab('history')" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-900">
+                                    <i class="fa-solid fa-building-shield w-5 text-blue-600"></i>
+                                    <span data-i18n="sub_history">ประวัติความเป็นมา</span>
+                                </a>
+                                <a href="#directors" onclick="switchAboutTab('directors')" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-900">
+                                    <i class="fa-solid fa-users-gear w-5 text-blue-600"></i>
+                                    <span data-i18n="sub_directors">คณะผู้บริหาร</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown: Our Services -->
+                    <div class="relative dropdown">
+                        <button type="button" class="px-2.5 xl:px-3 py-2 rounded-md text-xs xl:text-sm font-medium text-slate-700 hover:text-blue-900 hover:bg-slate-100 flex items-center whitespace-nowrap">
+                            <span data-i18n="nav_services">บริการของเรา</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] ml-1 text-slate-400"></i>
+                        </button>
+                        <div class="dropdown-menu hidden absolute left-0 top-full pt-2 w-72 z-50">
+                            <div class="bg-white rounded-xl shadow-xl border border-slate-100 py-2">
+                                <a href="#services" class="flex items-start px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-900">
+                                    <i class="fa-solid fa-truck-fast w-6 mt-1 text-blue-600"></i>
+                                    <div>
+                                        <p class="font-semibold">Security & Transportation</p>
+                                        <p data-i18n="srv1_short" class="text-xs text-slate-500">ขนส่งทรัพย์สินมีค่า (CIT) & ATM</p>
+                                    </div>
+                                </a>
+                                <a href="#services" class="flex items-start px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-900">
+                                    <i class="fa-solid fa-user-tie w-6 mt-1 text-blue-600"></i>
+                                    <div>
+                                        <p class="font-semibold">Officer Service</p>
+                                        <p data-i18n="srv2_short" class="text-xs text-slate-500">บริการจัดหาบุคลากรสำนักงาน</p>
+                                    </div>
+                                </a>
+                                <a href="#services" class="flex items-start px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-900">
+                                    <i class="fa-solid fa-money-bill-transfer w-6 mt-1 text-blue-600"></i>
+                                    <div>
+                                        <p class="font-semibold">Monetary Service</p>
+                                        <p data-i18n="srv3_short" class="text-xs text-slate-500">คัดแยกคุณภาพและตรวจสอบธนบัตร</p>
+                                    </div>
+                                </a>
+                                <a href="#services" class="flex items-start px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-900">
+                                    <i class="fa-solid fa-broom w-6 mt-1 text-blue-600"></i>
+                                    <div>
+                                        <p class="font-semibold">Cleaning Service</p>
+                                        <p data-i18n="srv4_short" class="text-xs text-slate-500">บริการงานรักษาความสะอาดครบวงจร</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#customers" data-i18n="nav_customers" class="px-2.5 xl:px-3 py-2 rounded-md text-xs xl:text-sm font-medium text-slate-700 hover:text-blue-900 hover:bg-slate-100 whitespace-nowrap">
+                        ลูกค้าของเรา
+                    </a>
+                    <a href="#careers" data-i18n="nav_careers" class="px-2.5 xl:px-3 py-2 rounded-md text-xs xl:text-sm font-medium text-slate-700 hover:text-blue-900 hover:bg-slate-100 whitespace-nowrap">
+                        สมัครงาน
+                    </a>
+                    <a href="#news" data-i18n="nav_news" class="px-2.5 xl:px-3 py-2 rounded-md text-xs xl:text-sm font-medium text-slate-700 hover:text-blue-900 hover:bg-slate-100 whitespace-nowrap">
+                        ข่าวสาร
+                    </a>
+                    <a href="#contact" data-i18n="nav_contact" class="px-3.5 xl:px-4 py-2 rounded-lg text-xs xl:text-sm font-medium text-white bg-blue-900 hover:bg-blue-800 shadow-sm transition whitespace-nowrap">
+                        ติดต่อเรา
+                    </a>
+
+                    <!-- ปุ่มสลับภาษา ไทย / อังกฤษ ต่อท้ายช่องติดต่อเรา -->
+                    <div class="inline-flex rounded-lg bg-slate-100 p-0.5 border border-slate-200 shrink-0 ml-0.5">
+                        <button type="button" id="btn-lang-th" onclick="setLanguage('th')" class="px-2.5 py-1.5 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition">
+                            TH
+                        </button>
+                        <button type="button" id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1.5 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition">
+                            EN
+                        </button>
+                    </div>
+                </nav>
+
+                <!-- ปุ่มเมนูสำหรับมือถือ -->
+                <div class="lg:hidden shrink-0">
+                    <button type="button" id="mobile-menu-btn" aria-label="เปิดเมนู" class="p-2 rounded-md text-slate-600 hover:text-blue-900 hover:bg-slate-100">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- เมนูสำหรับมือถือ -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 px-4 pt-2 pb-4 space-y-1">
+            <a href="#home" onclick="closeMobileMenu()" data-i18n="nav_home" class="block px-3 py-2 rounded-md text-base font-medium text-blue-900 bg-blue-50">หน้าแรก</a>
+            <a href="#philosophy" onclick="closeMobileMenu()" data-i18n="nav_about" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">เกี่ยวกับเรา</a>
+            <a href="#services" onclick="closeMobileMenu()" data-i18n="nav_services" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">บริการของเรา</a>
+            <a href="#customers" onclick="closeMobileMenu()" data-i18n="nav_customers" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">ลูกค้าของเรา</a>
+            <a href="#careers" onclick="closeMobileMenu()" data-i18n="nav_careers" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">สมัครงาน</a>
+            <a href="#news" onclick="closeMobileMenu()" data-i18n="nav_news" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700">ข่าวสาร</a>
+            <a href="#contact" onclick="closeMobileMenu()" data-i18n="nav_contact" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-900 text-center mt-2">ติดต่อเรา</a>
+            <div class="pt-2 flex justify-center">
+                <div class="inline-flex rounded-lg bg-slate-100 p-0.5 border border-slate-200">
+                    <button type="button" id="mobile-btn-lang-th" onclick="setLanguage('th'); closeMobileMenu();" class="px-3 py-1 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition">
+                        TH
+                    </button>
+                    <button type="button" id="mobile-btn-lang-en" onclick="setLanguage('en'); closeMobileMenu();" class="px-3 py-1 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition">
+                        EN
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-r from-blue-950 via-blue-900 to-slate-900 text-white py-12 sm:py-14 lg:py-20">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
+            <!-- ส่วนหัวข้อความหลัก -->
+            <div class="max-w-4xl space-y-4 sm:space-y-5">
+                <div data-i18n="hero_badge" class="inline-block px-3.5 py-1.5 bg-blue-800/60 border border-blue-700 rounded-full text-amber-400 text-xs sm:text-sm font-medium">
+                    <i class="fa-solid fa-award mr-1.5"></i> ก่อตั้งตั้งแต่ปี พ.ศ. 2545 • ทุนจดทะเบียน 60 ล้านบาท
+                </div>
+                <h2 data-i18n="hero_title" class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-white">
+                    "เป็นเลิศในบริการ <span class="text-amber-400">คืองานของเรา"</span>
+                </h2>
+                <p data-i18n="hero_desc" class="text-slate-300 text-base sm:text-xl font-light leading-relaxed">
+                    ผู้เชี่ยวชาญด้านบริการขนส่งเงินสดและทรัพย์สินมีค่าด้วยรถยนต์หุ้มเกราะนิรภัย (CIT)<br class="hidden sm:inline">
+                    ระบบรักษาความปลอดภัย และการจัดหาบุคลากรคุณภาพครบวงจรตามมาตรฐานสากล
+                </p>
+                <div class="flex flex-wrap gap-3 sm:gap-4 pt-1">
+                    <a href="#services" data-i18n="cta_services" class="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-blue-950 font-semibold rounded-lg shadow-lg transition">
+                        ดูบริการทั้งหมด
+                    </a>
+                    <a href="#careers" data-i18n="cta_careers" class="px-6 py-3 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/50 font-semibold rounded-lg transition">
+                        ร่วมเป็นส่วนหนึ่งขององค์กร
+                    </a>
+                    <a href="#contact" data-i18n="cta_contact" class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium rounded-lg transition">
+                        ติดต่อสอบถามข้อมูล
+                    </a>
+                </div>
+            </div>
+
+            <!-- กรอบแสดงผล 3 การ์ดแบบวนลูป 1->2->3->4->5->1 ขยายขนาดให้ใหญ่และชัดเจนขึ้น -->
+            <div id="service-showcase-wrap" class="relative bg-slate-900/80 border border-white/20 rounded-2xl p-4 sm:p-5 lg:p-6 shadow-2xl">
+                <button
+                    type="button"
+                    id="prev-service-btn"
+                    onclick="stepServiceCarousel(-1)"
+                    aria-label="ก่อนหน้า"
+                    class="hidden sm:flex items-center justify-center w-11 h-11 rounded-full bg-slate-950/90 hover:bg-amber-500 text-white hover:text-blue-950 border border-white/25 shadow-xl transition absolute left-2 top-1/2 -translate-y-1/2 z-20 cursor-pointer"
+                >
+                    <i class="fa-solid fa-chevron-left text-sm"></i>
+                </button>
+
+                <button
+                    type="button"
+                    id="next-service-btn"
+                    onclick="stepServiceCarousel(1)"
+                    aria-label="ถัดไป"
+                    class="hidden sm:flex items-center justify-center w-11 h-11 rounded-full bg-slate-950/90 hover:bg-amber-500 text-white hover:text-blue-950 border border-white/25 shadow-xl transition absolute right-2 top-1/2 -translate-y-1/2 z-20 cursor-pointer"
+                >
+                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                </button>
+
+                <!-- หน้าต่างครอบรางเลื่อน -->
+                <div class="overflow-hidden rounded-xl">
+                    <div
+                        id="service-cards-track"
+                        class="flex will-change-transform"
+                    >
+                        <!-- เรนเดอร์รายการการ์ดแบบ Infinite Loop ด้วย JS -->
+                    </div>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between gap-3 px-1">
+                    <div id="service-dots" class="flex items-center gap-2"></div>
+                    <div class="flex items-center gap-2 sm:hidden">
+                        <button type="button" onclick="stepServiceCarousel(-1)" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button type="button" onclick="stepServiceCarousel(1)" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Philosophy, History & Directors -->
+    <section id="philosophy" class="py-16 bg-white">
+        <div id="history" class="scroll-mt-24"></div>
+        <div id="directors" class="scroll-mt-24"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 space-y-8">
+            <div class="text-center space-y-3">
+                <span class="text-blue-600 font-semibold text-sm tracking-wider uppercase">COMPANY PROFILE</span>
+                <h3 data-i18n="about_heading" class="text-2xl sm:text-3xl font-bold text-slate-900">ความมุ่งมั่นและมาตรฐานการให้บริการ</h3>
+            </div>
+
+            <!-- แท็บสลับเนื้อหาเกี่ยวกับเรา -->
+            <div class="flex flex-wrap justify-center gap-2">
+                <button type="button" id="tab-btn-philosophy" onclick="switchAboutTab('philosophy')" data-i18n="sub_philosophy" class="px-4 py-2 rounded-lg text-sm font-semibold bg-blue-900 text-white transition">
+                    ปรัชญาและวิสัยทัศน์
+                </button>
+                <button type="button" id="tab-btn-history" onclick="switchAboutTab('history')" data-i18n="sub_history" class="px-4 py-2 rounded-lg text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                    ประวัติความเป็นมา
+                </button>
+                <button type="button" id="tab-btn-directors" onclick="switchAboutTab('directors')" data-i18n="sub_directors" class="px-4 py-2 rounded-lg text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                    คณะผู้บริหาร
+                </button>
+            </div>
+
+            <!-- เนื้อหาแท็บ 1: ปรัชญาและวิสัยทัศน์ -->
+            <div id="tab-panel-philosophy" class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 sm:p-8 text-center">
+                <p data-i18n="about_quote" class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
+                    "เรามุ่งมั่นที่จะอำนวยบริการรับผิดชอบงานบริการประเภทต่างๆ ตามที่ผู้ว่าจ้างต้องการ ด้วยคุณภาพและบริการที่เป็นเลิศ ในราคาสมเหตุสมผล ก่อตั้งขึ้นเมื่อวันที่ 30 กรกฎาคม 2545 เริ่มให้บริการแก่ธนาคารกรุงเทพ จำกัด (มหาชน) และขยายบริการสู่สถาบันการเงินชั้นนำทั่วประเทศ"
+                </p>
+            </div>
+
+            <!-- เนื้อหาแท็บ 2: ประวัติความเป็นมา -->
+            <div id="tab-panel-history" class="hidden bg-slate-50 border border-slate-200/80 rounded-2xl p-6 sm:p-8 text-slate-700 text-sm sm:text-base leading-relaxed space-y-3">
+                <h4 data-i18n="history_title" class="text-lg font-bold text-blue-950">ประวัติความเป็นมาขององค์กร</h4>
+                <p data-i18n="history_desc">
+                    บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด ก่อตั้งขึ้นเมื่อวันที่ 30 กรกฎาคม พ.ศ. 2545 ด้วยทุนจดทะเบียน 60 ล้านบาท เพื่อดำเนินธุรกิจด้านการรักษาความปลอดภัย การขนส่งเงินสดและทรัพย์สินมีค่าด้วยรถหุ้มเกราะนิรภัย และการสนับสนุนงานบริการทางธุรกิจให้แก่สถาบันการเงินและองค์กรชั้นนำทั่วประเทศ
+                </p>
+            </div>
+
+            <!-- เนื้อหาแท็บ 3: คณะผู้บริหาร -->
+            <div id="tab-panel-directors" class="hidden bg-slate-50 border border-slate-200/80 rounded-2xl p-6 sm:p-8 text-slate-700 text-sm sm:text-base leading-relaxed space-y-3">
+                <h4 data-i18n="directors_title" class="text-lg font-bold text-blue-950">โครงสร้างการบริหารและกำกับดูแล</h4>
+                <p data-i18n="directors_desc">
+                    บริหารงานโดยคณะผู้บริหารและทีมงานผู้เชี่ยวชาญเฉพาะด้านที่ยึดมั่นในธรรมาภิบาล ความโปร่งใส และการควบคุมมาตรฐานการปฏิบัติงานอย่างรัดกุม เพื่อให้ทุกภารกิจด้านความปลอดภัยและการบริการเป็นไปอย่างต่อเนื่องและเชื่อถือได้
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Our Services -->
+    <section id="services" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-blue-600 font-semibold text-sm tracking-wider uppercase">OUR SERVICES</span>
+                <h3 data-i18n="services_heading" class="text-3xl font-bold text-slate-900 mt-1">บริการหลักของเรา</h3>
+                <p data-i18n="services_sub" class="text-slate-500 mt-2">ครอบคลุมทุกความต้องการด้านความปลอดภัยและการสนับสนุนธุรกิจ</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl border border-slate-100 transition group">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-900 rounded-xl flex items-center justify-center text-xl mb-5 group-hover:bg-blue-900 group-hover:text-white transition">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Security & Transportation</h4>
+                    <p data-i18n="srv1_desc" class="text-sm text-slate-600 leading-relaxed">
+                        บริการขนส่งเงินสด ทรัพย์สินมีค่า (CIT) ขนส่งเอกสาร และบริหารจัดการเงินสดตู้ ATM ด้วยรถหุ้มเกราะติดระบบ GPS
+                    </p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl border border-slate-100 transition group">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-900 rounded-xl flex items-center justify-center text-xl mb-5 group-hover:bg-blue-900 group-hover:text-white transition">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Officer Service</h4>
+                    <p data-i18n="srv2_desc" class="text-sm text-slate-600 leading-relaxed">
+                        บริการจัดหาบุคลากรปฏิบัติงานในสำนักงาน พนักงานรับ-ส่งเอกสาร และบันทึกข้อมูลที่ผ่านการอบรมมารยาทและทักษะเฉพาะทาง
+                    </p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl border border-slate-100 transition group">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-900 rounded-xl flex items-center justify-center text-xl mb-5 group-hover:bg-blue-900 group-hover:text-white transition">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Monetary Service</h4>
+                    <p data-i18n="srv3_desc" class="text-sm text-slate-600 leading-relaxed">
+                        บริการคัดแยกคุณภาพและตรวจสอบธนบัตรด้วยเครื่องมือมาตรฐานสากลตามเกณฑ์ธนาคารแห่งประเทศไทย ภายใต้ระบบ CCTV
+                    </p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl border border-slate-100 transition group">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-900 rounded-xl flex items-center justify-center text-xl mb-5 group-hover:bg-blue-900 group-hover:text-white transition">
+                        <i class="fa-solid fa-broom"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Cleaning Service</h4>
+                    <p data-i18n="srv4_desc" class="text-sm text-slate-600 leading-relaxed">
+                        บริการรักษาความสะอาดอาคารสำนักงานและที่พักอาศัย ทั้งแบบรายวันและรายเดือน พร้อมอุปกรณ์และน้ำยาที่ได้มาตรฐาน
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Our Customers -->
+    <section id="customers" class="py-16 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h3 data-i18n="customers_heading" class="text-2xl font-bold text-slate-900">ลูกค้าที่ไว้วางใจใช้บริการ</h3>
+                <p data-i18n="customers_sub" class="text-sm text-slate-500 mt-1">สถาบันการเงินและองค์กรชั้นนำระดับประเทศ</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
+                <!-- ลูกค้า 1 -->
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                        <img src="./Logo customers/LogoBangkokbank.webp" alt="ธนาคารกรุงเทพ" class="max-h-16 max-w-full w-auto object-contain">
+                    </div>
+                    <span data-i18n="cust_bbl" class="font-semibold text-slate-800 text-sm">ธนาคารกรุงเทพ (BBL)</span>
+                </div>
+
+                <!-- ลูกค้า 2 -->
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                        <img src="./Logo customers/Logo Bank of China.png" alt="Bank of China" class="max-h-16 max-w-full w-auto object-contain">
+                    </div>
+                    <span class="font-semibold text-slate-800 text-sm">Bank of China</span>
+                </div>
+
+                <!-- ลูกค้า 3 -->
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                        <img src="./Logo customers/LogoUOB.webp" alt="ธนาคารยูโอบี" class="max-h-16 max-w-full w-auto object-contain">
+                    </div>
+                    <span data-i18n="cust_uob" class="font-semibold text-slate-800 text-sm">ธนาคารยูโอบี (UOB)</span>
+                </div>
+
+                <!-- ลูกค้า 4 -->
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                        <img src="./Logo customers/LogoSCB.png" alt="ธนาคารไทยพาณิชย์" class="max-h-16 max-w-full w-auto object-contain">
+                    </div>
+                    <span data-i18n="cust_scb" class="font-semibold text-slate-800 text-sm">ธนาคารไทยพาณิชย์ (SCB)</span>
+                </div>
+
+                <!-- ลูกค้า 5 -->
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                        <img src="./Logo customers/krungsri-370x150.png" alt="ธนาคารกรุงศรีอยุธยา" class="max-h-16 max-w-full w-auto object-contain">
+                    </div>
+                    <span data-i18n="cust_bay" class="font-semibold text-slate-800 text-sm">ธนาคารกรุงศรีอยุธยา</span>
+                </div>
+
+                <!-- ลูกค้า 6 -->
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                        <img src="./Logo customers/images.png" alt="LH Bank" class="max-h-16 max-w-full w-auto object-contain">
+                    </div>
+                    <span class="font-semibold text-slate-800 text-sm">LH Bank</span>
+                </div>
+
+                <!-- ลูกค้า 7 -->
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center overflow-hidden">
+                        <img src="./Logo customers/Logo_Themall.png" alt="The Mall Group" class="max-h-16 max-w-full w-auto object-contain">
+                    </div>
+                    <span class="font-semibold text-slate-800 text-sm">The Mall Group</span>
+                </div>
+
+                <!-- ลูกค้า 8 -->
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-3">
+                    <div class="w-full max-w-[9rem] h-20 bg-white rounded-lg border border-slate-200/80 px-3 flex items-center justify-center gap-1.5 overflow-hidden">
+                        <img src="./Logo customers/LogoCantral.png" alt="Central Phuket" class="max-h-14 max-w-[48%] w-auto object-contain">
+                        <img src="./Logo customers/LogoMix.jpg" alt="BTS / King Power และองค์กรอื่นๆ" class="max-h-14 max-w-[48%] w-auto object-contain">
+                    </div>
+                    <span class="font-semibold text-slate-800 text-sm">Central Phuket / BTS / King Power</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Careers (ขนาดใหญ่ขึ้น อ่านและกดง่ายขึ้น) -->
+    <section id="careers" class="py-16 bg-gradient-to-b from-blue-950 to-blue-900 text-white border-t border-blue-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-amber-400 font-semibold text-sm sm:text-base tracking-wider uppercase">CAREERS</span>
+                <h3 data-i18n="careers_heading" class="text-3xl sm:text-4xl font-bold text-white mt-1">ร่วมเป็นส่วนหนึ่งขององค์กร</h3>
+                <p data-i18n="careers_sub" class="text-slate-300 mt-2 text-base sm:text-lg">
+                    คลิกที่กล่องเพื่อเปิดรายการตำแหน่ง 
+                </p>
+            </div>
+
+            <div id="career-selector-wrapper" class="flex flex-col md:flex-row items-stretch md:items-start justify-center gap-5">
+                <!-- ขั้นที่ 1: การ์ดหลักขนาดใหญ่ -->
+                <button
+                    type="button"
+                    id="career-main-box"
+                    onclick="toggleCareerPopup()"
+                    aria-expanded="false"
+                    aria-controls="career-popup-panel"
+                    class="w-full md:w-80 shrink-0 bg-white/5 hover:bg-white/10 border border-white/25 hover:border-amber-400 rounded-2xl p-7 text-left flex flex-col justify-between transition group cursor-pointer shadow-xl"
+                >
+                    <div class="space-y-5">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="w-14 h-14 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                            <span id="career-chevron-icon" class="w-10 h-10 rounded-xl bg-white/10 text-amber-300 flex items-center justify-center text-sm transition-transform">
+                                <i class="fa-solid fa-chevron-right hidden md:inline"></i>
+                                <i class="fa-solid fa-chevron-down md:hidden"></i>
+                            </span>
+                        </div>
+
+                        <!-- ไอคอน 5 ตำแหน่งย่อยบนการ์ดหลักขนาดใหญ่ขึ้น -->
+                        <div class="grid grid-cols-5 gap-2 pt-1">
+                            <span class="h-10 rounded-xl bg-slate-900/85 border border-white/15 flex items-center justify-center text-amber-300 text-base">
+                                <i class="fa-solid fa-broom"></i>
+                            </span>
+                            <span class="h-10 rounded-xl bg-slate-900/85 border border-white/15 flex items-center justify-center text-amber-300 text-base">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </span>
+                            <span class="h-10 rounded-xl bg-slate-900/85 border border-white/15 flex items-center justify-center text-amber-300 text-base">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </span>
+                            <span class="h-10 rounded-xl bg-slate-900/85 border border-white/15 flex items-center justify-center text-amber-300 text-base">
+                                <i class="fa-solid fa-money-bill-wave"></i>
+                            </span>
+                            <span class="h-10 rounded-xl bg-slate-900/85 border border-white/15 flex items-center justify-center text-amber-300 text-base">
+                                <i class="fa-solid fa-envelope-open-text"></i>
+                            </span>
+                        </div>
+
+                        <div>
+                            <h4 data-i18n="career_box_title" class="text-2xl font-bold text-white group-hover:text-amber-300 transition">
+                                สนใจกรอกใบสมัคร
+                            </h4>
+                            <p data-i18n="career_box_hint" class="text-sm text-slate-300 mt-1.5 leading-relaxed">
+                                คลิกเพื่อเปิดรายการตำแหน่ง
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-white/15 flex items-center justify-between gap-2 text-sm text-amber-300 font-medium">
+                        <span data-i18n="career_selected_prefix" class="shrink-0">ตำแหน่งที่เลือก:</span>
+                        <span id="career-selected-label" class="font-bold text-white truncate">พนักงานรักษาความสะอาด</span>
+                    </div>
+                </button>
+
+                <!-- ขั้นที่ 2 & 3 & 4: ป๊อปอัพรายการตำแหน่งขนาดใหญ่ + ปุ่ม "สนใจสมัครตำแหน่ง" ด้านขวาตรงระดับแถวที่ชี้/เลือก -->
+                <div
+                    id="career-popup-panel"
+                    class="hidden relative w-full md:w-[44rem] bg-slate-900/95 border border-amber-400/60 rounded-2xl p-4 sm:p-5 shadow-2xl"
+                >
+                    <p data-i18n="career_dropdown_heading" class="text-xs sm:text-sm font-semibold text-amber-400 uppercase tracking-wider px-2 mb-2.5">
+                        เลือกตำแหน่งงาน
+                    </p>
+
+                    <div class="relative">
+                        <div id="career-position-list" class="space-y-2 pr-0 sm:pr-52">
+                            <!-- เรนเดอร์รายการตำแหน่งด้วย JS -->
+                        </div>
+
+                        <!-- ปุ่ม "สนใจสมัครตำแหน่ง" ขนาดใหญ่ขึ้น เลื่อนตามแถวตำแหน่งที่กำลังชี้หรือเลือก -->
+                        <a
+                            id="career-row-apply-btn"
+                            href="./apply.html?job=cleaning&lang=th"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-i18n="apply_short_btn"
+                            style="top: 0px;"
+                            class="mt-3 sm:mt-0 sm:absolute sm:right-0 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-sm sm:text-base shadow-lg transition-all duration-150 whitespace-nowrap"
+                        >
+                            <span>สนใจสมัครตำแหน่ง</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs sm:text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: News & Announcements -->
+    <section id="news" class="py-16 bg-slate-50 border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-2">
+                <div>
+                    <span class="text-blue-600 font-semibold text-sm tracking-wider uppercase">NEWS & UPDATES</span>
+                    <h3 data-i18n="news_heading" class="text-2xl font-bold text-slate-900 mt-1">ข่าวสารและประกาศองค์กร</h3>
+                </div>
+                <a href="https://www.facebook.com/people/%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B9%80%E0%B8%8B%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C-%E0%B8%AA%E0%B8%B3%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A13/100050013025757/#" target="_blank" rel="noopener noreferrer" data-i18n="news_more" class="text-sm font-semibold text-blue-900 hover:text-blue-700 inline-flex items-center gap-1.5">
+                    <span>ติดตามข่าวสารเพิ่มเติมที่เพจสำนักงานพระราม 3</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+                    <span data-i18n="news1_tag" class="inline-block text-xs font-semibold text-blue-900 bg-blue-50 px-2.5 py-1 rounded-md mb-3">มาตรฐานการบริการ</span>
+                    <h4 data-i18n="news1_title" class="font-bold text-slate-900 text-base mb-2">การยกระดับมาตรฐานความปลอดภัยและระบบติดตามยานพาหนะ</h4>
+                    <p data-i18n="news1_desc" class="text-sm text-slate-600 leading-relaxed">
+                        กำกับดูแลการปฏิบัติงานของเจ้าหน้าที่ขนส่งทรัพย์สินมีค่าและเจ้าหน้าที่รักษาความปลอดภัยอย่างต่อเนื่อง เพื่อให้สอดคล้องกับมาตรฐานองค์กรและผู้ว่าจ้าง
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+                    <span data-i18n="news2_tag" class="inline-block text-xs font-semibold text-blue-900 bg-blue-50 px-2.5 py-1 rounded-md mb-3">การฝึกอบรมบุคลากร</span>
+                    <h4 data-i18n="news2_title" class="font-bold text-slate-900 text-base mb-2">การอบรมมารยาท ระเบียบวินัย และความปลอดภัยในการปฏิบัติงาน</h4>
+                    <p data-i18n="news2_desc" class="text-sm text-slate-600 leading-relaxed">
+                        พัฒนาทักษะบุคลากรด้านความปลอดภัย พนักงานสำนักงาน และพนักงานรักษาความสะอาด ให้พร้อมให้บริการด้วยความสุภาพและน่าเชื่อถือ
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+                    <span data-i18n="news3_tag" class="inline-block text-xs font-semibold text-red-800 bg-red-50 px-2.5 py-1 rounded-md mb-3">สายด่วนดูแลลูกค้า</span>
+                    <h4 data-i18n="news3_title" class="font-bold text-slate-900 text-base mb-2">ช่องทางประสานงานและรับเรื่องร้องเรียนโดยตรง</h4>
+                    <p data-i18n="news3_desc" class="text-sm text-slate-600 leading-relaxed">
+                        ลูกค้าและผู้เกี่ยวข้องสามารถติดต่อสอบถามข้อมูลหรือแจ้งเหตุเร่งด่วนผ่านสายด่วนร้องเรียน (02) 294-6691 ได้โดยตรง
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer & Contact -->
+    <footer id="contact" class="bg-blue-950 text-slate-300 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-blue-900">
+            <div>
+                <h4 data-i18n="hq_title" class="text-white font-bold text-lg mb-4">สำนักงานใหญ่ (สีลม)</h4>
+                <p data-i18n="hq_address" class="text-sm leading-relaxed mb-4">
+                    132/8-9 ซอยสีลม 8 ถนนสีลม <br>
+                    แขวงสุริยวงศ์ เขตบางรัก <br>
+                    กรุงเทพมหานคร 10500
+                </p>
+                <div class="flex flex-col items-start space-y-2.5">
+                    <a href="https://maps.app.goo.gl/iJXdVeNvoJwarJ3K8" target="_blank" rel="noopener noreferrer" data-i18n="map_hq" class="inline-flex items-center px-3.5 py-2 rounded-lg bg-blue-900/50 hover:bg-blue-800 transition text-sm text-white">
+                        <i class="fa-solid fa-location-dot text-lg text-red-400 mr-2.5"></i> แผนที่ Google Maps (สำนักงานใหญ่)
+                    </a>
+                    <a href="https://maps.app.goo.gl/uQutEAjbSoUPAMwt8" target="_blank" rel="noopener noreferrer" data-i18n="map_rama3" class="inline-flex items-center px-3.5 py-2 rounded-lg bg-blue-900/50 hover:bg-blue-800 transition text-sm text-white">
+                        <i class="fa-solid fa-location-dot text-lg text-red-400 mr-2.5"></i> แผนที่ Google Maps (พระราม 3)
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 data-i18n="contact_heading" class="text-white font-bold text-lg mb-4">ช่องทางติดต่อ</h4>
+
+                <!-- กล่องเน้นช่องทางติดต่อฉุกเฉิน / ร้องเรียน -->
+                <div class="mb-4 p-3.5 rounded-xl bg-red-600/20 border border-red-400/60">
+                    <p data-i18n="urgent_box_label" class="text-xs font-semibold text-red-300 mb-1.5">
+                        <i class="fa-solid fa-triangle-exclamation text-red-400 mr-1"></i> สายด่วนฉุกเฉิน / ร้องเรียน (Hotline)
+                    </p>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <a href="tel:022946691" data-i18n="urgent_call_btn" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-semibold text-xs transition">
+                            <i class="fa-solid fa-phone mr-1.5"></i> โทร (02) 294-6691
+                        </a>
+                        <button type="button" onclick="copyText('022946691', 'คัดลอกเบอร์สายด่วนร้องเรียนแล้ว', 'Hotline number copied')" data-i18n="copy_btn" class="inline-flex items-center px-2.5 py-1.5 rounded-lg bg-blue-900/80 hover:bg-blue-800 text-white text-xs border border-blue-700 transition">
+                            <i class="fa-regular fa-copy mr-1"></i> คัดลอก
+                        </button>
+                    </div>
+                </div>
+
+                <ul class="space-y-2.5 text-sm">
+                    <li class="flex flex-wrap items-center gap-1.5">
+                        <i class="fa-solid fa-phone mr-1 text-amber-400"></i>
+                        <span>Tel:</span>
+                        <a href="tel:022374747" class="hover:text-white underline">(02) 237-4747</a>,
+                        <a href="tel:022374744" class="hover:text-white underline">(02) 237-4744 to 52</a>
+                        <button type="button" onclick="copyText('022374747', 'คัดลอกเบอร์โทรสำนักงานแล้ว', 'Office phone copied')" class="ml-1 text-xs text-slate-400 hover:text-white" title="คัดลอกเบอร์โทร">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </li>
+                    <li class="flex flex-wrap items-center gap-1.5">
+                        <i class="fa-solid fa-headset mr-1 text-red-400"></i>
+                        <span data-i18n="footer_hotline_label">Hotline (สายด่วนร้องเรียน):</span>
+                        <a href="tel:022946691" class="hover:text-white underline font-semibold text-red-300">(02) 294-6691</a>
+                    </li>
+                    <li class="flex flex-wrap items-center gap-1.5">
+                        <i class="fa-solid fa-fax mr-1 text-amber-400"></i>
+                        <span>Fax: (02) 237-4757</span>
+                        <button type="button" onclick="copyText('022374757', 'คัดลอกเบอร์แฟกซ์แล้ว', 'Fax number copied')" class="ml-1 text-xs text-slate-400 hover:text-white" title="คัดลอกเบอร์แฟกซ์">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </li>
+                    <li class="flex flex-wrap items-center gap-1.5">
+                        <i class="fa-solid fa-envelope mr-1 text-amber-400"></i>
+                        <a href="mailto:webmaster@bangkokservex.co.th" class="hover:text-white underline break-all">webmaster@bangkokservex.co.th</a>
+                        <button type="button" onclick="copyText('webmaster@bangkokservex.co.th', 'คัดลอกอีเมลแล้ว', 'Email address copied')" class="ml-1 text-xs text-slate-400 hover:text-white" title="คัดลอกอีเมล">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h4 data-i18n="news_follow_heading" class="text-white font-bold text-lg mb-4">ติดตามข่าวสาร (News Update)</h4>
+                <div class="space-y-3">
+                    <a href="https://www.facebook.com/people/%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B9%80%E0%B8%8B%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C-%E0%B8%AA%E0%B8%B3%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A13/100050013025757/#" target="_blank" rel="noopener noreferrer" data-i18n="fb_rama3" class="flex items-center p-3 rounded-lg bg-blue-900/50 hover:bg-blue-800 transition text-sm text-white">
+                        <i class="fa-brands fa-facebook text-xl text-blue-400 mr-3"></i> กรุงเทพเซอร์เว็กซ์ - สาขาพระราม 3
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 pt-6 text-center text-xs text-slate-400">
+            © 2026 Bangkok Servex Security Guard and Business Services Co., Ltd. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Script สำหรับ Carousel วนลูปต่อเนื่อง 1->2->3->4->5->1, สเต็ปสมัครงาน + ดึงสถานะเปิด/ปิดรับสมัครจาก Apps Script, คัดลอกข้อมูล, แท็บข้อมูล และแปลภาษา TH/EN -->
+    <script>
+        const RECRUITMENT_API_URL = 'https://script.google.com/macros/s/AKfycbx49sZvp_slMjhLTRfSz9J31EhPaM_EZ8WO-6vAL3Aulxtwfp12pCIj13aXoQBzCjAe/exec';
+
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        function closeMobileMenu() {
+            menu.classList.add('hidden');
+        }
+
+        let currentLang = 'th';
+
+        const CAREER_POSITIONS = [
+            {
+                key: 'cleaning',
+                icon: 'fa-broom',
+                labelTh: 'พนักงานรักษาความสะอาด',
+                labelEn: 'Housekeeping Officer'
+            },
+            {
+                key: 'security',
+                icon: 'fa-shield-halved',
+                labelTh: 'เจ้าหน้าที่รักษาความปลอดภัย',
+                labelEn: 'Security Officer'
+            },
+            {
+                key: 'cit',
+                icon: 'fa-truck-fast',
+                labelTh: 'เจ้าหน้าที่ขนส่งทรัพย์สินมีค่า',
+                labelEn: 'Cash-in-Transit Officer'
+            },
+            {
+                key: 'banknote_qc',
+                icon: 'fa-money-bill-wave',
+                labelTh: 'พนักงานคัดแยกคุณภาพและตรวจสอบธนบัตร',
+                labelEn: 'Banknote Quality & Inspection Officer'
+            },
+            {
+                key: 'courier',
+                icon: 'fa-envelope-open-text',
+                labelTh: 'พนักงานขนส่งเอกสาร',
+                labelEn: 'Document Courier Officer'
+            }
+        ];
+
+        // สถานะเปิด/ปิดรับสมัครของแต่ละตำแหน่ง (true = เปิดรับสมัคร, false = ปิดรับสมัคร)
+        const jobOpenState = {
+            cleaning: true,
+            security: true,
+            cit: true,
+            banknote_qc: true,
+            courier: true
+        };
+
+        let selectedJobKey = CAREER_POSITIONS[0].key;
+        let isCareerPopupOpen = false;
+        let careerHoverCloseTimer = null;
+
+        const SERVICE_SHOWCASE_ITEMS = [
+            {
+                codeTh: '01 • CIT',
+                codeEn: '01 • CIT',
+                titleTh: 'บริการขนส่งทรัพย์สินมีค่า',
+                titleEn: 'Cash-in-Transit Service',
+                imgSrc: './Logo customers/housekeeper.png',
+                altTh: 'บริการขนส่งทรัพย์สินมีค่า',
+                altEn: 'Cash-in-Transit Service'
+            },
+            {
+                codeTh: '02 • SECURITY',
+                codeEn: '02 • SECURITY',
+                titleTh: 'บริการรักษาความปลอดภัย',
+                titleEn: 'Security Guard Service',
+                imgSrc: './Logo customers/guard.png',
+                altTh: 'บริการรักษาความปลอดภัย',
+                altEn: 'Security Guard Service'
+            },
+            {
+                codeTh: '03 • HOUSEKEEPING',
+                codeEn: '03 • HOUSEKEEPING',
+                titleTh: 'บริการทำความสะอาด',
+                titleEn: 'Cleaning Service',
+                imgSrc: './Logo customers/Ayasan.png',
+                altTh: 'บริการทำความสะอาด',
+                altEn: 'Cleaning Service'
+            },
+            {
+                codeTh: '04 • BANKNOTE & QUALITY',
+                codeEn: '04 • BANKNOTE & QUALITY',
+                titleTh: 'พนักงานคัดแยกคุณภาพและตรวจสอบธนบัตร',
+                titleEn: 'Banknote Sorting & Quality Inspection',
+                imgSrc: './Logo customers/service-banknote-qc.png.png',
+                altTh: 'พนักงานคัดแยกคุณภาพและตรวจสอบธนบัตร',
+                altEn: 'Banknote Sorting & Quality Inspection'
+            },
+            {
+                codeTh: '05 • DOCUMENT COURIER',
+                codeEn: '05 • DOCUMENT COURIER',
+                titleTh: 'พนักงานขนส่งเอกสาร',
+                titleEn: 'Document Courier Service',
+                imgSrc: './Logo customers/service-courier.png.png',
+                altTh: 'พนักงานขนส่งเอกสาร',
+                altEn: 'Document Courier Service'
+            }
+        ];
+
+        const AUTO_ROTATE_MS = 2800;
+        const SLIDE_EASE = 'transform 700ms cubic-bezier(0.22, 1, 0.36, 1)';
+        const CLONE_COUNT = 3;
+        const TOTAL_ITEMS = SERVICE_SHOWCASE_ITEMS.length;
+
+        let trackPosition = CLONE_COUNT;
+        let isTransitioning = false;
+        let carouselTimer = null;
+
+        const translations = {
+            th: {
+                page_title: 'บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด',
+                company_name_th: 'บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด',
+                company_name_en: 'BANGKOK SERVEX SECURITY GUARD AND BUSINESS SERVICES CO., LTD.',
+                nav_home: 'หน้าแรก',
+                nav_about: 'เกี่ยวกับเรา',
+                nav_services: 'บริการของเรา',
+                nav_customers: 'ลูกค้าของเรา',
+                nav_careers: 'สมัครงาน',
+                nav_news: 'ข่าวสาร',
+                nav_contact: 'ติดต่อเรา',
+                sub_philosophy: 'ปรัชญาและวิสัยทัศน์',
+                sub_history: 'ประวัติความเป็นมา',
+                sub_directors: 'คณะผู้บริหาร',
+                srv1_short: 'ขนส่งทรัพย์สินมีค่า (CIT) & ATM',
+                srv2_short: 'บริการจัดหาบุคลากรสำนักงาน',
+                srv3_short: 'คัดแยกคุณภาพและตรวจสอบธนบัตร',
+                srv4_short: 'บริการงานรักษาความสะอาดครบวงจร',
+                hero_badge: '<i class="fa-solid fa-award mr-1.5"></i> ก่อตั้งตั้งแต่ปี พ.ศ. 2545 • ทุนจดทะเบียน 60 ล้านบาท',
+                hero_title: '"เป็นเลิศในบริการ <span class="text-amber-400">คืองานของเรา"</span>',
+                hero_desc: 'ผู้เชี่ยวชาญด้านบริการขนส่งเงินสดและทรัพย์สินมีค่าด้วยรถยนต์หุ้มเกราะนิรภัย (CIT)<br class="hidden sm:inline">ระบบรักษาความปลอดภัย และการจัดหาบุคลากรคุณภาพครบวงจรตามมาตรฐานสากล',
+                cta_services: 'ดูบริการทั้งหมด',
+                cta_careers: 'ร่วมเป็นส่วนหนึ่งขององค์กร',
+                cta_contact: 'ติดต่อสอบถามข้อมูล',
+                carousel_missing_img: 'รอใส่รูป:',
+                carousel_slide_label: 'ลำดับที่',
+                about_heading: 'ความมุ่งมั่นและมาตรฐานการให้บริการ',
+                about_quote: '"เรามุ่งมั่นที่จะอำนวยบริการรับผิดชอบงานบริการประเภทต่างๆ ตามที่ผู้ว่าจ้างต้องการ ด้วยคุณภาพและบริการที่เป็นเลิศ ในราคาสมเหตุสมผล ก่อตั้งขึ้นเมื่อวันที่ 30 กรกฎาคม 2545 เริ่มให้บริการแก่ธนาคารกรุงเทพ จำกัด (มหาชน) และขยายบริการสู่สถาบันการเงินชั้นนำทั่วประเทศ"',
+                history_title: 'ประวัติความเป็นมาขององค์กร',
+                history_desc: 'บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด ก่อตั้งขึ้นเมื่อวันที่ 30 กรกฎาคม พ.ศ. 2545 ด้วยทุนจดทะเบียน 60 ล้านบาท เพื่อดำเนินธุรกิจด้านการรักษาความปลอดภัย การขนส่งเงินสดและทรัพย์สินมีค่าด้วยรถหุ้มเกราะนิรภัย และการสนับสนุนงานบริการทางธุรกิจให้แก่สถาบันการเงินและองค์กรชั้นนำทั่วประเทศ',
+                directors_title: 'โครงสร้างการบริหารและกำกับดูแล',
+                directors_desc: 'บริหารงานโดยคณะผู้บริหารและทีมงานผู้เชี่ยวชาญเฉพาะด้านที่ยึดมั่นในธรรมาภิบาล ความโปร่งใส และการควบคุมมาตรฐานการปฏิบัติงานอย่างรัดกุม เพื่อให้ทุกภารกิจด้านความปลอดภัยและการบริการเป็นไปอย่างต่อเนื่องและเชื่อถือได้',
+                services_heading: 'บริการหลักของเรา',
+                services_sub: 'ครอบคลุมทุกความต้องการด้านความปลอดภัยและการสนับสนุนธุรกิจ',
+                srv1_desc: 'บริการขนส่งเงินสด ทรัพย์สินมีค่า (CIT) ขนส่งเอกสาร และบริหารจัดการเงินสดตู้ ATM ด้วยรถหุ้มเกราะติดระบบ GPS',
+                srv2_desc: 'บริการจัดหาบุคลากรปฏิบัติงานในสำนักงาน พนักงานรับ-ส่งเอกสาร และบันทึกข้อมูลที่ผ่านการอบรมมารยาทและทักษะเฉพาะทาง',
+                srv3_desc: 'บริการคัดแยกคุณภาพและตรวจสอบธนบัตรด้วยเครื่องมือมาตรฐานสากลตามเกณฑ์ธนาคารแห่งประเทศไทย ภายใต้ระบบ CCTV',
+                srv4_desc: 'บริการรักษาความสะอาดอาคารสำนักงานและที่พักอาศัย ทั้งแบบรายวันและรายเดือน พร้อมอุปกรณ์และน้ำยาที่ได้มาตรฐาน',
+                customers_heading: 'ลูกค้าที่ไว้วางใจใช้บริการ',
+                customers_sub: 'สถาบันการเงินและองค์กรชั้นนำระดับประเทศ',
+                cust_bbl: 'ธนาคารกรุงเทพ (BBL)',
+                cust_uob: 'ธนาคารยูโอบี (UOB)',
+                cust_scb: 'ธนาคารไทยพาณิชย์ (SCB)',
+                cust_bay: 'ธนาคารกรุงศรีอยุธยา',
+                careers_heading: 'ร่วมเป็นส่วนหนึ่งขององค์กร',
+                careers_sub: 'ชี้หรือคลิกที่กล่องเพื่อเปิดรายการตำแหน่ง แล้วชี้/คลิกตำแหน่งเพื่อกดปุ่มสนใจสมัครตำแหน่งไปที่ apply.html',
+                career_box_title: 'สนใจกรอกใบสมัคร',
+                career_box_hint: 'เลื่อนเมาส์มาชี้หรือคลิกเพื่อเปิดรายการตำแหน่ง',
+                career_selected_prefix: 'ตำแหน่งที่เลือก:',
+                career_dropdown_heading: 'เลือกตำแหน่งงาน',
+                apply_short_btn: '<span>สนใจสมัครตำแหน่ง</span> <i class="fa-solid fa-arrow-up-right-from-square text-xs sm:text-sm"></i>',
+                closed_badge: 'ปิดรับสมัคร',
+                closed_btn_text: '<span>ปิดรับสมัครชั่วคราว</span> <i class="fa-solid fa-ban text-xs sm:text-sm"></i>',
+                no_open_position: 'ปิดรับสมัครทุกตำแหน่งชั่วคราว',
+                news_heading: 'ข่าวสารและประกาศองค์กร',
+                news_more: 'ติดตามข่าวสารเพิ่มเติมที่เพจสำนักงานพระราม 3',
+                news1_tag: 'มาตรฐานการบริการ',
+                news1_title: 'การยกระดับมาตรฐานความปลอดภัยและระบบติดตามยานพาหนะ',
+                news1_desc: 'กำกับดูแลการปฏิบัติงานของเจ้าหน้าที่ขนส่งทรัพย์สินมีค่าและเจ้าหน้าที่รักษาความปลอดภัยอย่างต่อเนื่อง เพื่อให้สอดคล้องกับมาตรฐานองค์กรและผู้ว่าจ้าง',
+                news2_tag: 'การฝึกอบรมบุคลากร',
+                news2_title: 'การอบรมมารยาท ระเบียบวินัย และความปลอดภัยในการปฏิบัติงาน',
+                news2_desc: 'พัฒนาทักษะบุคลากรด้านความปลอดภัย พนักงานสำนักงาน และพนักงานรักษาความสะอาด ให้พร้อมให้บริการด้วยความสุภาพและน่าเชื่อถือ',
+                news3_tag: 'สายด่วนดูแลลูกค้า',
+                news3_title: 'ช่องทางประสานงานและรับเรื่องร้องเรียนโดยตรง',
+                news3_desc: 'ลูกค้าและผู้เกี่ยวข้องสามารถติดต่อสอบถามข้อมูลหรือแจ้งเหตุเร่งด่วนผ่านสายด่วนร้องเรียน (02) 294-6691 ได้โดยตรง',
+                hq_title: 'สำนักงานใหญ่ (สีลม)',
+                hq_address: '132/8-9 ซอยสีลม 8 ถนนสีลม <br>แขวงสุริยวงศ์ เขตบางรัก <br>กรุงเทพมหานคร 10500',
+                map_hq: 'แผนที่ Google Maps (สำนักงานใหญ่)',
+                map_rama3: 'แผนที่ Google Maps (พระราม 3)',
+                contact_heading: 'ช่องทางติดต่อ',
+                urgent_box_label: 'สายด่วนฉุกเฉิน / ร้องเรียน (Hotline)',
+                urgent_call_btn: 'โทร (02) 294-6691',
+                copy_btn: 'คัดลอก',
+                footer_hotline_label: 'Hotline (สายด่วนร้องเรียน):',
+                news_follow_heading: 'ติดตามข่าวสาร (News Update)',
+                fb_rama3: 'กรุงเทพเซอร์เว็กซ์ - สาขาพระราม 3'
+            },
+            en: {
+                page_title: 'Bangkok Servex Security Guard and Business Services Co., Ltd.',
+                company_name_th: 'Bangkok Servex Security Guard and Business Services Co., Ltd.',
+                company_name_en: 'บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด',
+                nav_home: 'Home',
+                nav_about: 'About Us',
+                nav_services: 'Our Services',
+                nav_customers: 'Our Clients',
+                nav_careers: 'Careers',
+                nav_news: 'News',
+                nav_contact: 'Contact Us',
+                sub_philosophy: 'Philosophy & Vision',
+                sub_history: 'Corporate History',
+                sub_directors: 'Board of Directors',
+                srv1_short: 'Cash-in-Transit (CIT) & ATM',
+                srv2_short: 'Office Personnel Provision',
+                srv3_short: 'Banknote Sorting & Verification',
+                srv4_short: 'Comprehensive Cleaning Services',
+                hero_badge: '<i class="fa-solid fa-award mr-1.5"></i> Established in 2002 • Registered Capital of THB 60 Million',
+                hero_title: '"Excellence in Service <span class="text-amber-400">Is Our Commitment"</span>',
+                hero_desc: 'A trusted specialist in armored cash-in-transit (CIT) and high-value asset transportation,<br class="hidden sm:inline">security services, and qualified business support personnel delivered to international standards.',
+                cta_services: 'Explore All Services',
+                cta_careers: 'Apply for a Job',
+                cta_contact: 'Request Information',
+                carousel_missing_img: 'Missing image:',
+                carousel_slide_label: 'Slide',
+                about_heading: 'Commitment and Service Standards',
+                about_quote: '"We are committed to delivering reliable, comprehensive services tailored to our clients\' requirements with service excellence and reasonable pricing. Established on July 30, 2002, we began serving Bangkok Bank Public Company Limited and have since expanded across leading financial institutions nationwide."',
+                history_title: 'Corporate History',
+                history_desc: 'Bangkok Servex Security Guard and Business Services Co., Ltd. was established on July 30, 2002, with a registered capital of THB 60 million to provide security services, armored cash and valuable asset transportation, and business support services to financial institutions and leading organizations throughout Thailand.',
+                directors_title: 'Executive Leadership and Governance',
+                directors_desc: 'Led by experienced executives and specialized teams committed to good corporate governance, transparency, and rigorous operational quality control to ensure reliable and continuous service delivery.',
+                services_heading: 'Core Services',
+                services_sub: 'Comprehensive security and business support solutions',
+                srv1_desc: 'Cash-in-Transit (CIT), valuable asset and document transport, and GPS-monitored armored ATM cash management.',
+                srv2_desc: 'Provision of trained office personnel, document couriers, and data entry staff with strong professional etiquette and specialized skills.',
+                srv3_desc: 'Banknote quality sorting and verification using international-standard equipment in accordance with Bank of Thailand guidelines under continuous CCTV monitoring.',
+                srv4_desc: 'Daily and monthly cleaning services for commercial buildings, offices, and residences using standardized equipment and cleaning agents.',
+                customers_heading: 'Trusted by Leading Organizations',
+                customers_sub: 'Financial institutions and prominent enterprises across Thailand',
+                cust_bbl: 'Bangkok Bank (BBL)',
+                cust_uob: 'United Overseas Bank (UOB)',
+                cust_scb: 'Siam Commercial Bank (SCB)',
+                cust_bay: 'Bank of Ayudhya (Krungsri)',
+                careers_heading: 'Join Our Team',
+                careers_sub: 'Hover or click the box to open positions, then hover/click a role to apply via apply.html.',
+                career_box_title: 'Interested in Applying',
+                career_box_hint: 'Hover or click to open position list',
+                career_selected_prefix: 'Selected Position:',
+                career_dropdown_heading: 'Select Position',
+                apply_short_btn: '<span>Interested in Role</span> <i class="fa-solid fa-arrow-up-right-from-square text-xs sm:text-sm"></i>',
+                closed_badge: 'Closed',
+                closed_btn_text: '<span>Position Closed</span> <i class="fa-solid fa-ban text-xs sm:text-sm"></i>',
+                no_open_position: 'All positions temporarily closed',
+                news_heading: 'News and Corporate Announcements',
+                news_more: 'Follow Updates on the Rama 3 Office Page',
+                news1_tag: 'Service Standards',
+                news1_title: 'Strengthening Security Protocols and Fleet Tracking Systems',
+                news1_desc: 'Continuous supervision of cash-in-transit officers and security personnel to uphold corporate and client operational standards.',
+                news2_tag: 'Personnel Training',
+                news2_title: 'Training in Etiquette, Discipline, and Operational Safety',
+                news2_desc: 'Developing security guards, office personnel, and cleaning staff to deliver courteous, disciplined, and dependable service.',
+                news3_tag: 'Client Support Hotline',
+                news3_title: 'Client Support and Direct Complaint Channel',
+                news3_desc: 'Clients and stakeholders may reach our dedicated complaint hotline at (02) 294-6691 for inquiries or urgent matters.',
+                hq_title: 'Head Office (Silom)',
+                hq_address: '132/8-9 Soi Silom 8, Silom Road,<br>Suriyawong, Bang Rak,<br>Bangkok 10500, Thailand',
+                map_hq: 'Google Maps (Head Office)',
+                map_rama3: 'Google Maps (Rama 3)',
+                contact_heading: 'Contact Channels',
+                urgent_box_label: 'Emergency / Complaint Hotline',
+                urgent_call_btn: 'Call (02) 294-6691',
+                copy_btn: 'Copy',
+                footer_hotline_label: 'Hotline (Complaint):',
+                news_follow_heading: 'News Update',
+                fb_rama3: 'Bangkok Servex - Rama 3 Office'
+            }
+        };
+
+        function isJobOpen(jobKey) {
+            return jobOpenState[jobKey] !== false;
+        }
+
+        function getFirstOpenJobKey() {
+            const openPos = CAREER_POSITIONS.find((p) => isJobOpen(p.key));
+            return openPos ? openPos.key : null;
+        }
+
+        function applyRemoteJobStatuses(positionsList) {
+            if (!Array.isArray(positionsList)) return;
+
+            positionsList.forEach((item) => {
+                if (!item || !item.key) return;
+                const key = String(item.key).trim();
+                if (!Object.prototype.hasOwnProperty.call(jobOpenState, key)) return;
+
+                if (typeof item.isOpen === 'boolean') {
+                    jobOpenState[key] = item.isOpen;
+                } else {
+                    const statusText = String(item.status || '').trim();
+                    jobOpenState[key] = statusText !== 'ปิดรับสมัคร' && statusText.toLowerCase() !== 'closed';
+                }
+            });
+
+            if (!isJobOpen(selectedJobKey)) {
+                const fallbackOpen = getFirstOpenJobKey();
+                if (fallbackOpen) {
+                    selectedJobKey = fallbackOpen;
+                }
+            }
+
+            renderCareerSelector();
+        }
+
+        function fetchJobStatusesViaJsonp(timeoutMs = 5000) {
+            return new Promise((resolve) => {
+                const cbName = `servexJobStatusCb_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+                const script = document.createElement('script');
+                let settled = false;
+
+                const cleanup = () => {
+                    if (script.parentNode) {
+                        script.parentNode.removeChild(script);
+                    }
+                    try {
+                        delete window[cbName];
+                    } catch (_) {
+                        window[cbName] = undefined;
+                    }
+                };
+
+                const timer = setTimeout(() => {
+                    if (!settled) {
+                        settled = true;
+                        cleanup();
+                        resolve(false);
+                    }
+                }, timeoutMs);
+
+                window[cbName] = (data) => {
+                    if (settled) return;
+                    settled = true;
+                    clearTimeout(timer);
+                    cleanup();
+                    if (data && Array.isArray(data.positions)) {
+                        applyRemoteJobStatuses(data.positions);
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                };
+
+                const sep = RECRUITMENT_API_URL.includes('?') ? '&' : '?';
+                script.src = `${RECRUITMENT_API_URL}${sep}callback=${encodeURIComponent(cbName)}&_=${Date.now()}`;
+                script.onerror = () => {
+                    if (!settled) {
+                        settled = true;
+                        clearTimeout(timer);
+                        cleanup();
+                        resolve(false);
+                    }
+                };
+
+                document.body.appendChild(script);
+            });
+        }
+
+        async function fetchJobStatusesFromSheet() {
+            if (!RECRUITMENT_API_URL) return;
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+            try {
+                const sep = RECRUITMENT_API_URL.includes('?') ? '&' : '?';
+                const res = await fetch(`${RECRUITMENT_API_URL}${sep}_=${Date.now()}`, {
+                    method: 'GET',
+                    signal: controller.signal
+                });
+                if (!res.ok) {
+                    await fetchJobStatusesViaJsonp();
+                    return;
+                }
+                const data = await res.json();
+                if (data && Array.isArray(data.positions)) {
+                    applyRemoteJobStatuses(data.positions);
+                } else {
+                    await fetchJobStatusesViaJsonp();
+                }
+            } catch (_) {
+                await fetchJobStatusesViaJsonp();
+            } finally {
+                clearTimeout(timeoutId);
+            }
+        }
+
+        function getPositionLabel(pos) {
+            return currentLang === 'en' ? pos.labelEn : pos.labelTh;
+        }
+
+        function alignApplyButtonToRow(jobKey) {
+            const applyBtn = document.getElementById('career-row-apply-btn');
+            const listEl = document.getElementById('career-position-list');
+            if (!applyBtn || !listEl) return;
+
+            const idx = CAREER_POSITIONS.findIndex((p) => p.key === jobKey);
+            const targetRow = listEl.children[idx >= 0 ? idx : 0];
+
+            if (!window.matchMedia('(min-width: 640px)').matches) {
+                applyBtn.style.top = '';
+                return;
+            }
+
+            if (targetRow) {
+                const rowCenter = targetRow.offsetTop + (targetRow.offsetHeight / 2);
+                const btnHeight = applyBtn.offsetHeight || 44;
+                const maxTop = Math.max(0, listEl.offsetHeight - btnHeight);
+                const nextTop = Math.max(0, Math.min(maxTop, rowCenter - (btnHeight / 2)));
+                applyBtn.style.top = `${nextTop}px`;
+            }
+        }
+
+        function setCareerPopupOpen(open) {
+            isCareerPopupOpen = open;
+            const popupPanel = document.getElementById('career-popup-panel');
+            const mainBox = document.getElementById('career-main-box');
+            const chevronIcon = document.getElementById('career-chevron-icon');
+
+            if (popupPanel) {
+                popupPanel.classList.toggle('hidden', !open);
+                popupPanel.classList.toggle('block', open);
+            }
+            if (mainBox) {
+                mainBox.setAttribute('aria-expanded', open ? 'true' : 'false');
+            }
+            if (chevronIcon) {
+                chevronIcon.classList.toggle('rotate-90', open && window.matchMedia('(min-width: 768px)').matches);
+            }
+
+            if (open) {
+                requestAnimationFrame(() => {
+                    alignApplyButtonToRow(selectedJobKey);
+                });
+            }
+        }
+
+        function toggleCareerPopup() {
+            setCareerPopupOpen(!isCareerPopupOpen);
+        }
+
+        function handleCareerRowInteract(jobKey, forceSelect = false) {
+            setCareerPopupOpen(true);
+            if (!isJobOpen(jobKey)) {
+                if (forceSelect) {
+                    selectedJobKey = jobKey;
+                    renderCareerSelector();
+                }
+                return;
+            }
+            selectedJobKey = jobKey;
+            renderCareerSelector();
+        }
+
+        function renderCareerSelector() {
+            const listEl = document.getElementById('career-position-list');
+            const selectedLabelEl = document.getElementById('career-selected-label');
+            const applyBtnEl = document.getElementById('career-row-apply-btn');
+            const dict = translations[currentLang] || translations.th;
+
+            const currentPos = CAREER_POSITIONS.find((p) => p.key === selectedJobKey) || CAREER_POSITIONS[0];
+            const currentOpen = isJobOpen(currentPos.key);
+            const anyOpen = CAREER_POSITIONS.some((p) => isJobOpen(p.key));
+
+            if (selectedLabelEl) {
+                if (!anyOpen) {
+                    selectedLabelEl.textContent = dict.no_open_position;
+                    selectedLabelEl.className = 'font-bold text-slate-400 truncate';
+                } else if (!currentOpen) {
+                    selectedLabelEl.textContent = `${getPositionLabel(currentPos)} (${dict.closed_badge})`;
+                    selectedLabelEl.className = 'font-bold text-slate-400 truncate';
+                } else {
+                    selectedLabelEl.textContent = getPositionLabel(currentPos);
+                    selectedLabelEl.className = 'font-bold text-white truncate';
+                }
+            }
+
+            if (applyBtnEl) {
+                if (currentOpen && anyOpen) {
+                    applyBtnEl.href = `./apply.html?job=${encodeURIComponent(currentPos.key)}&lang=${encodeURIComponent(currentLang)}`;
+                    applyBtnEl.innerHTML = dict.apply_short_btn;
+                    applyBtnEl.removeAttribute('aria-disabled');
+                    applyBtnEl.className = 'mt-3 sm:mt-0 sm:absolute sm:right-0 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-sm sm:text-base shadow-lg transition-all duration-150 whitespace-nowrap cursor-pointer';
+                } else {
+                    applyBtnEl.removeAttribute('href');
+                    applyBtnEl.innerHTML = dict.closed_btn_text;
+                    applyBtnEl.setAttribute('aria-disabled', 'true');
+                    applyBtnEl.className = 'mt-3 sm:mt-0 sm:absolute sm:right-0 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-700 text-slate-400 border border-slate-600 font-semibold text-sm sm:text-base shadow-none transition-all duration-150 whitespace-nowrap cursor-not-allowed pointer-events-none opacity-80';
+                }
+            }
+
+            if (listEl) {
+                listEl.innerHTML = CAREER_POSITIONS.map((pos) => {
+                    const open = isJobOpen(pos.key);
+                    const isSelected = pos.key === currentPos.key && open;
+
+                    if (!open) {
+                        return `
+                            <button
+                                type="button"
+                                disabled
+                                aria-disabled="true"
+                                onmouseenter="handleCareerRowInteract('${pos.key}', false)"
+                                class="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-slate-700/80 bg-slate-800/75 text-slate-400 text-left text-sm sm:text-base opacity-70 cursor-not-allowed select-none"
+                            >
+                                <span class="flex items-center gap-3.5 min-w-0">
+                                    <i class="fa-solid ${pos.icon} w-5 text-center shrink-0 text-slate-500"></i>
+                                    <span class="truncate">${getPositionLabel(pos)}</span>
+                                </span>
+                                <span class="shrink-0 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-700 text-slate-300 border border-slate-600">
+                                    ${dict.closed_badge}
+                                </span>
+                            </button>
+                        `;
+                    }
+
+                    const rowClass = isSelected
+                        ? 'bg-amber-500 text-blue-950 font-semibold border-amber-400 cursor-pointer'
+                        : 'bg-white/5 hover:bg-white/15 text-slate-100 border-white/10 cursor-pointer';
+                    const iconClass = isSelected ? 'text-blue-950' : 'text-amber-400';
+
+                    return `
+                        <button
+                            type="button"
+                            onmouseenter="handleCareerRowInteract('${pos.key}', false)"
+                            onclick="handleCareerRowInteract('${pos.key}', true)"
+                            class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl border text-left text-sm sm:text-base transition ${rowClass}"
+                        >
+                            <i class="fa-solid ${pos.icon} w-5 text-center shrink-0 ${iconClass}"></i>
+                            <span class="truncate">${getPositionLabel(pos)}</span>
+                        </button>
+                    `;
+                }).join('');
+            }
+
+            requestAnimationFrame(() => {
+                alignApplyButtonToRow(currentPos.key);
+            });
+        }
+
+        function isDesktopGrid() {
+            return window.matchMedia('(min-width: 768px)').matches;
+        }
+
+        function getActiveItemIndex() {
+            return (((trackPosition - CLONE_COUNT) % TOTAL_ITEMS) + TOTAL_ITEMS) % TOTAL_ITEMS;
+        }
+
+        function buildLoopItems() {
+            const headClones = SERVICE_SHOWCASE_ITEMS.slice(-CLONE_COUNT);
+            const tailClones = SERVICE_SHOWCASE_ITEMS.slice(0, CLONE_COUNT);
+            return [...headClones, ...SERVICE_SHOWCASE_ITEMS, ...tailClones];
+        }
+
+        function renderServiceCards() {
+            const track = document.getElementById('service-cards-track');
+            const dotsWrap = document.getElementById('service-dots');
+            if (!track) return;
+
+            const dict = translations[currentLang] || translations.th;
+            const isDesktop = isDesktopGrid();
+            const gapPx = isDesktop ? 20 : 0;
+            const cardWidthCss = isDesktop
+                ? 'calc((100% - 40px) / 3)'
+                : '100%';
+
+            const loopItems = buildLoopItems();
+            track.style.gap = `${gapPx}px`;
+            track.innerHTML = loopItems.map((item) => {
+                const code = currentLang === 'en' ? item.codeEn : item.codeTh;
+                const title = currentLang === 'en' ? item.titleEn : item.titleTh;
+                const alt = currentLang === 'en' ? item.altEn : item.altTh;
+                return `
+                    <div style="flex: 0 0 ${cardWidthCss};" class="group relative rounded-2xl overflow-hidden bg-slate-800 border border-white/15 aspect-[16/10] sm:aspect-[16/10]">
+                        <img
+                            src="${item.imgSrc}"
+                            alt="${alt}"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
+                            onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');"
+                        >
+                        <div class="hidden w-full h-full flex flex-col items-center justify-center bg-slate-800/90 text-slate-300 p-4 text-center">
+                            <i class="fa-regular fa-image text-3xl text-amber-400 mb-2"></i>
+                            <span class="text-xs sm:text-sm text-slate-400">${dict.carousel_missing_img} ${item.imgSrc}</span>
+                        </div>
+                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 via-slate-950/65 to-transparent p-4 sm:p-5 pt-12">
+                            <p class="text-xs sm:text-sm font-semibold tracking-wider text-amber-400 uppercase">${code}</p>
+                            <p class="text-base sm:text-lg lg:text-xl font-bold text-white leading-snug line-clamp-2 mt-0.5">${title}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            setTrackPosition(trackPosition, false);
+
+            if (dotsWrap) {
+                dotsWrap.innerHTML = SERVICE_SHOWCASE_ITEMS.map((_, idx) => {
+                    return `<button
+                        type="button"
+                        onclick="goToServiceIndex(${idx})"
+                        aria-label="${dict.carousel_slide_label} ${idx + 1}"
+                        class="h-2.5 rounded-full transition-all duration-300 w-2.5 bg-white/30 hover:bg-white/60 cursor-pointer"
+                    ></button>`;
+                }).join('');
+                updateDotsActive();
+            }
+        }
+
+        function setTrackPosition(pos, animate = true) {
+            const track = document.getElementById('service-cards-track');
+            if (!track) return;
+
+            const firstCard = track.children[0];
+            if (!firstCard) return;
+
+            const gapPx = isDesktopGrid() ? 20 : 0;
+            const stepPx = firstCard.getBoundingClientRect().width + gapPx;
+
+            track.style.transition = animate ? SLIDE_EASE : 'none';
+            track.style.transform = `translate3d(-${pos * stepPx}px, 0, 0)`;
+        }
+
+        function handleTrackLoopReset() {
+            const track = document.getElementById('service-cards-track');
+            if (!track) return;
+
+            isTransitioning = false;
+
+            if (trackPosition >= CLONE_COUNT + TOTAL_ITEMS) {
+                trackPosition -= TOTAL_ITEMS;
+                setTrackPosition(trackPosition, false);
+                void track.offsetWidth;
+            } else if (trackPosition < CLONE_COUNT) {
+                trackPosition += TOTAL_ITEMS;
+                setTrackPosition(trackPosition, false);
+                void track.offsetWidth;
+            }
+        }
+
+        function stepServiceCarousel(delta) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            trackPosition += delta;
+            setTrackPosition(trackPosition, true);
+            updateDotsActive();
+            restartAutoRotate();
+        }
+
+        function goToServiceIndex(targetIdx) {
+            if (isTransitioning) return;
+            const currentIdx = getActiveItemIndex();
+            const diff = targetIdx - currentIdx;
+            if (diff === 0) return;
+
+            isTransitioning = true;
+            trackPosition += diff;
+            setTrackPosition(trackPosition, true);
+            updateDotsActive();
+            restartAutoRotate();
+        }
+
+        function updateDotsActive() {
+            const dotsWrap = document.getElementById('service-dots');
+            if (!dotsWrap) return;
+            const activeIdx = getActiveItemIndex();
+            Array.from(dotsWrap.children).forEach((dot, idx) => {
+                const active = idx === activeIdx;
+                dot.className = `h-2.5 rounded-full transition-all duration-300 cursor-pointer ${active ? 'w-8 bg-amber-400' : 'w-2.5 bg-white/35 hover:bg-white/65'}`;
+            });
+        }
+
+        function startAutoRotate() {
+            stopAutoRotate();
+            carouselTimer = setInterval(() => {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                trackPosition += 1;
+                setTrackPosition(trackPosition, true);
+                updateDotsActive();
+            }, AUTO_ROTATE_MS);
+        }
+
+        function stopAutoRotate() {
+            if (carouselTimer) {
+                clearInterval(carouselTimer);
+                carouselTimer = null;
+            }
+        }
+
+        function restartAutoRotate() {
+            startAutoRotate();
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.title = translations[lang].page_title;
+
+            const btnTh = document.getElementById('btn-lang-th');
+            const btnEn = document.getElementById('btn-lang-en');
+            const mobileBtnTh = document.getElementById('mobile-btn-lang-th');
+            const mobileBtnEn = document.getElementById('mobile-btn-lang-en');
+
+            if (lang === 'th') {
+                btnTh.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition';
+                btnEn.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition';
+                if (mobileBtnTh && mobileBtnEn) {
+                    mobileBtnTh.className = 'px-3 py-1 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition';
+                    mobileBtnEn.className = 'px-3 py-1 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition';
+                }
+            } else {
+                btnEn.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition';
+                btnTh.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition';
+                if (mobileBtnTh && mobileBtnEn) {
+                    mobileBtnEn.className = 'px-3 py-1 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition';
+                    mobileBtnTh.className = 'px-3 py-1 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition';
+                }
+            }
+
+            document.querySelectorAll('[data-i18n]').forEach((el) => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            const keepIdx = getActiveItemIndex();
+            trackPosition = CLONE_COUNT + keepIdx;
+            isTransitioning = false;
+            renderServiceCards();
+            renderCareerSelector();
+        }
+
+        function switchAboutTab(tabName) {
+            const tabs = ['philosophy', 'history', 'directors'];
+            tabs.forEach((name) => {
+                const panel = document.getElementById(`tab-panel-${name}`);
+                const tabBtn = document.getElementById(`tab-btn-${name}`);
+                const isActive = name === tabName;
+
+                panel.classList.toggle('hidden', !isActive);
+                if (tabBtn) {
+                    tabBtn.className = isActive
+                        ? 'px-4 py-2 rounded-lg text-sm font-semibold bg-blue-900 text-white transition'
+                        : 'px-4 py-2 rounded-lg text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
+                }
+            });
+        }
+
+        function copyText(value, msgTh, msgEn) {
+            const message = currentLang === 'en' ? msgEn : msgTh;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(value).then(() => showToast(message)).catch(() => fallbackCopy(value, message));
+            } else {
+                fallbackCopy(value, message);
+            }
+        }
+
+        function fallbackCopy(value, message) {
+            const tempInput = document.createElement('input');
+            tempInput.value = value;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(message);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('copy-toast');
+            const toastText = document.getElementById('copy-toast-text');
+            toastText.textContent = message;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+
+            clearTimeout(window.toastTimer);
+            window.toastTimer = setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 2200);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderServiceCards();
+            startAutoRotate();
+            renderCareerSelector();
+            setCareerPopupOpen(false);
+            fetchJobStatusesFromSheet();
+
+            const track = document.getElementById('service-cards-track');
+            if (track) {
+                track.addEventListener('transitionend', (e) => {
+                    if (e.propertyName === 'transform') {
+                        handleTrackLoopReset();
+                    }
+                });
+            }
+
+            const wrap = document.getElementById('service-showcase-wrap');
+            if (wrap) {
+                wrap.addEventListener('mouseenter', stopAutoRotate);
+                wrap.addEventListener('mouseleave', startAutoRotate);
+            }
+
+            const careerWrapper = document.getElementById('career-selector-wrapper');
+            if (careerWrapper) {
+                careerWrapper.addEventListener('mouseenter', () => {
+                    clearTimeout(careerHoverCloseTimer);
+                    setCareerPopupOpen(true);
+                });
+                careerWrapper.addEventListener('mouseleave', () => {
+                    careerHoverCloseTimer = setTimeout(() => {
+                        setCareerPopupOpen(false);
+                    }, 180);
+                });
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            isTransitioning = false;
+            renderServiceCards();
+            if (isCareerPopupOpen) {
+                alignApplyButtonToRow(selectedJobKey);
+            }
+        });
+    </script>
+</body>
+</html>
