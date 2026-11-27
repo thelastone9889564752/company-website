@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจองแม่บ้านสำนักงาน | บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 overflow-x-hidden">
+
+    <!-- ป๊อปอัพแจ้งเตือนอัปเดตล่าสุด -->
+    <div id="update-popup" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/50 backdrop-blur-[1px] px-4">
+        <div class="bg-blue-950 text-white border-2 border-amber-400/80 rounded-2xl shadow-2xl px-6 py-5 max-w-sm w-full text-center space-y-3">
+            <div class="w-12 h-12 mx-auto rounded-full bg-amber-500/20 border border-amber-400/60 flex items-center justify-center text-amber-400 text-xl">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <p id="update-popup-text" class="text-base sm:text-lg font-bold text-white">อัปเดตล่าสุดแล้ว</p>
+            <button type="button" id="update-popup-close" onclick="closeUpdatePopup()" class="px-4 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-xs sm:text-sm transition cursor-pointer">
+                ตกลง
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-40 w-full">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center gap-3 py-3 lg:h-20">
+                <a href="./index.html" class="flex items-center space-x-3 min-w-0">
+                    <div class="w-11 h-11 bg-white rounded-lg flex items-center justify-center border border-slate-200 shadow overflow-hidden p-1 shrink-0">
+                        <img src="./Logo customers/Logo_servex.jpg" alt="โลโก้บริษัท กรุงเทพเซอร์เว็กซ์" class="w-full h-full object-contain">
+                    </div>
+                    <div class="min-w-0">
+                        <p data-i18n="company_name_th" class="text-xs sm:text-sm font-bold text-blue-950 truncate">
+                            บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด
+                        </p>
+                        <p data-i18n="header_sub_office" class="text-[11px] text-amber-600 font-semibold truncate">
+                            ระบบจองแม่บ้านสำนักงาน (Office Housekeeping Booking • ทีมละ 5 คน)
+                        </p>
+                    </div>
+                </a>
+
+                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <a href="./index.html" data-i18n="back_home" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:text-blue-900 hover:bg-slate-100 transition whitespace-nowrap">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> กลับหน้าแรก
+                    </a>
+
+                    <a href="./housekeeping_condo.html?lang=th" id="switch-to-condo-link" data-i18n="switch_condo" class="hidden sm:inline-flex items-center px-3 py-2 rounded-lg text-xs sm:text-sm font-medium text-blue-950 bg-amber-100 hover:bg-amber-200 border border-amber-300 transition whitespace-nowrap">
+                        <i class="fa-solid fa-building mr-1.5"></i> จองแม่บ้านคอนโด
+                    </a>
+
+                    <div class="inline-flex rounded-lg bg-slate-100 p-0.5 border border-slate-200 shrink-0">
+                        <button type="button" id="btn-lang-th" onclick="setLanguage('th')" class="px-2.5 py-1.5 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition">
+                            TH
+                        </button>
+                        <button type="button" id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1.5 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition">
+                            EN
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-r from-blue-950 via-blue-900 to-slate-900 text-white py-10 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div class="max-w-2xl space-y-3">
+                <span data-i18n="hero_badge" class="inline-block px-3.5 py-1 bg-amber-500/20 border border-amber-400/50 rounded-full text-amber-300 text-xs sm:text-sm font-medium">
+                    <i class="fa-solid fa-briefcase mr-1.5"></i> บริการทำความสะอาดออฟฟิศและสำนักงาน • ทีมละ 5 คน • มาตรฐานกรุงเทพเซอร์เว็กซ์
+                </span>
+                <h1 data-i18n="hero_title" class="text-2xl sm:text-4xl font-bold leading-tight">
+                    จองบริการ <span class="text-amber-400">แม่บ้านสำนักงาน</span>
+                </h1>
+                <p data-i18n="hero_desc" class="text-slate-300 text-sm sm:text-base font-light leading-relaxed">
+                    เลือกขนาดพื้นที่สำนักงาน จำนวนทีม (ทีมละ 5 คน) รูปแบบความถี่ และช่วงเวลาที่ต้องการ พร้อมใบสรุปรายละเอียดสำหรับส่งต่อได้ทันที
+                </p>
+            </div>
+
+            <!-- การ์ดแสดงจำนวนทีมแม่บ้านสำนักงานที่พร้อมเริ่มงาน -->
+            <div class="bg-slate-900/90 border-2 border-amber-400/70 rounded-2xl p-5 sm:p-6 min-w-[290px] sm:min-w-[340px] shadow-2xl">
+                <div class="flex items-center justify-between gap-3">
+                    <span data-i18n="avail_badge_label" class="text-sm sm:text-base text-amber-300 font-bold">
+                        <i class="fa-solid fa-users-gear mr-1.5"></i> แม่บ้านพร้อมเริ่มงาน (ทีมละ 5 คน)
+                    </span>
+                    <button type="button" onclick="syncAvailableTeamsFromSheet(true)" title="รีเฟรชข้อมูลจาก Google Sheet" class="w-9 h-9 rounded-lg bg-blue-950 hover:bg-blue-800 border border-amber-400/40 text-amber-300 flex items-center justify-center transition cursor-pointer">
+                        <i id="sync-teams-icon" class="fa-solid fa-rotate text-sm"></i>
+                    </button>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2.5">
+                    <span id="hero-available-teams" class="text-5xl sm:text-6xl font-extrabold text-amber-400 leading-none">2</span>
+                    <span id="hero-available-staff-sub" class="text-base sm:text-lg font-semibold text-white">ทีม (10 คน • ทีมละ 5 คน)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Form + Live Summary -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <!-- ฟอร์มจอง (7 คอลัมน์) -->
+            <form id="office-booking-form" onsubmit="handleBookingSubmit(event)" class="lg:col-span-7 bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 sm:p-8 space-y-7">
+
+                <!-- แถบสถานะจำนวนทีมที่พร้อมเริ่มงาน (หักยอดจริงเฉพาะเมื่อยืนยันจองแล้ว) -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-blue-50 border-2 border-blue-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-12 h-12 rounded-xl bg-blue-950 text-amber-400 flex items-center justify-center text-xl shrink-0 shadow">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                        <div>
+                            <p data-i18n="form_avail_title" class="text-base sm:text-lg font-bold text-blue-950">จำนวนทีมแม่บ้านที่พร้อมเริ่มงาน (ทีมละ 5 คน)</p>
+                            <p id="form-avail-detail" class="text-sm sm:text-base font-medium text-slate-700 mt-0.5">
+                                พร้อมเริ่มงานทั้งหมด: <strong id="sheet-base-teams" class="text-blue-950 text-base sm:text-lg">2</strong> ทีม (<strong>10</strong> คน) • ใช้คิวนี้: <strong id="current-booking-need" class="text-amber-600 text-base sm:text-lg">1</strong> ทีม (<strong>5</strong> คน)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-left sm:text-right shrink-0">
+                        <span id="form-remaining-teams" class="inline-block px-4 py-2 rounded-xl bg-amber-500 text-blue-950 font-extrabold text-base sm:text-lg shadow-sm">
+                            พร้อมรับงาน 2 ทีม (10 คน)
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 1. รูปแบบบริการ -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-bold text-blue-950">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-500 text-blue-950 text-xs mr-2">1</span>
+                        <span data-i18n="sec_plan">เลือกรูปแบบการจองสำนักงาน</span>
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="relative flex items-start gap-3 p-4 rounded-xl border-2 border-amber-500 bg-amber-50/40 cursor-pointer transition" id="plan-card-onetime">
+                            <input type="radio" name="planType" value="onetime" checked onchange="recalculateEstimate()" class="mt-1 accent-amber-500">
+                            <div>
+                                <p data-i18n="plan_onetime_title" class="font-bold text-slate-900 text-sm">ทำความสะอาดรายครั้ง / Big Cleaning</p>
+                                <p data-i18n="plan_onetime_desc" class="text-xs text-slate-600 mt-0.5">เหมาะสำหรับทำความสะอาดสำนักงานรายวัน/รายครั้ง หรือก่อน-หลังย้ายออฟฟิศ</p>
+                            </div>
+                        </label>
+
+                        <label class="relative flex items-start gap-3 p-4 rounded-xl border border-slate-200 hover:border-blue-900/40 bg-white cursor-pointer transition" id="plan-card-monthly">
+                            <input type="radio" name="planType" value="monthly" onchange="recalculateEstimate()" class="mt-1 accent-amber-500">
+                            <div>
+                                <p data-i18n="plan_monthly_title" class="font-bold text-slate-900 text-sm">สัญญา/แพ็กเกจรายเดือน (4 ครั้ง/เดือน)</p>
+                                <p data-i18n="plan_monthly_desc" class="text-xs text-slate-600 mt-0.5">คุ้มค่ากว่าสำหรับดูแลพื้นที่สำนักงานต่อเนื่องทุกสัปดาห์</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 2. ขนาดพื้นที่สำนักงานและจำนวนทีม -->
+                <div class="space-y-4 pt-2 border-t border-slate-100">
+                    <label class="block text-sm font-bold text-blue-950">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-500 text-blue-950 text-xs mr-2">2</span>
+                        <span data-i18n="sec_area">ขนาดพื้นที่สำนักงานและจำนวนทีม (ทีมละ 5 คน)</span>
+                    </label>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="office-area" data-i18n="lbl_office_area" class="block text-xs font-semibold text-slate-700 mb-1.5">ขนาดพื้นที่สำนักงาน *</label>
+                            <select id="office-area" name="officeArea" onchange="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                                <option value="small" data-i18n="area_small">สำนักงานขนาดเล็ก (ไม่เกิน 80 ตร.ม.)</option>
+                                <option value="medium" data-i18n="area_medium">สำนักงานขนาดกลาง (81–180 ตร.ม.)</option>
+                                <option value="large" data-i18n="area_large">สำนักงานขนาดใหญ่ (181–350 ตร.ม.)</option>
+                                <option value="enterprise" data-i18n="area_enterprise">พื้นที่ใหญ่พิเศษ / หลายโซน (350 ตร.ม. ขึ้นไป)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="team-count" data-i18n="lbl_team_count" class="block text-xs font-semibold text-slate-700 mb-1.5">จำนวนทีมที่ต้องการ (ทีมละ 5 คน) *</label>
+                            <select id="team-count" name="teamCount" onchange="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                                <option value="1" data-i18n="team_1">1 ทีม (5 คน)</option>
+                                <option value="2" data-i18n="team_2">2 ทีม (10 คน)</option>
+                                <option value="3" data-i18n="team_3">3 ทีม (15 คน)</option>
+                                <option value="4" data-i18n="team_4">4 ทีม (20 คน)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. บริการเสริมสำหรับสำนักงาน -->
+                <div class="space-y-3 pt-2 border-t border-slate-100">
+                    <label class="block text-sm font-bold text-blue-950">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-500 text-blue-950 text-xs mr-2">3</span>
+                        <span data-i18n="sec_addons">บริการเสริมเพิ่มเติม (ถ้ามี)</span>
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+                            <input type="checkbox" name="addons" value="pantry_fridge" data-price="250" onchange="recalculateEstimate()" class="accent-amber-500 rounded">
+                            <span data-i18n="addon_pantry">ทำความสะอาดโซนแพนทรีและตู้เย็น (+250 บาท)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+                            <input type="checkbox" name="addons" value="meeting_glass" data-price="350" onchange="recalculateEstimate()" class="accent-amber-500 rounded">
+                            <span data-i18n="addon_glass">เช็ดกระจกห้องประชุมและพาร์ทิชัน (+350 บาท)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+                            <input type="checkbox" name="addons" value="restroom_deep" data-price="300" onchange="recalculateEstimate()" class="accent-amber-500 rounded">
+                            <span data-i18n="addon_restroom">ทำความสะอาดห้องน้ำสำนักงานเข้มข้น (+300 บาท)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+                            <input type="checkbox" name="addons" value="floor_polish" data-price="450" onchange="recalculateEstimate()" class="accent-amber-500 rounded">
+                            <span data-i18n="addon_floor">ขัด/ลงน้ำยาดูแลพื้นสำนักงาน (+450 บาท)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 4. วันเวลา และข้อมูลสำนักงาน -->
+                <div class="space-y-4 pt-2 border-t border-slate-100">
+                    <label class="block text-sm font-bold text-blue-950">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-500 text-blue-950 text-xs mr-2">4</span>
+                        <span data-i18n="sec_schedule">วัน-เวลาที่ต้องการรับบริการ และข้อมูลสำนักงาน</span>
+                    </label>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="booking-date" data-i18n="lbl_date" class="block text-xs font-semibold text-slate-700 mb-1.5">วันที่เข้าบริการ *</label>
+                            <input type="date" id="booking-date" name="bookingDate" required onchange="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+
+                        <div>
+                            <label for="booking-slot" data-i18n="lbl_slot" class="block text-xs font-semibold text-slate-700 mb-1.5">ช่วงเวลาที่สะดวก *</label>
+                            <select id="booking-slot" name="bookingSlot" onchange="handleSlotChange()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                <option value="08:30" data-i18n="slot_morning">ช่วงเช้า (08:30 น. เป็นต้นไป)</option>
+                                <option value="13:00" data-i18n="slot_afternoon">ช่วงบ่าย (13:00 น. เป็นต้นไป)</option>
+                                <option value="17:30" data-i18n="slot_evening">นอกเวลาทำการ / หลังเลิกงาน (17:30 น. เป็นต้นไป)</option>
+                                <option value="custom" data-i18n="slot_custom">อื่นๆ (ระบุเวลาเอง)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ช่องกรอกเวลาเอง เมื่อเลือก "อื่นๆ (ระบุเวลาเอง)" -->
+                    <div id="custom-time-wrapper" class="hidden bg-amber-50/70 border border-amber-300 rounded-xl p-3.5">
+                        <label for="custom-booking-time" data-i18n="lbl_custom_time" class="block text-xs font-semibold text-blue-950 mb-1.5">ระบุเวลาที่ต้องการรับบริการ *</label>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                            <input type="time" id="custom-booking-time" name="customBookingTime" oninput="recalculateEstimate()" onchange="recalculateEstimate()" class="w-full sm:w-48 rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            <span data-i18n="custom_time_hint" class="text-xs text-slate-600">เลือกชั่วโมงและนาทีที่ต้องการให้ทีมแม่บ้านเข้าปฏิบัติงาน</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="office-name" data-i18n="lbl_office_name" class="block text-xs font-semibold text-slate-700 mb-1.5">ชื่อบริษัท / สำนักงาน *</label>
+                            <input type="text" id="office-name" name="officeName" required oninput="recalculateEstimate()" data-i18n-placeholder="ph_office_name" placeholder="กรอกชื่อบริษัทหรือหน่วยงาน" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+
+                        <div>
+                            <label for="office-location" data-i18n="lbl_office_loc" class="block text-xs font-semibold text-slate-700 mb-1.5">อาคาร / ชั้น / ย่าน *</label>
+                            <input type="text" id="office-location" name="officeLocation" required oninput="recalculateEstimate()" data-i18n-placeholder="ph_office_loc" placeholder="ระบุชื่ออาคาร ชั้น และโซน/ทำเล" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. ข้อมูลผู้ประสานงาน -->
+                <div class="space-y-4 pt-2 border-t border-slate-100">
+                    <label class="block text-sm font-bold text-blue-950">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-500 text-blue-950 text-xs mr-2">5</span>
+                        <span data-i18n="sec_customer">ข้อมูลผู้ประสานงาน</span>
+                    </label>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="customer-name" data-i18n="lbl_name" class="block text-xs font-semibold text-slate-700 mb-1.5">ชื่อ-นามสกุลผู้ประสานงาน *</label>
+                            <input type="text" id="customer-name" name="customerName" required oninput="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+
+                        <div>
+                            <label for="customer-phone" data-i18n="lbl_phone" class="block text-xs font-semibold text-slate-700 mb-1.5">เบอร์โทรศัพท์ *</label>
+                            <input type="tel" id="customer-phone" name="customerPhone" required oninput="recalculateEstimate()" data-i18n-placeholder="ph_phone" placeholder="08X-XXX-XXXX" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="customer-line" data-i18n="lbl_line" class="block text-xs font-semibold text-slate-700 mb-1.5">LINE ID / อีเมลติดต่อ (ถ้ามี)</label>
+                            <input type="text" id="customer-line" name="customerLine" oninput="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+
+                        <div>
+                            <label for="access-procedure" data-i18n="lbl_access" class="block text-xs font-semibold text-slate-700 mb-1.5">การแลกบัตร / การเข้าพื้นที่สำนักงาน</label>
+                            <select id="access-procedure" name="accessProcedure" onchange="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                <option value="visitor_pass" data-i18n="access_visitor">แลกบัตร Visitor / แจ้งรายชื่อล่วงหน้ากับ รปภ. อาคาร</option>
+                                <option value="coordinator" data-i18n="access_coord">ผู้ประสานงานรอรับหน้าสำนักงาน</option>
+                                <option value="keycard" data-i18n="access_keycard">มีบัตร/กุญแจเปิดพื้นที่ตามที่แจ้งไว้</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="booking-note" data-i18n="lbl_note" class="block text-xs font-semibold text-slate-700 mb-1.5">หมายเหตุเพิ่มเติม</label>
+                        <textarea id="booking-note" name="bookingNote" rows="2" oninput="recalculateEstimate()" data-i18n-placeholder="ph_note" placeholder="ระบุโซนที่ต้องระวังเป็นพิเศษ อุปกรณ์ไอที/เซิร์ฟเวอร์ หรือข้อกำหนดของอาคาร" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" id="submit-booking-btn" data-i18n="submit_booking_btn" class="w-full py-3.5 px-6 rounded-xl bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-base shadow-lg transition cursor-pointer">
+                        <i class="fa-solid fa-calendar-check mr-2"></i> ยืนยันคำขอจองแม่บ้านสำนักงาน
+                    </button>
+                </div>
+            </form>
+
+            <!-- สรุปการจองแบบเรียลไทม์ (5 คอลัมน์) -->
+            <aside class="lg:col-span-5 bg-blue-950 text-white rounded-2xl shadow-xl border border-blue-800 p-6 sm:p-7 space-y-5 lg:sticky lg:top-24">
+                <div class="flex items-center justify-between border-b border-blue-800 pb-4">
+                    <div>
+                        <p class="text-xs font-semibold text-amber-400 uppercase tracking-wider">BOOKING SUMMARY</p>
+                        <h2 data-i18n="sum_heading" class="text-xl font-bold text-white mt-0.5">สรุปรายการจองสำนักงาน</h2>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-semibold">
+                        Office • 5/Team
+                    </span>
+                </div>
+
+                <dl class="space-y-3 text-sm">
+                    <div class="flex justify-between items-center gap-3 bg-blue-900/50 border border-amber-400/30 rounded-xl px-3.5 py-2.5">
+                        <dt data-i18n="sum_avail_teams" class="text-amber-200 font-semibold">ทีมพร้อมเริ่มงาน (ทีมละ 5 คน):</dt>
+                        <dd id="sum-avail-val" class="text-lg sm:text-xl font-extrabold text-amber-400 text-right">2 / 2 ทีม (10 คน)</dd>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <dt data-i18n="sum_plan" class="text-slate-300">รูปแบบ:</dt>
+                        <dd id="sum-plan-val" class="font-semibold text-white text-right">ทำความสะอาดรายครั้ง / Big Cleaning</dd>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <dt data-i18n="sum_area" class="text-slate-300">ขนาดพื้นที่:</dt>
+                        <dd id="sum-area-val" class="font-semibold text-white text-right">สำนักงานขนาดเล็ก (ไม่เกิน 80 ตร.ม.)</dd>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <dt data-i18n="sum_team" class="text-slate-300">จำนวนทีมที่ใช้ (ทีมละ 5 คน):</dt>
+                        <dd id="sum-team-val" class="font-semibold text-amber-300 text-right">1 ทีม (5 คน)</dd>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <dt data-i18n="sum_duration" class="text-slate-300">เวลาปฏิบัติงานโดยประมาณ:</dt>
+                        <dd id="sum-duration-val" class="font-semibold text-amber-300 text-right">3 ชั่วโมง</dd>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <dt data-i18n="sum_datetime" class="text-slate-300">วันและเวลา:</dt>
+                        <dd id="sum-datetime-val" class="font-semibold text-white text-right">ยังไม่ระบุวันที่</dd>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <dt data-i18n="sum_location" class="text-slate-300">สำนักงาน / พื้นที่:</dt>
+                        <dd id="sum-location-val" class="font-semibold text-white text-right">-</dd>
+                    </div>
+                </dl>
+
+                <div class="border-t border-blue-800 pt-4 space-y-2">
+                    <div class="flex items-baseline justify-between">
+                        <span data-i18n="sum_est_price" class="text-sm text-slate-300">ราคาประเมินเบื้องต้น:</span>
+                        <span id="sum-price-val" class="text-2xl font-bold text-amber-400">2,490 บาท</span>
+                    </div>
+                    <p data-i18n="sum_disclaimer" class="text-xs text-slate-400 leading-relaxed">
+                        * ราคาประเมินเบื้องต้นสำหรับประกอบการวางแผน (ทีมละ 5 คน) เจ้าหน้าที่จะติดต่อยืนยันคิว จำนวนทีม และรายละเอียดหน้างานอีกครั้ง
+                    </p>
+                </div>
+
+                <!-- กล่องใบยืนยันหลังกดส่ง -->
+                <div id="booking-result-box" class="hidden bg-slate-900/90 border border-amber-400/50 rounded-xl p-4 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span data-i18n="confirmed_badge" class="text-xs font-bold text-amber-400">
+                            <i class="fa-solid fa-circle-check mr-1"></i> บันทึกคำขอจองเรียบร้อยแล้ว
+                        </span>
+                        <span id="booking-ref-code" class="text-xs font-mono bg-blue-950 px-2 py-0.5 rounded text-amber-200">-</span>
+                    </div>
+                    <pre id="booking-summary-text" class="text-xs text-slate-200 whitespace-pre-wrap font-sans leading-relaxed bg-slate-950/60 p-3 rounded-lg border border-white/10"></pre>
+                    <button type="button" onclick="copyBookingSummary()" data-i18n="copy_summary_btn" class="w-full py-2.5 px-4 rounded-lg bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-xs sm:text-sm transition cursor-pointer">
+                        <i class="fa-regular fa-copy mr-1.5"></i> คัดลอกสรุปการจองสำหรับส่ง LINE / แชท
+                    </button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        // ใส่ URL Google Apps Script Web App สำหรับดึงจำนวนทีมแม่บ้านสำนักงาน และบันทึกการจองที่ยืนยันแล้ว
+        const OFFICE_BOOKING_API_URL = '';
+
+        // กำหนดทีมละ 5 คน และจำนวนทีมตั้งต้นกรณีที่ยังไม่เชื่อมต่อ API
+        const STAFF_PER_TEAM = 5;
+        const DEFAULT_SHEET_TEAMS = 2;
+        const BOOKINGS_STORAGE_KEY = 'servex_office_bookings_v1';
+
+        let sheetTotalTeams = DEFAULT_SHEET_TEAMS;
+        let sheetBookedTeams = 0;
+
+        const AREA_CONFIG = {
+            small:      { hours: 3, price: 2490, th: 'สำนักงานขนาดเล็ก (ไม่เกิน 80 ตร.ม.)',          en: 'Small Office (Up to 80 sq.m.)' },
+            medium:     { hours: 4, price: 3490, th: 'สำนักงานขนาดกลาง (81–180 ตร.ม.)',           en: 'Medium Office (81–180 sq.m.)' },
+            large:      { hours: 5, price: 4890, th: 'สำนักงานขนาดใหญ่ (181–350 ตร.ม.)',          en: 'Large Office (181–350 sq.m.)' },
+            enterprise: { hours: 6, price: 6590, th: 'พื้นที่ใหญ่พิเศษ / หลายโซน (350 ตร.ม. ขึ้นไป)', en: 'Enterprise / Multi-Zone (350+ sq.m.)' }
+        };
+
+        const I18N = {
+            th: {
+                page_title: 'ระบบจองแม่บ้านสำนักงาน | บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด',
+                company_name_th: 'บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด',
+                header_sub_office: 'ระบบจองแม่บ้านสำนักงาน (Office Housekeeping Booking • ทีมละ 5 คน)',
+                back_home: '<i class="fa-solid fa-arrow-left mr-1"></i> กลับหน้าแรก',
+                switch_condo: '<i class="fa-solid fa-building mr-1.5"></i> จองแม่บ้านคอนโด',
+                hero_badge: '<i class="fa-solid fa-briefcase mr-1.5"></i> บริการทำความสะอาดออฟฟิศและสำนักงาน • ทีมละ 5 คน • มาตรฐานกรุงเทพเซอร์เว็กซ์',
+                hero_title: 'จองบริการ <span class="text-amber-400">แม่บ้านสำนักงาน</span>',
+                hero_desc: 'เลือกขนาดพื้นที่สำนักงาน จำนวนทีม (ทีมละ 5 คน) รูปแบบความถี่ และช่วงเวลาที่ต้องการ พร้อมใบสรุปรายละเอียดสำหรับส่งต่อได้ทันที',
+                avail_badge_label: '<i class="fa-solid fa-users-gear mr-1.5"></i> แม่บ้านพร้อมเริ่มงาน (ทีมละ 5 คน)',
+                form_avail_title: 'จำนวนทีมแม่บ้านที่พร้อมเริ่มงาน (ทีมละ 5 คน)',
+                sec_plan: 'เลือกรูปแบบการจองสำนักงาน',
+                plan_onetime_title: 'ทำความสะอาดรายครั้ง / Big Cleaning',
+                plan_onetime_desc: 'เหมาะสำหรับทำความสะอาดสำนักงานรายวัน/รายครั้ง หรือก่อน-หลังย้ายออฟฟิศ',
+                plan_monthly_title: 'สัญญา/แพ็กเกจรายเดือน (4 ครั้ง/เดือน)',
+                plan_monthly_desc: 'คุ้มค่ากว่าสำหรับดูแลพื้นที่สำนักงานต่อเนื่องทุกสัปดาห์',
+                sec_area: 'ขนาดพื้นที่สำนักงานและจำนวนทีม (ทีมละ 5 คน)',
+                lbl_office_area: 'ขนาดพื้นที่สำนักงาน *',
+                area_small: 'สำนักงานขนาดเล็ก (ไม่เกิน 80 ตร.ม.)',
+                area_medium: 'สำนักงานขนาดกลาง (81–180 ตร.ม.)',
+                area_large: 'สำนักงานขนาดใหญ่ (181–350 ตร.ม.)',
+                area_enterprise: 'พื้นที่ใหญ่พิเศษ / หลายโซน (350 ตร.ม. ขึ้นไป)',
+                lbl_team_count: 'จำนวนทีมที่ต้องการ (ทีมละ 5 คน) *',
+                team_1: '1 ทีม (5 คน)',
+                team_2: '2 ทีม (10 คน)',
+                team_3: '3 ทีม (15 คน)',
+                team_4: '4 ทีม (20 คน)',
+                sec_addons: 'บริการเสริมเพิ่มเติม (ถ้ามี)',
+                addon_pantry: 'ทำความสะอาดโซนแพนทรีและตู้เย็น (+250 บาท)',
+                addon_glass: 'เช็ดกระจกห้องประชุมและพาร์ทิชัน (+350 บาท)',
+                addon_restroom: 'ทำความสะอาดห้องน้ำสำนักงานเข้มข้น (+300 บาท)',
+                addon_floor: 'ขัด/ลงน้ำยาดูแลพื้นสำนักงาน (+450 บาท)',
+                sec_schedule: 'วัน-เวลาที่ต้องการรับบริการ และข้อมูลสำนักงาน',
+                lbl_date: 'วันที่เข้าบริการ *',
+                lbl_slot: 'ช่วงเวลาที่สะดวก *',
+                slot_morning: 'ช่วงเช้า (08:30 น. เป็นต้นไป)',
+                slot_afternoon: 'ช่วงบ่าย (13:00 น. เป็นต้นไป)',
+                slot_evening: 'นอกเวลาทำการ / หลังเลิกงาน (17:30 น. เป็นต้นไป)',
+                slot_custom: 'อื่นๆ (ระบุเวลาเอง)',
+                lbl_custom_time: 'ระบุเวลาที่ต้องการรับบริการ *',
+                custom_time_hint: 'เลือกชั่วโมงและนาทีที่ต้องการให้ทีมแม่บ้านเข้าปฏิบัติงาน',
+                custom_time_unset: 'กรอกเวลาเอง',
+                time_suffix_th: 'น.',
+                lbl_office_name: 'ชื่อบริษัท / สำนักงาน *',
+                ph_office_name: 'กรอกชื่อบริษัทหรือหน่วยงาน',
+                lbl_office_loc: 'อาคาร / ชั้น / ย่าน *',
+                ph_office_loc: 'ระบุชื่ออาคาร ชั้น และโซน/ทำเล',
+                sec_customer: 'ข้อมูลผู้ประสานงาน',
+                lbl_name: 'ชื่อ-นามสกุลผู้ประสานงาน *',
+                lbl_phone: 'เบอร์โทรศัพท์ *',
+                ph_phone: '08X-XXX-XXXX',
+                lbl_line: 'LINE ID / อีเมลติดต่อ (ถ้ามี)',
+                lbl_access: 'การแลกบัตร / การเข้าพื้นที่สำนักงาน',
+                access_visitor: 'แลกบัตร Visitor / แจ้งรายชื่อล่วงหน้ากับ รปภ. อาคาร',
+                access_coord: 'ผู้ประสานงานรอรับหน้าสำนักงาน',
+                access_keycard: 'มีบัตร/กุญแจเปิดพื้นที่ตามที่แจ้งไว้',
+                lbl_note: 'หมายเหตุเพิ่มเติม',
+                ph_note: 'ระบุโซนที่ต้องระวังเป็นพิเศษ อุปกรณ์ไอที/เซิร์ฟเวอร์ หรือข้อกำหนดของอาคาร',
+                submit_booking_btn: '<i class="fa-solid fa-calendar-check mr-2"></i> ยืนยันคำขอจองแม่บ้านสำนักงาน',
+                sum_heading: 'สรุปรายการจองสำนักงาน',
+                sum_avail_teams: 'ทีมพร้อมเริ่มงาน (ทีมละ 5 คน):',
+                sum_plan: 'รูปแบบ:',
+                sum_area: 'ขนาดพื้นที่:',
+                sum_team: 'จำนวนทีมที่ใช้ (ทีมละ 5 คน):',
+                sum_duration: 'เวลาปฏิบัติงานโดยประมาณ:',
+                sum_datetime: 'วันและเวลา:',
+                sum_location: 'สำนักงาน / พื้นที่:',
+                sum_est_price: 'ราคาประเมินเบื้องต้น:',
+                sum_disclaimer: '* ราคาประเมินเบื้องต้นสำหรับประกอบการวางแผน (ทีมละ 5 คน) เจ้าหน้าที่จะติดต่อยืนยันคิว จำนวนทีม และรายละเอียดหน้างานอีกครั้ง',
+                confirmed_badge: '<i class="fa-solid fa-circle-check mr-1"></i> บันทึกคำขอจองเรียบร้อยแล้ว',
+                copy_summary_btn: '<i class="fa-regular fa-copy mr-1.5"></i> คัดลอกสรุปการจองสำหรับส่ง LINE / แชท',
+                hour_unit: 'ชั่วโมง',
+                baht_unit: 'บาท',
+                team_unit: 'ทีม',
+                person_unit: 'คน',
+                per_team_label: 'ทีมละ 5 คน',
+                no_date: 'ยังไม่ระบุวันที่',
+                copied_msg: 'คัดลอกสรุปการจองเรียบร้อยแล้ว',
+                updated_popup_msg: 'อัปเดตล่าสุดแล้ว',
+                popup_close_btn: 'ตกลง'
+            },
+            en: {
+                page_title: 'Office Housekeeping Booking | Bangkok Servex Security Guard and Business Services Co., Ltd.',
+                company_name_th: 'Bangkok Servex Security Guard and Business Services Co., Ltd.',
+                header_sub_office: 'Office Housekeeping Booking System (5 Staff / Team)',
+                back_home: '<i class="fa-solid fa-arrow-left mr-1"></i> Back to Home',
+                switch_condo: '<i class="fa-solid fa-building mr-1.5"></i> Condo Booking',
+                hero_badge: '<i class="fa-solid fa-briefcase mr-1.5"></i> Office & Workplace Cleaning • 5 Staff / Team • Bangkok Servex Standard',
+                hero_title: 'Book <span class="text-amber-400">Office Housekeeping</span>',
+                hero_desc: 'Select office area, number of teams (5 staff/team), plan frequency, and preferred time slot with instant summary.',
+                avail_badge_label: '<i class="fa-solid fa-users-gear mr-1.5"></i> Available Teams (5 Staff/Team)',
+                form_avail_title: 'Available Housekeeping Teams (5 Staff / Team)',
+                sec_plan: 'Select Office Booking Type',
+                plan_onetime_title: 'One-Time / Big Cleaning',
+                plan_onetime_desc: 'Ideal for single visits, move-in/out, or deep office cleanup',
+                plan_monthly_title: 'Monthly Package (4 Visits / Month)',
+                plan_monthly_desc: 'Better value for recurring weekly office maintenance',
+                sec_area: 'Office Area & Teams (5 Staff / Team)',
+                lbl_office_area: 'Office Area *',
+                area_small: 'Small Office (Up to 80 sq.m.)',
+                area_medium: 'Medium Office (81–180 sq.m.)',
+                area_large: 'Large Office (181–350 sq.m.)',
+                area_enterprise: 'Enterprise / Multi-Zone (350+ sq.m.)',
+                lbl_team_count: 'Number of Teams (5 Staff / Team) *',
+                team_1: '1 Team (5 Staff)',
+                team_2: '2 Teams (10 Staff)',
+                team_3: '3 Teams (15 Staff)',
+                team_4: '4 Teams (20 Staff)',
+                sec_addons: 'Optional Add-Ons',
+                addon_pantry: 'Pantry & Refrigerator Cleaning (+250 THB)',
+                addon_glass: 'Meeting Room Glass & Partitions (+350 THB)',
+                addon_restroom: 'Intensive Office Restroom Cleaning (+300 THB)',
+                addon_floor: 'Office Floor Buffing / Treatment (+450 THB)',
+                sec_schedule: 'Preferred Schedule & Office Details',
+                lbl_date: 'Service Date *',
+                lbl_slot: 'Time Slot *',
+                slot_morning: 'Morning (08:30 onwards)',
+                slot_afternoon: 'Afternoon (13:00 onwards)',
+                slot_evening: 'After Hours / Evening (17:30 onwards)',
+                slot_custom: 'Other (Custom Time)',
+                lbl_custom_time: 'Specify Preferred Time *',
+                custom_time_hint: 'Choose the exact hour and minute for team arrival',
+                custom_time_unset: 'Custom time',
+                time_suffix_th: '',
+                lbl_office_name: 'Company / Office Name *',
+                ph_office_name: 'Enter company or organization name',
+                lbl_office_loc: 'Building / Floor / Area *',
+                ph_office_loc: 'Enter building, floor, and district/zone',
+                sec_customer: 'Coordinator Information',
+                lbl_name: 'Coordinator Full Name *',
+                lbl_phone: 'Phone Number *',
+                ph_phone: '08X-XXX-XXXX',
+                lbl_line: 'LINE ID / Email (Optional)',
+                lbl_access: 'Building Access / Visitor Pass',
+                access_visitor: 'Visitor pass / advance list with building security',
+                access_coord: 'Coordinator meets team at office entrance',
+                access_keycard: 'Access card / key arranged in advance',
+                lbl_note: 'Additional Notes',
+                ph_note: 'Specify sensitive zones, IT/server areas, or building rules',
+                submit_booking_btn: '<i class="fa-solid fa-calendar-check mr-2"></i> Submit Office Booking Request',
+                sum_heading: 'Office Booking Summary',
+                sum_avail_teams: 'Available Teams (5/Team):',
+                sum_plan: 'Type:',
+                sum_area: 'Office Area:',
+                sum_team: 'Teams Needed (5/Team):',
+                sum_duration: 'Estimated Duration:',
+                sum_datetime: 'Date & Slot:',
+                sum_location: 'Office / Area:',
+                sum_est_price: 'Estimated Price:',
+                sum_disclaimer: '* Estimated price for planning purposes (5 staff per team). Our team will confirm schedule, team count, and site details.',
+                confirmed_badge: '<i class="fa-solid fa-circle-check mr-1"></i> Booking Request Prepared',
+                copy_summary_btn: '<i class="fa-regular fa-copy mr-1.5"></i> Copy Summary for LINE / Chat',
+                hour_unit: 'hrs',
+                baht_unit: 'THB',
+                team_unit: 'teams',
+                person_unit: 'staff',
+                per_team_label: '5 staff/team',
+                no_date: 'Date not selected',
+                copied_msg: 'Booking summary copied',
+                updated_popup_msg: 'Updated to latest',
+                popup_close_btn: 'OK'
+            }
+        };
+
+        let currentLang = 'th';
+
+        function handleSlotChange() {
+            const slotVal = document.getElementById('booking-slot')?.value || '08:30';
+            const wrapper = document.getElementById('custom-time-wrapper');
+            const customInput = document.getElementById('custom-booking-time');
+            const isCustom = slotVal === 'custom';
+
+            if (wrapper) {
+                wrapper.classList.toggle('hidden', !isCustom);
+            }
+            if (customInput) {
+                customInput.required = isCustom;
+                if (isCustom && !customInput.value) {
+                    customInput.focus();
+                }
+            }
+            recalculateEstimate();
+        }
+
+        function getFormattedSlotDisplay(slotVal, slotOptionText, customTimeVal, dict) {
+            if (slotVal === 'custom') {
+                if (customTimeVal) {
+                    const suffix = dict.time_suffix_th ? ` ${dict.time_suffix_th}` : '';
+                    return currentLang === 'en'
+                        ? `${dict.custom_time_unset}: ${customTimeVal}`
+                        : `${dict.custom_time_unset} (${customTimeVal}${suffix})`;
+                }
+                return dict.custom_time_unset;
+            }
+            return slotOptionText;
+        }
+
+        function readConfirmedBookings() {
+            try {
+                const raw = localStorage.getItem(BOOKINGS_STORAGE_KEY);
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (_) {
+                return [];
+            }
+        }
+
+        function saveConfirmedBooking(entry) {
+            const list = readConfirmedBookings();
+            list.push(entry);
+            try {
+                localStorage.setItem(BOOKINGS_STORAGE_KEY, JSON.stringify(list));
+            } catch (_) {
+                // เงียบไว้หากไม่สามารถเขียน localStorage ได้
+            }
+        }
+
+        // หักเฉพาะยอดทีมที่ "ยืนยันจองแล้ว" ในวันและช่วงเวลาเดียวกัน (ไม่หักคนเปิดฟอร์มค้างไว้)
+        function getConfirmedTeamsUsed(dateVal, slotKey) {
+            const confirmedList = readConfirmedBookings();
+            let localConfirmedTeams = 0;
+
+            if (dateVal) {
+                localConfirmedTeams = confirmedList
+                    .filter((b) => b.bookingDate === dateVal && (!slotKey || b.bookingSlotKey === slotKey))
+                    .reduce((sum, b) => sum + (Number(b.teamsUsed) || 1), 0);
+            }
+
+            return (Number(sheetBookedTeams) || 0) + localConfirmedTeams;
+        }
+
+        function getRequiredTeamsForForm() {
+            const val = parseInt(document.getElementById('team-count')?.value || '1', 10);
+            return Number.isNaN(val) || val < 1 ? 1 : val;
+        }
+
+        function updateTeamAvailabilityUI(dateVal, slotKey, needTeams) {
+            const dict = I18N[currentLang] || I18N.th;
+            const totalSheetTeams = Math.max(0, Number(sheetTotalTeams) || 0);
+            const confirmedUsedTeams = getConfirmedTeamsUsed(dateVal, slotKey);
+
+            // ยอดทีมพร้อมเริ่มงานจริงหลังหักเฉพาะคิวที่ยืนยันจองแล้ว
+            const availableTeamsNow = Math.max(0, totalSheetTeams - confirmedUsedTeams);
+            const availableStaffNow = availableTeamsNow * STAFF_PER_TEAM;
+            const totalSheetStaff = totalSheetTeams * STAFF_PER_TEAM;
+            const needStaff = needTeams * STAFF_PER_TEAM;
+
+            const heroNumEl = document.getElementById('hero-available-teams');
+            const heroSubEl = document.getElementById('hero-available-staff-sub');
+            const detailEl = document.getElementById('form-avail-detail');
+            const remBadgeEl = document.getElementById('form-remaining-teams');
+            const sumAvailEl = document.getElementById('sum-avail-val');
+            const submitBtn = document.getElementById('submit-booking-btn');
+
+            if (heroNumEl) heroNumEl.textContent = String(availableTeamsNow);
+            if (heroSubEl) {
+                heroSubEl.textContent = currentLang === 'en'
+                    ? `${dict.team_unit} (${availableStaffNow} ${dict.person_unit} • ${dict.per_team_label})`
+                    : `${dict.team_unit} (${availableStaffNow} ${dict.person_unit} • ${dict.per_team_label})`;
+            }
+
+            if (detailEl) {
+                detailEl.innerHTML = currentLang === 'en'
+                    ? `Ready now: <strong class="text-blue-950 text-base sm:text-lg">${totalSheetTeams}</strong> ${dict.team_unit} (<strong>${totalSheetStaff}</strong> ${dict.person_unit}) • This booking: <strong class="text-amber-600 text-base sm:text-lg">${needTeams}</strong> ${dict.team_unit} (<strong>${needStaff}</strong> ${dict.person_unit})`
+                    : `พร้อมเริ่มงานทั้งหมด: <strong class="text-blue-950 text-base sm:text-lg">${totalSheetTeams}</strong> ${dict.team_unit} (<strong>${totalSheetStaff}</strong> ${dict.person_unit}) • ใช้คิวนี้: <strong class="text-amber-600 text-base sm:text-lg">${needTeams}</strong> ${dict.team_unit} (<strong>${needStaff}</strong> ${dict.person_unit})`;
+            }
+
+            if (remBadgeEl) {
+                remBadgeEl.textContent = currentLang === 'en'
+                    ? `${availableTeamsNow} ${dict.team_unit} (${availableStaffNow} ${dict.person_unit}) ready`
+                    : `พร้อมรับงาน ${availableTeamsNow} ${dict.team_unit} (${availableStaffNow} ${dict.person_unit})`;
+                remBadgeEl.className = availableTeamsNow >= needTeams && availableTeamsNow > 0
+                    ? 'inline-block px-4 py-2 rounded-xl bg-amber-500 text-blue-950 font-extrabold text-base sm:text-lg shadow-sm'
+                    : 'inline-block px-4 py-2 rounded-xl bg-red-100 text-red-700 border border-red-300 font-extrabold text-base sm:text-lg';
+            }
+
+            if (sumAvailEl) {
+                sumAvailEl.textContent = currentLang === 'en'
+                    ? `${availableTeamsNow} / ${totalSheetTeams} ${dict.team_unit} (${availableStaffNow} ${dict.person_unit})`
+                    : `${availableTeamsNow} / ${totalSheetTeams} ${dict.team_unit} (${availableStaffNow} ${dict.person_unit})`;
+            }
+
+            if (submitBtn) {
+                const canBook = availableTeamsNow >= needTeams && availableTeamsNow > 0;
+                submitBtn.disabled = !canBook;
+                submitBtn.classList.toggle('opacity-60', !canBook);
+                submitBtn.classList.toggle('cursor-not-allowed', !canBook);
+            }
+
+            return {
+                totalSheetTeams,
+                totalSheetStaff,
+                confirmedUsedTeams,
+                needTeams,
+                needStaff,
+                availableTeamsNow,
+                availableStaffNow
+            };
+        }
+
+        function applySheetTeamPayload(data) {
+            if (!data || typeof data !== 'object') return;
+            if (typeof data.availableTeams === 'number') {
+                sheetTotalTeams = Math.max(0, data.availableTeams);
+            } else if (typeof data.totalTeams === 'number') {
+                sheetTotalTeams = Math.max(0, data.totalTeams);
+            } else if (typeof data.availableMaids === 'number') {
+                sheetTotalTeams = Math.max(0, Math.floor(data.availableMaids / STAFF_PER_TEAM));
+            }
+
+            if (typeof data.confirmedBookedTeams === 'number') {
+                sheetBookedTeams = Math.max(0, data.confirmedBookedTeams);
+            } else if (typeof data.bookedTeams === 'number') {
+                sheetBookedTeams = Math.max(0, data.bookedTeams);
+            } else if (typeof data.bookedCount === 'number') {
+                sheetBookedTeams = Math.max(0, Math.floor(data.bookedCount / STAFF_PER_TEAM));
+            }
+            recalculateEstimate();
+        }
+
+        function fetchTeamsViaJsonp(timeoutMs = 4500) {
+            return new Promise((resolve) => {
+                if (!OFFICE_BOOKING_API_URL) return resolve(false);
+                const cbName = `servexOfficeTeamsCb_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+                const script = document.createElement('script');
+                let settled = false;
+
+                const cleanup = () => {
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                    try { delete window[cbName]; } catch (_) { window[cbName] = undefined; }
+                };
+
+                const timer = setTimeout(() => {
+                    if (!settled) {
+                        settled = true;
+                        cleanup();
+                        resolve(false);
+                    }
+                }, timeoutMs);
+
+                window[cbName] = (data) => {
+                    if (settled) return;
+                    settled = true;
+                    clearTimeout(timer);
+                    cleanup();
+                    applySheetTeamPayload(data);
+                    resolve(true);
+                };
+
+                const dateVal = encodeURIComponent(document.getElementById('booking-date')?.value || '');
+                const slotEl = document.getElementById('booking-slot');
+                const slotVal = slotEl?.value || '08:30';
+                const customTimeVal = document.getElementById('custom-booking-time')?.value || '';
+                const slotKey = encodeURIComponent(slotVal === 'custom' && customTimeVal ? `custom:${customTimeVal}` : slotVal);
+                const sep = OFFICE_BOOKING_API_URL.includes('?') ? '&' : '?';
+                script.src = `${OFFICE_BOOKING_API_URL}${sep}action=office_availability&date=${dateVal}&slot=${slotKey}&callback=${encodeURIComponent(cbName)}&_=${Date.now()}`;
+                script.onerror = () => {
+                    if (!settled) {
+                        settled = true;
+                        clearTimeout(timer);
+                        cleanup();
+                        resolve(false);
+                    }
+                };
+                document.body.appendChild(script);
+            });
+        }
+
+        async function syncAvailableTeamsFromSheet(notify = false) {
+            const icon = document.getElementById('sync-teams-icon');
+            if (icon) icon.classList.add('fa-spin');
+
+            try {
+                if (!OFFICE_BOOKING_API_URL) {
+                    recalculateEstimate();
+                    if (notify) openUpdatePopup((I18N[currentLang] || I18N.th).updated_popup_msg);
+                    return;
+                }
+
+                const okJsonp = await fetchTeamsViaJsonp(4500);
+                if (!okJsonp) {
+                    const dateVal = encodeURIComponent(document.getElementById('booking-date')?.value || '');
+                    const slotEl = document.getElementById('booking-slot');
+                    const slotVal = slotEl?.value || '08:30';
+                    const customTimeVal = document.getElementById('custom-booking-time')?.value || '';
+                    const slotKey = encodeURIComponent(slotVal === 'custom' && customTimeVal ? `custom:${customTimeVal}` : slotVal);
+                    const sep = OFFICE_BOOKING_API_URL.includes('?') ? '&' : '?';
+                    const res = await fetch(`${OFFICE_BOOKING_API_URL}${sep}action=office_availability&date=${dateVal}&slot=${slotKey}&_=${Date.now()}`, {
+                        method: 'GET',
+                        cache: 'no-store'
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        applySheetTeamPayload(data);
+                    }
+                }
+                if (notify) openUpdatePopup((I18N[currentLang] || I18N.th).updated_popup_msg);
+            } catch (_) {
+                // ใช้ค่าล่าสุดที่มีอยู่
+            } finally {
+                if (icon) icon.classList.remove('fa-spin');
+            }
+        }
+
+        function getBookingDetails() {
+            const dict = I18N[currentLang] || I18N.th;
+            const planVal = document.querySelector('input[name="planType"]:checked')?.value || 'onetime';
+            const areaKey = document.getElementById('office-area')?.value || 'small';
+            const needTeams = getRequiredTeamsForForm();
+            const needStaff = needTeams * STAFF_PER_TEAM;
+            const areaCfg = AREA_CONFIG[areaKey] || AREA_CONFIG.small;
+
+            const extraTeamPrice = needTeams > 1 ? (needTeams - 1) * 2200 : 0;
+
+            let addonsPrice = 0;
+            const addonLabels = [];
+            document.querySelectorAll('input[name="addons"]:checked').forEach((cb) => {
+                addonsPrice += parseInt(cb.getAttribute('data-price') || '0', 10);
+                const labelText = cb.parentElement?.innerText?.trim();
+                if (labelText) addonLabels.push(labelText);
+            });
+
+            const oneTimePrice = areaCfg.price + extraTeamPrice + addonsPrice;
+            const isMonthly = planVal === 'monthly';
+            const totalPrice = isMonthly ? Math.round(oneTimePrice * 4 * 0.9) : oneTimePrice;
+            const totalHours = areaCfg.hours;
+
+            const dateVal = document.getElementById('booking-date')?.value || '';
+            const slotEl = document.getElementById('booking-slot');
+            const slotVal = slotEl?.value || '08:30';
+            const slotOptionText = slotEl?.options[slotEl.selectedIndex]?.text || '';
+            const customTimeVal = document.getElementById('custom-booking-time')?.value.trim() || '';
+            const slotText = getFormattedSlotDisplay(slotVal, slotOptionText, customTimeVal, dict);
+            const slotKey = slotVal === 'custom' && customTimeVal ? `custom:${customTimeVal}` : slotVal;
+
+            const officeName = document.getElementById('office-name')?.value.trim() || '';
+            const officeLocation = document.getElementById('office-location')?.value.trim() || '';
+            const customerName = document.getElementById('customer-name')?.value.trim() || '';
+            const customerPhone = document.getElementById('customer-phone')?.value.trim() || '';
+            const customerLine = document.getElementById('customer-line')?.value.trim() || '-';
+            const accessEl = document.getElementById('access-procedure');
+            const accessText = accessEl?.options[accessEl.selectedIndex]?.text || '';
+            const note = document.getElementById('booking-note')?.value.trim() || '-';
+
+            const teamInfo = updateTeamAvailabilityUI(dateVal, slotKey, needTeams);
+
+            return {
+                dict,
+                planVal,
+                planLabel: isMonthly ? dict.plan_monthly_title : dict.plan_onetime_title,
+                areaLabel: currentLang === 'en' ? areaCfg.en : areaCfg.th,
+                needTeams,
+                needStaff,
+                totalHours,
+                totalPrice,
+                dateVal,
+                slotVal,
+                slotKey,
+                customTimeVal,
+                slotText,
+                officeName,
+                officeLocation,
+                addonLabels,
+                customerName,
+                customerPhone,
+                customerLine,
+                accessText,
+                note,
+                teamInfo
+            };
+        }
+
+        function recalculateEstimate() {
+            const planVal = document.querySelector('input[name="planType"]:checked')?.value || 'onetime';
+            const cardOne = document.getElementById('plan-card-onetime');
+            const cardMon = document.getElementById('plan-card-monthly');
+            if (cardOne && cardMon) {
+                cardOne.className = `relative flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition ${planVal === 'onetime' ? 'border-2 border-amber-500 bg-amber-50/40' : 'border-slate-200 hover:border-blue-900/40 bg-white'}`;
+                cardMon.className = `relative flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition ${planVal === 'monthly' ? 'border-2 border-amber-500 bg-amber-50/40' : 'border-slate-200 hover:border-blue-900/40 bg-white'}`;
+            }
+
+            const d = getBookingDetails();
+            document.getElementById('sum-plan-val').textContent = d.planLabel;
+            document.getElementById('sum-area-val').textContent = d.areaLabel;
+            document.getElementById('sum-team-val').textContent = `${d.needTeams} ${d.dict.team_unit} (${d.needStaff} ${d.dict.person_unit} • ${d.dict.per_team_label})`;
+            document.getElementById('sum-duration-val').textContent = `${d.totalHours} ${d.dict.hour_unit}`;
+            document.getElementById('sum-datetime-val').textContent = d.dateVal ? `${d.dateVal} • ${d.slotText}` : d.dict.no_date;
+            document.getElementById('sum-location-val').textContent = (d.officeName || d.officeLocation) ? `${d.officeName} (${d.officeLocation})` : '-';
+            document.getElementById('sum-price-val').textContent = `${d.totalPrice.toLocaleString()} ${d.dict.baht_unit}`;
+        }
+
+        function buildBookingMessage(refCode, d) {
+            const leftTeamsAfterConfirm = Math.max(0, d.teamInfo.availableTeamsNow - d.teamInfo.needTeams);
+            const leftStaffAfterConfirm = leftTeamsAfterConfirm * STAFF_PER_TEAM;
+            const lines = [
+                `[${refCode}] จองแม่บ้านสำนักงาน (Bangkok Servex • ทีมละ 5 คน)`,
+                `• รูปแบบ: ${d.planLabel}`,
+                `• ขนาดพื้นที่: ${d.areaLabel}`,
+                `• จำนวนทีมที่ใช้: ${d.needTeams} ทีม (${d.needStaff} คน • ทีมละ 5 คน) / คงเหลือหลังยืนยัน ${leftTeamsAfterConfirm} ทีม (${leftStaffAfterConfirm} คน)`,
+                `• เวลาปฏิบัติงานโดยประมาณ: ${d.totalHours} ${d.dict.hour_unit}`,
+                `• วัน-เวลา: ${d.dateVal || '-'} (${d.slotText})`,
+                `• สำนักงาน / พื้นที่: ${d.officeName} / ${d.officeLocation}`,
+                `• บริการเสริม: ${d.addonLabels.length ? d.addonLabels.join(', ') : '-'}`,
+                `• การเข้าพื้นที่: ${d.accessText}`,
+                `• ผู้ประสานงาน: ${d.customerName} (${d.customerPhone})`,
+                `• LINE / อีเมล: ${d.customerLine}`,
+                `• หมายเหตุ: ${d.note}`,
+                `• ราคาประเมินเบื้องต้น: ${d.totalPrice.toLocaleString()} ${d.dict.baht_unit}`
+            ];
+            return lines.join('\n');
+        }
+
+        async function handleBookingSubmit(event) {
+            event.preventDefault();
+            const d = getBookingDetails();
+            if (d.teamInfo.availableTeamsNow < d.teamInfo.needTeams) return;
+
+            const refCode = `SVX-OFC-${Date.now().toString().slice(-6)}`;
+
+            // บันทึกและหักคิวทีมจริงเฉพาะเมื่อผู้ใช้กดยืนยันคำขอจองแล้วเท่านั้น
+            saveConfirmedBooking({
+                refCode,
+                status: 'confirmed',
+                bookingDate: d.dateVal,
+                bookingSlotKey: d.slotKey,
+                bookingSlot: d.slotText,
+                customTime: d.customTimeVal,
+                staffPerTeam: STAFF_PER_TEAM,
+                teamsUsed: d.needTeams,
+                staffUsed: d.needStaff,
+                planType: d.planVal
+            });
+
+            const summaryText = buildBookingMessage(refCode, d);
+            recalculateEstimate();
+
+            if (OFFICE_BOOKING_API_URL) {
+                try {
+                    await fetch(OFFICE_BOOKING_API_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            refCode,
+                            status: 'confirmed',
+                            category: 'office',
+                            planType: d.planVal,
+                            officeArea: d.areaLabel,
+                            staffPerTeam: STAFF_PER_TEAM,
+                            teamsUsed: d.needTeams,
+                            staffUsed: d.needStaff,
+                            estimatedHours: d.totalHours,
+                            estimatedPrice: d.totalPrice,
+                            bookingDate: d.dateVal,
+                            bookingSlot: d.slotText,
+                            customTime: d.customTimeVal,
+                            officeName: d.officeName,
+                            officeLocation: d.officeLocation,
+                            addons: d.addonLabels.join(', '),
+                            accessProcedure: d.accessText,
+                            customerName: d.customerName,
+                            customerPhone: d.customerPhone,
+                            customerLine: d.customerLine,
+                            note: d.note
+                        })
+                    });
+                } catch (_) {
+                    // เงียบไว้หากยังไม่ได้เปิดใช้งาน endpoint
+                }
+            }
+
+            document.getElementById('booking-ref-code').textContent = refCode;
+            document.getElementById('booking-summary-text').textContent = summaryText;
+            document.getElementById('booking-result-box').classList.remove('hidden');
+            document.getElementById('booking-result-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function copyBookingSummary() {
+            const txt = document.getElementById('booking-summary-text')?.textContent || '';
+            const msg = (I18N[currentLang] || I18N.th).copied_msg;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(txt).then(() => openUpdatePopup(msg)).catch(() => openUpdatePopup(msg));
+            } else {
+                openUpdatePopup(msg);
+            }
+        }
+
+        function openUpdatePopup(msg) {
+            const popup = document.getElementById('update-popup');
+            const text = document.getElementById('update-popup-text');
+            if (!popup || !text) return;
+            text.textContent = msg;
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
+            clearTimeout(window.popupTimer);
+            window.popupTimer = setTimeout(() => {
+                closeUpdatePopup();
+            }, 1800);
+        }
+
+        function closeUpdatePopup() {
+            const popup = document.getElementById('update-popup');
+            if (!popup) return;
+            clearTimeout(window.popupTimer);
+            popup.classList.add('hidden');
+            popup.classList.remove('flex');
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang === 'en' ? 'en' : 'th';
+            document.documentElement.lang = currentLang;
+            const dict = I18N[currentLang];
+            document.title = dict.page_title;
+
+            const btnTh = document.getElementById('btn-lang-th');
+            const btnEn = document.getElementById('btn-lang-en');
+            if (currentLang === 'th') {
+                btnTh.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition';
+                btnEn.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition';
+            } else {
+                btnEn.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition';
+                btnTh.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition';
+            }
+
+            const condoLink = document.getElementById('switch-to-condo-link');
+            if (condoLink) {
+                condoLink.href = `./housekeeping_condo.html?lang=${encodeURIComponent(currentLang)}`;
+            }
+
+            document.querySelectorAll('[data-i18n]').forEach((el) => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.innerHTML = dict[key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (dict[key]) {
+                    el.setAttribute('placeholder', dict[key]);
+                }
+            });
+
+            const closeBtn = document.getElementById('update-popup-close');
+            if (closeBtn && dict.popup_close_btn) {
+                closeBtn.textContent = dict.popup_close_btn;
+            }
+
+            recalculateEstimate();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlLang = new URLSearchParams(window.location.search).get('lang');
+            setLanguage(urlLang === 'en' ? 'en' : 'th');
+            handleSlotChange();
+            syncAvailableTeamsFromSheet(false);
+        });
+    </script>
+</body>
+</html>

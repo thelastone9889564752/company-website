@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจองแม่บ้านคอนโด | บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 overflow-x-hidden">
+
+    <!-- ป๊อปอัพแจ้งเตือนอัปเดตล่าสุด -->
+    <div id="update-popup" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/50 backdrop-blur-[1px] px-4">
+        <div class="bg-blue-950 text-white border-2 border-amber-400/80 rounded-2xl shadow-2xl px-6 py-5 max-w-sm w-full text-center space-y-3">
+            <div class="w-12 h-12 mx-auto rounded-full bg-amber-500/20 border border-amber-400/60 flex items-center justify-center text-amber-400 text-xl">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <p id="update-popup-text" class="text-base sm:text-lg font-bold text-white">อัปเดตล่าสุดแล้ว</p>
+            <button type="button" id="update-popup-close" onclick="closeUpdatePopup()" class="px-4 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-xs sm:text-sm transition cursor-pointer">
+                ตกลง
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-40 w-full">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center gap-3 py-3 lg:h-20">
+                <a href="./index.html" class="flex items-center space-x-3 min-w-0">
+                    <div class="w-11 h-11 bg-white rounded-lg flex items-center justify-center border border-slate-200 shadow overflow-hidden p-1 shrink-0">
+                        <img src="./Logo customers/Logo_servex.jpg" alt="โลโก้บริษัท กรุงเทพเซอร์เว็กซ์" class="w-full h-full object-contain">
+                    </div>
+                    <div class="min-w-0">
+                        <p data-i18n="company_name_th" class="text-xs sm:text-sm font-bold text-blue-950 truncate">
+                            บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด
+                        </p>
+                        <p data-i18n="header_sub_condo" class="text-[11px] text-amber-600 font-semibold truncate">
+                            ระบบจองแม่บ้านคอนโด (Condo Housekeeping Booking)
+                        </p>
+                    </div>
+                </a>
+
+                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <a href="./index.html" data-i18n="back_home" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:text-blue-900 hover:bg-slate-100 transition whitespace-nowrap">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> กลับหน้าแรก
+                    </a>
+
+                    <a href="./housekeeping_office.html?lang=th" id="switch-to-office-link" data-i18n="switch_office" class="hidden sm:inline-flex items-center px-3 py-2 rounded-lg text-xs sm:text-sm font-medium text-blue-950 bg-amber-100 hover:bg-amber-200 border border-amber-300 transition whitespace-nowrap">
+                        <i class="fa-solid fa-briefcase mr-1.5"></i> จองแม่บ้านสำนักงาน
+                    </a>
+
+                    <div class="inline-flex rounded-lg bg-slate-100 p-0.5 border border-slate-200 shrink-0">
+                        <button type="button" id="btn-lang-th" onclick="setLanguage('th')" class="px-2.5 py-1.5 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition">
+                            TH
+                        </button>
+                        <button type="button" id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1.5 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition">
+                            EN
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-r from-blue-950 via-blue-900 to-slate-900 text-white py-10 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div class="max-w-2xl space-y-3">
+                <span data-i18n="hero_badge" class="inline-block px-3.5 py-1 bg-amber-500/20 border border-amber-400/50 rounded-full text-amber-300 text-xs sm:text-sm font-medium">
+                    <i class="fa-solid fa-building mr-1.5"></i> บริการทำความสะอาดห้องพักคอนโดมิเนียม • มาตรฐานกรุงเทพเซอร์เว็กซ์
+                </span>
+                <h1 data-i18n="hero_title" class="text-2xl sm:text-4xl font-bold leading-tight">
+                    จองบริการ <span class="text-amber-400">แม่บ้านคอนโด</span>
+                </h1>
+                <p data-i18n="hero_desc" class="text-slate-300 text-sm sm:text-base font-light leading-relaxed">
+                    เลือกขนาดห้องพัก วัน-เวลาเข้าทำความสะอาด และบริการเสริมได้ตามต้องการ พร้อมสรุปรายละเอียดการจองและส่งข้อมูลได้ทันที
+                </p>
+            </div>
+
+            <!-- การ์ดแสดงจำนวนแม่บ้านที่พร้อมเริ่มงาน -->
+            <div class="bg-slate-900/90 border-2 border-amber-400/70 rounded-2xl p-5 sm:p-6 min-w-[290px] sm:min-w-[330px] shadow-2xl">
+                <div class="flex items-center justify-between gap-3">
+                    <span data-i18n="avail_badge_label" class="text-sm sm:text-base text-amber-300 font-bold">
+                        <i class="fa-solid fa-users-gear mr-1.5"></i> แม่บ้านพร้อมเริ่มงาน
+                    </span>
+                    <button type="button" onclick="syncAvailableMaidsFromSheet(true)" title="รีเฟรชข้อมูลจาก Google Sheet" class="w-9 h-9 rounded-lg bg-blue-950 hover:bg-blue-800 border border-amber-400/40 text-amber-300 flex items-center justify-center transition cursor-pointer">
+                        <i id="sync-maids-icon" class="fa-solid fa-rotate text-sm"></i>
+                    </button>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2.5">
+                    <span id="hero-available-maids" class="text-5xl sm:text-6xl font-extrabold text-amber-400 leading-none">6</span>
+                    <span data-i18n="avail_unit_suffix" class="text-base sm:text-lg font-semibold text-white">คน (พร้อมเริ่มงาน)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Form + Live Summary -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <!-- ฟอร์มจอง (7 คอลัมน์) -->
+            <form id="condo-booking-form" onsubmit="handleBookingSubmit(event)" class="lg:col-span-7 bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 sm:p-8 space-y-7">
+
+                <!-- แถบสถานะจำนวนแม่บ้านที่พร้อมเริ่มงาน (หักยอดจริงเฉพาะเมื่อยืนยันจองแล้ว) -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-blue-50 border-2 border-blue-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-12 h-12 rounded-xl bg-blue-950 text-amber-400 flex items-center justify-center text-xl shrink-0 shadow">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                        <div>
+                            <p data-i18n="form_avail_title" class="text-base sm:text-lg font-bold text-blue-950">จำนวนแม่บ้านที่พร้อมเริ่มงาน</p>
+                            <p id="form-avail-detail" class="text-sm sm:text-base font-medium text-slate-700 mt-0.5">
+                                ยอดลงชื่อทั้งหมด: <strong id="sheet-base-maids" class="text-blue-950 text-base sm:text-lg">6</strong> คน • ใช้คิวนี้: <strong id="current-booking-need" class="text-amber-600 text-base sm:text-lg">1</strong> คน
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-left sm:text-right shrink-0">
+                        <span id="form-remaining-maids" class="inline-block px-4 py-2 rounded-xl bg-amber-500 text-blue-950 font-extrabold text-base sm:text-lg shadow-sm">
+                            พร้อมรับงาน 6 คน
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 1. รูปแบบบริการ -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-bold text-blue-950">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-500 text-blue-950 text-xs mr-2">1</span>
+                        <span data-i18n="sec_plan">เลือกรูปแบบการจอง</span>
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="relative flex items-start gap-3 p-4 rounded-xl border-2 border-amber-500 bg-amber-50/40 cursor-pointer transition" id="plan-card-onetime">
+                            <input type="radio" name="planType" value="onetime" checked onchange="recalculateEstimate()" class="mt-1 accent-amber-500">
+                            <div>
+                                <p data-i18n="plan_onetime_title" class="font-bold text-slate-900 text-sm">ทำความสะอาดรายครั้ง</p>
+                                <p data-i18n="plan_onetime_desc" class="text-xs text-slate-600 mt-0.5">เหมาะสำหรับทำความสะอาดทั่วไปหรือก่อน/หลังเข้าอยู่</p>
+                            </div>
+                        </label>
+
+                        <label class="relative flex items-start gap-3 p-4 rounded-xl border border-slate-200 hover:border-blue-900/40 bg-white cursor-pointer transition" id="plan-card-monthly">
+                            <input type="radio" name="planType" value="monthly" onchange="recalculateEstimate()" class="mt-1 accent-amber-500">
+                            <div>
+                                <p data-i18n="plan_monthly_title" class="font-bold text-slate-900 text-sm">แพ็กเกจรายเดือน (4 ครั้ง/เดือน)</p>
+                                <p data-i18n="plan_monthly_desc" class="text-xs text-slate-600 mt-0.5">คุ้มค่ากว่าสำหรับดูแลห้องต่อเนื่องสัปดาห์ละ 1 ครั้ง</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 2. ขนาดห้องและจำนวนห้องน้ำ -->
+                <div class="space-y-4 pt-2 border-t border-slate-100">
+                    <label class="block text-sm font-bold text-blue-950">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-500 text-blue-950 text-xs mr-2">2</span>
+                        <span data-i18n="sec_room">ขนาดห้องพักและจำนวนห้องน้ำ</span>
+                    </label>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="room-size" data-i18n="lbl_room_size" class="block text-xs font-semibold text-slate-700 mb-1.5">ขนาดห้องคอนโด *</label>
+                            <select id="room-size" name="roomSize" onchange="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                                <option value="studio" data-i18n="room_studio">Studio / 1 ห้องนอน (ไม่เกิน 35 ตร.ม.)</option>
+                                <option value="1br_plus" data-i18n="room_1br_plus">1 ห้องนอน พลัส / 1 ห้องนอนใหญ่ (35-50 ตร.ม.)</option>
+                                <option value="2br" data-i18n="room_2br">2 ห้องนอน (51-80 ตร.ม.)</option>
+                                <option value="duplex" data-i18n="room_duplex">Duplex / Penthouse (80 ตร.ม. ขึ้นไป)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="bathroom-count" data-i18n="lbl_bathroom" class="block text-xs font-semibold text-slate-700 mb-1.5">จำนวนห้องน้ำ *</label>
+                            <select id="bathroom-count" name="bathroomCount" onchange="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                                <option value="1" data-i18n="bath_1">1 ห้องน้ำ</option>
+                                <option value="2" data-i18n="bath_2">2 ห้องน้ำ</option>
+                                <option value="3" data-i18n="bath_3">3 ห้องน้ำขึ้นไป</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. บริการเสริม -->
+                <div class="space-y-3 pt-2 border-t border-slate-100">
+                    <label class="block text-sm font-bold text-blue-950">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-500 text-blue-950 text-xs mr-2">3</span>
+                        <span data-i18n="sec_addons">บริการเสริมเพิ่มเติม (ถ้ามี)</span>
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+                            <input type="checkbox" name="addons" value="fridge" data-price="150" onchange="recalculateEstimate()" class="accent-amber-500 rounded">
+                            <span data-i18n="addon_fridge">ทำความสะอาดตู้เย็น (+150 บาท)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+                            <input type="checkbox" name="addons" value="ironing" data-price="200" onchange="recalculateEstimate()" class="accent-amber-500 rounded">
+                            <span data-i18n="addon_ironing">รีดผ้าตามจำนวนชิ้น (+200 บาท)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+                            <input type="checkbox" name="addons" value="balcony_glass" data-price="250" onchange="recalculateEstimate()" class="accent-amber-500 rounded">
+                            <span data-i18n="addon_glass">เช็ดกระจกบานเลื่อนและระเบียง (+250 บาท)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+                            <input type="checkbox" name="addons" value="deep_kitchen" data-price="300" onchange="recalculateEstimate()" class="accent-amber-500 rounded">
+                            <span data-i18n="addon_kitchen">ขจัดคราบมันโซนครัวเข้มข้น (+300 บาท)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 4. วันเวลา และข้อมูลคอนโด -->
+                <div class="space-y-4 pt-2 border-t border-slate-100">
+                    <label class="block text-sm font-bold text-blue-950">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-500 text-blue-950 text-xs mr-2">4</span>
+                        <span data-i18n="sec_schedule">วัน-เวลาที่ต้องการรับบริการ และข้อมูลห้องพัก</span>
+                    </label>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="booking-date" data-i18n="lbl_date" class="block text-xs font-semibold text-slate-700 mb-1.5">วันที่เข้าบริการ *</label>
+                            <input type="date" id="booking-date" name="bookingDate" required onchange="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+
+                        <div>
+                            <label for="booking-slot" data-i18n="lbl_slot" class="block text-xs font-semibold text-slate-700 mb-1.5">ช่วงเวลาที่สะดวก *</label>
+                            <select id="booking-slot" name="bookingSlot" onchange="handleSlotChange()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                <option value="09:00" data-i18n="slot_morning">ช่วงเช้า (09:00 น. เป็นต้นไป)</option>
+                                <option value="13:00" data-i18n="slot_afternoon">ช่วงบ่าย (13:00 น. เป็นต้นไป)</option>
+                                <option value="16:00" data-i18n="slot_evening">ช่วงเย็น (16:00 น. เป็นต้นไป)</option>
+                                <option value="custom" data-i18n="slot_custom">อื่นๆ (ระบุเวลาเอง)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ช่องกรอกเวลาเอง เมื่อเลือก "อื่นๆ (ระบุเวลาเอง)" -->
+                    <div id="custom-time-wrapper" class="hidden bg-amber-50/70 border border-amber-300 rounded-xl p-3.5">
+                        <label for="custom-booking-time" data-i18n="lbl_custom_time" class="block text-xs font-semibold text-blue-950 mb-1.5">ระบุเวลาที่ต้องการรับบริการ *</label>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                            <input type="time" id="custom-booking-time" name="customBookingTime" oninput="recalculateEstimate()" onchange="recalculateEstimate()" class="w-full sm:w-48 rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            <span data-i18n="custom_time_hint" class="text-xs text-slate-600">เลือกชั่วโมงและนาทีที่ต้องการให้แม่บ้านเข้าบริการ</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="condo-name" data-i18n="lbl_condo_name" class="block text-xs font-semibold text-slate-700 mb-1.5">ชื่อโครงการคอนโดมิเนียม *</label>
+                            <input type="text" id="condo-name" name="condoName" required oninput="recalculateEstimate()" data-i18n-placeholder="ph_condo_name" placeholder="กรอกชื่อโครงการคอนโดมิเนียม" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+
+                        <div>
+                            <label for="unit-no" data-i18n="lbl_unit_no" class="block text-xs font-semibold text-slate-700 mb-1.5">อาคาร / ชั้น / เลขที่ห้อง *</label>
+                            <input type="text" id="unit-no" name="unitNo" required oninput="recalculateEstimate()" data-i18n-placeholder="ph_unit_no" placeholder="ระบุอาคาร ชั้น และเลขที่ห้อง" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. ข้อมูลผู้จอง -->
+                <div class="space-y-4 pt-2 border-t border-slate-100">
+                    <label class="block text-sm font-bold text-blue-950">
+                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-500 text-blue-950 text-xs mr-2">5</span>
+                        <span data-i18n="sec_customer">ข้อมูลผู้ติดต่อ</span>
+                    </label>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="customer-name" data-i18n="lbl_name" class="block text-xs font-semibold text-slate-700 mb-1.5">ชื่อ-นามสกุล *</label>
+                            <input type="text" id="customer-name" name="customerName" required oninput="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+
+                        <div>
+                            <label for="customer-phone" data-i18n="lbl_phone" class="block text-xs font-semibold text-slate-700 mb-1.5">เบอร์โทรศัพท์ *</label>
+                            <input type="tel" id="customer-phone" name="customerPhone" required oninput="recalculateEstimate()" data-i18n-placeholder="ph_phone" placeholder="08X-XXX-XXXX" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="customer-line" data-i18n="lbl_line" class="block text-xs font-semibold text-slate-700 mb-1.5">LINE ID (ถ้ามี)</label>
+                            <input type="text" id="customer-line" name="customerLine" oninput="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+
+                        <div>
+                            <label for="key-handover" data-i18n="lbl_key" class="block text-xs font-semibold text-slate-700 mb-1.5">การรับ-ส่งกุญแจ / คีย์การ์ด</label>
+                            <select id="key-handover" name="keyHandover" onchange="recalculateEstimate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                <option value="present" data-i18n="key_present">ลูกค้าอยู่รับ-ส่งด้วยตนเอง</option>
+                                <option value="juristic" data-i18n="key_juristic">ฝากกุญแจ/คีย์การ์ดที่นิติบุคคล</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="booking-note" data-i18n="lbl_note" class="block text-xs font-semibold text-slate-700 mb-1.5">หมายเหตุเพิ่มเติม</label>
+                        <textarea id="booking-note" name="bookingNote" rows="2" oninput="recalculateEstimate()" data-i18n-placeholder="ph_note" placeholder="ระบุรายละเอียดเพิ่มเติมหรือข้อจำกัดการเข้าออกอาคาร" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+                    </div>
+                </div>
+
+                <!-- 6. ยินยอมเปิดเผยข้อมูล (บังคับติ๊กก่อนส่ง) -->
+                <div class="pt-2 border-t border-slate-100 space-y-2">
+                    <div id="consent-box" class="rounded-xl bg-amber-50/80 border border-amber-300 p-4 transition">
+                        <label for="consent-disclosure" class="flex items-start gap-3 cursor-pointer select-none">
+                            <input
+                                type="checkbox"
+                                id="consent-disclosure"
+                                name="consentDisclosure"
+                                required
+                                onchange="handleConsentChange()"
+                                class="mt-1 h-4 w-4 shrink-0 accent-amber-500 rounded border-slate-300 cursor-pointer"
+                            >
+                            <span class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                                <span data-i18n="consent_title" class="font-bold text-blue-950">ยินยอมเปิดเผยข้อมูล</span>
+                                —
+                                <span data-i18n="consent_desc">ข้าพเจ้ายินยอมให้บริษัทเก็บรวบรวม ใช้ และเปิดเผยข้อมูลที่กรอกในแบบฟอร์มนี้เพื่อการติดต่อ ประสานงาน และจัดสรรบริการทำความสะอาดคอนโดตามวัตถุประสงค์</span>
+                                <span class="text-red-600 font-bold">*</span>
+                            </span>
+                        </label>
+                    </div>
+                    <p id="consent-error-msg" data-i18n="consent_required_msg" class="hidden text-xs font-semibold text-red-600 px-1">
+                        กรุณาติ๊กยินยอมเปิดเผยข้อมูลก่อนกดยืนยันคำขอจอง
+                    </p>
+                </div>
+
+                <div class="pt-1">
+                    <button type="submit" id="submit-booking-btn" data-i18n="submit_booking_btn" class="w-full py-3.5 px-6 rounded-xl bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-base shadow-lg transition cursor-pointer">
+                        <i class="fa-solid fa-calendar-check mr-2"></i> ยืนยันคำขอจองแม่บ้านคอนโด
+                    </button>
+                </div>
+            </form>
+
+            <!-- สรุปการจองแบบเรียลไทม์ (5 คอลัมน์) -->
+            <aside class="lg:col-span-5 bg-blue-950 text-white rounded-2xl shadow-xl border border-blue-800 p-6 sm:p-7 space-y-5 lg:sticky lg:top-24">
+                <div class="flex items-center justify-between border-b border-blue-800 pb-4">
+                    <div>
+                        <p class="text-xs font-semibold text-amber-400 uppercase tracking-wider">BOOKING SUMMARY</p>
+                        <h2 data-i18n="sum_heading" class="text-xl font-bold text-white mt-0.5">สรุปรายการจองคอนโด</h2>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-semibold">
+                        Condo
+                    </span>
+                </div>
+
+                <dl class="space-y-3 text-sm">
+                    <div class="flex justify-between items-center gap-3 bg-blue-900/50 border border-amber-400/30 rounded-xl px-3.5 py-2.5">
+                        <dt data-i18n="sum_avail_maids" class="text-amber-200 font-semibold">แม่บ้านพร้อมเริ่มงาน:</dt>
+                        <dd id="sum-avail-val" class="text-lg sm:text-xl font-extrabold text-amber-400 text-right">6 / 6 คน</dd>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <dt data-i18n="sum_plan" class="text-slate-300">รูปแบบ:</dt>
+                        <dd id="sum-plan-val" class="font-semibold text-white text-right">ทำความสะอาดรายครั้ง</dd>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <dt data-i18n="sum_room" class="text-slate-300">ขนาดห้อง:</dt>
+                        <dd id="sum-room-val" class="font-semibold text-white text-right">Studio / 1 ห้องนอน (ไม่เกิน 35 ตร.ม.)</dd>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <dt data-i18n="sum_duration" class="text-slate-300">เวลาปฏิบัติงานโดยประมาณ:</dt>
+                        <dd id="sum-duration-val" class="font-semibold text-amber-300 text-right">2 ชั่วโมง</dd>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <dt data-i18n="sum_datetime" class="text-slate-300">วันและเวลา:</dt>
+                        <dd id="sum-datetime-val" class="font-semibold text-white text-right">ยังไม่ระบุวันที่</dd>
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <dt data-i18n="sum_location" class="text-slate-300">โครงการ / ห้อง:</dt>
+                        <dd id="sum-location-val" class="font-semibold text-white text-right">-</dd>
+                    </div>
+                </dl>
+
+                <div class="border-t border-blue-800 pt-4 space-y-2">
+                    <div class="flex items-baseline justify-between">
+                        <span data-i18n="sum_est_price" class="text-sm text-slate-300">ราคาประเมินเบื้องต้น:</span>
+                        <span id="sum-price-val" class="text-2xl font-bold text-amber-400">690 บาท</span>
+                    </div>
+                    <p data-i18n="sum_disclaimer" class="text-xs text-slate-400 leading-relaxed">
+                        * ราคาประเมินเบื้องต้นสำหรับประกอบการวางแผน เจ้าหน้าที่จะติดต่อยืนยันคิวและรายละเอียดหน้างานอีกครั้ง
+                    </p>
+                </div>
+
+                <!-- กล่องใบยืนยันหลังกดส่ง -->
+                <div id="booking-result-box" class="hidden bg-slate-900/90 border border-amber-400/50 rounded-xl p-4 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span data-i18n="confirmed_badge" class="text-xs font-bold text-amber-400">
+                            <i class="fa-solid fa-circle-check mr-1"></i> บันทึกคำขอจองเรียบร้อยแล้ว
+                        </span>
+                        <span id="booking-ref-code" class="text-xs font-mono bg-blue-950 px-2 py-0.5 rounded text-amber-200">-</span>
+                    </div>
+                    <pre id="booking-summary-text" class="text-xs text-slate-200 whitespace-pre-wrap font-sans leading-relaxed bg-slate-950/60 p-3 rounded-lg border border-white/10"></pre>
+                    <button type="button" onclick="copyBookingSummary()" data-i18n="copy_summary_btn" class="w-full py-2.5 px-4 rounded-lg bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold text-xs sm:text-sm transition cursor-pointer">
+                        <i class="fa-regular fa-copy mr-1.5"></i> คัดลอกสรุปการจองสำหรับส่ง LINE / แชท
+                    </button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        // ใส่ URL Google Apps Script Web App สำหรับดึงจำนวนลงชื่อแม่บ้านคอนโด และบันทึกการจองที่ยืนยันแล้ว
+        const CONDO_BOOKING_API_URL = '';
+
+        // จำนวนแม่บ้านตั้งต้นกรณีที่ยังไม่เชื่อมต่อ API หรือกำลังรอผลจาก Google Sheet
+        const DEFAULT_SHEET_MAIDS = 6;
+        const BOOKINGS_STORAGE_KEY = 'servex_condo_bookings_v1';
+
+        let sheetTotalMaids = DEFAULT_SHEET_MAIDS;
+        let sheetBookedCount = 0;
+
+        const ROOM_CONFIG = {
+            studio:   { hours: 2, price: 690,  th: 'Studio / 1 ห้องนอน (ไม่เกิน 35 ตร.ม.)',     en: 'Studio / 1-Bedroom (Up to 35 sq.m.)' },
+            '1br_plus': { hours: 3, price: 890, th: '1 ห้องนอน พลัส / 1 ห้องนอนใหญ่ (35-50 ตร.ม.)', en: '1-Bedroom Plus / Large 1BR (35-50 sq.m.)' },
+            '2br':    { hours: 4, price: 1190, th: '2 ห้องนอน (51-80 ตร.ม.)',                 en: '2-Bedroom (51-80 sq.m.)' },
+            duplex:   { hours: 5, price: 1590, th: 'Duplex / Penthouse (80 ตร.ม. ขึ้นไป)',      en: 'Duplex / Penthouse (80+ sq.m.)' }
+        };
+
+        const I18N = {
+            th: {
+                page_title: 'ระบบจองแม่บ้านคอนโด | บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด',
+                company_name_th: 'บริษัท รักษาความปลอดภัยและธุรกิจบริการกรุงเทพเซอร์เว็กซ์ จำกัด',
+                header_sub_condo: 'ระบบจองแม่บ้านคอนโด (Condo Housekeeping Booking)',
+                back_home: '<i class="fa-solid fa-arrow-left mr-1"></i> กลับหน้าแรก',
+                switch_office: '<i class="fa-solid fa-briefcase mr-1.5"></i> จองแม่บ้านสำนักงาน',
+                hero_badge: '<i class="fa-solid fa-building mr-1.5"></i> บริการทำความสะอาดห้องพักคอนโดมิเนียม • มาตรฐานกรุงเทพเซอร์เว็กซ์',
+                hero_title: 'จองบริการ <span class="text-amber-400">แม่บ้านคอนโด</span>',
+                hero_desc: 'เลือกขนาดห้องพัก วัน-เวลาเข้าทำความสะอาด และบริการเสริมได้ตามต้องการ พร้อมสรุปรายละเอียดการจองและส่งข้อมูลได้ทันที',
+                avail_badge_label: '<i class="fa-solid fa-users-gear mr-1.5"></i> แม่บ้านพร้อมเริ่มงาน',
+                avail_unit_suffix: 'คน (พร้อมเริ่มงาน)',
+                form_avail_title: 'จำนวนแม่บ้านที่พร้อมเริ่มงาน',
+                sec_plan: 'เลือกรูปแบบการจอง',
+                plan_onetime_title: 'ทำความสะอาดรายครั้ง',
+                plan_onetime_desc: 'เหมาะสำหรับทำความสะอาดทั่วไปหรือก่อน/หลังเข้าอยู่',
+                plan_monthly_title: 'แพ็กเกจรายเดือน (4 ครั้ง/เดือน)',
+                plan_monthly_desc: 'คุ้มค่ากว่าสำหรับดูแลห้องต่อเนื่องสัปดาห์ละ 1 ครั้ง',
+                sec_room: 'ขนาดห้องพักและจำนวนห้องน้ำ',
+                lbl_room_size: 'ขนาดห้องคอนโด *',
+                room_studio: 'Studio / 1 ห้องนอน (ไม่เกิน 35 ตร.ม.)',
+                room_1br_plus: '1 ห้องนอน พลัส / 1 ห้องนอนใหญ่ (35-50 ตร.ม.)',
+                room_2br: '2 ห้องนอน (51-80 ตร.ม.)',
+                room_duplex: 'Duplex / Penthouse (80 ตร.ม. ขึ้นไป)',
+                lbl_bathroom: 'จำนวนห้องน้ำ *',
+                bath_1: '1 ห้องน้ำ',
+                bath_2: '2 ห้องน้ำ',
+                bath_3: '3 ห้องน้ำขึ้นไป',
+                sec_addons: 'บริการเสริมเพิ่มเติม (ถ้ามี)',
+                addon_fridge: 'ทำความสะอาดตู้เย็น (+150 บาท)',
+                addon_ironing: 'รีดผ้าตามจำนวนชิ้น (+200 บาท)',
+                addon_glass: 'เช็ดกระจกบานเลื่อนและระเบียง (+250 บาท)',
+                addon_kitchen: 'ขจัดคราบมันโซนครัวเข้มข้น (+300 บาท)',
+                sec_schedule: 'วัน-เวลาที่ต้องการรับบริการ และข้อมูลห้องพัก',
+                lbl_date: 'วันที่เข้าบริการ *',
+                lbl_slot: 'ช่วงเวลาที่สะดวก *',
+                slot_morning: 'ช่วงเช้า (09:00 น. เป็นต้นไป)',
+                slot_afternoon: 'ช่วงบ่าย (13:00 น. เป็นต้นไป)',
+                slot_evening: 'ช่วงเย็น (16:00 น. เป็นต้นไป)',
+                slot_custom: 'อื่นๆ (ระบุเวลาเอง)',
+                lbl_custom_time: 'ระบุเวลาที่ต้องการรับบริการ *',
+                custom_time_hint: 'เลือกชั่วโมงและนาทีที่ต้องการให้แม่บ้านเข้าบริการ',
+                custom_time_unset: 'กรอกเวลาเอง',
+                time_suffix_th: 'น.',
+                lbl_condo_name: 'ชื่อโครงการคอนโดมิเนียม *',
+                ph_condo_name: 'กรอกชื่อโครงการคอนโดมิเนียม',
+                lbl_unit_no: 'อาคาร / ชั้น / เลขที่ห้อง *',
+                ph_unit_no: 'ระบุอาคาร ชั้น และเลขที่ห้อง',
+                sec_customer: 'ข้อมูลผู้ติดต่อ',
+                lbl_name: 'ชื่อ-นามสกุล *',
+                lbl_phone: 'เบอร์โทรศัพท์ *',
+                ph_phone: '08X-XXX-XXXX',
+                lbl_line: 'LINE ID (ถ้ามี)',
+                lbl_key: 'การรับ-ส่งกุญแจ / คีย์การ์ด',
+                key_present: 'ลูกค้าอยู่รับ-ส่งด้วยตนเอง',
+                key_juristic: 'ฝากกุญแจ/คีย์การ์ดที่นิติบุคคล',
+                lbl_note: 'หมายเหตุเพิ่มเติม',
+                ph_note: 'ระบุรายละเอียดเพิ่มเติมหรือข้อจำกัดการเข้าออกอาคาร',
+                consent_title: 'ยินยอมเปิดเผยข้อมูล',
+                consent_desc: 'ข้าพเจ้ายินยอมให้บริษัทเก็บรวบรวม ใช้ และเปิดเผยข้อมูลที่กรอกในแบบฟอร์มนี้เพื่อการติดต่อ ประสานงาน และจัดสรรบริการทำความสะอาดคอนโดตามวัตถุประสงค์',
+                consent_required_msg: 'กรุณาติ๊กยินยอมเปิดเผยข้อมูลก่อนกดยืนยันคำขอจอง',
+                submit_booking_btn: '<i class="fa-solid fa-calendar-check mr-2"></i> ยืนยันคำขอจองแม่บ้านคอนโด',
+                sum_heading: 'สรุปรายการจองคอนโด',
+                sum_avail_maids: 'แม่บ้านพร้อมเริ่มงาน:',
+                sum_plan: 'รูปแบบ:',
+                sum_room: 'ขนาดห้อง:',
+                sum_duration: 'เวลาปฏิบัติงานโดยประมาณ:',
+                sum_datetime: 'วันและเวลา:',
+                sum_location: 'โครงการ / ห้อง:',
+                sum_est_price: 'ราคาประเมินเบื้องต้น:',
+                sum_disclaimer: '* ราคาประเมินเบื้องต้นสำหรับประกอบการวางแผน เจ้าหน้าที่จะติดต่อยืนยันคิวและรายละเอียดหน้างานอีกครั้ง',
+                confirmed_badge: '<i class="fa-solid fa-circle-check mr-1"></i> บันทึกคำขอจองเรียบร้อยแล้ว',
+                copy_summary_btn: '<i class="fa-regular fa-copy mr-1.5"></i> คัดลอกสรุปการจองสำหรับส่ง LINE / แชท',
+                hour_unit: 'ชั่วโมง',
+                baht_unit: 'บาท',
+                person_unit: 'คน',
+                no_date: 'ยังไม่ระบุวันที่',
+                copied_msg: 'คัดลอกสรุปการจองเรียบร้อยแล้ว',
+                updated_popup_msg: 'อัปเดตล่าสุดแล้ว',
+                popup_close_btn: 'ตกลง'
+            },
+            en: {
+                page_title: 'Condo Housekeeping Booking | Bangkok Servex Security Guard and Business Services Co., Ltd.',
+                company_name_th: 'Bangkok Servex Security Guard and Business Services Co., Ltd.',
+                header_sub_condo: 'Condo Housekeeping Booking System',
+                back_home: '<i class="fa-solid fa-arrow-left mr-1"></i> Back to Home',
+                switch_office: '<i class="fa-solid fa-briefcase mr-1.5"></i> Office Booking',
+                hero_badge: '<i class="fa-solid fa-building mr-1.5"></i> Condominium Cleaning Service • Bangkok Servex Standard',
+                hero_title: 'Book <span class="text-amber-400">Condo Housekeeping</span>',
+                hero_desc: 'Choose your room size, preferred date and time slot, and optional add-ons with instant booking summary.',
+                avail_badge_label: '<i class="fa-solid fa-users-gear mr-1.5"></i> Available Maids',
+                avail_unit_suffix: 'staff (ready to start)',
+                form_avail_title: 'Available Housekeeping Staff',
+                sec_plan: 'Select Booking Type',
+                plan_onetime_title: 'One-Time Cleaning',
+                plan_onetime_desc: 'Ideal for routine cleaning or move-in / move-out',
+                plan_monthly_title: 'Monthly Package (4 Visits / Month)',
+                plan_monthly_desc: 'Better value for weekly recurring condo care',
+                sec_room: 'Room Size & Bathrooms',
+                lbl_room_size: 'Condo Room Size *',
+                room_studio: 'Studio / 1-Bedroom (Up to 35 sq.m.)',
+                room_1br_plus: '1-Bedroom Plus / Large 1BR (35-50 sq.m.)',
+                room_2br: '2-Bedroom (51-80 sq.m.)',
+                room_duplex: 'Duplex / Penthouse (80+ sq.m.)',
+                lbl_bathroom: 'Bathrooms *',
+                bath_1: '1 Bathroom',
+                bath_2: '2 Bathrooms',
+                bath_3: '3+ Bathrooms',
+                sec_addons: 'Optional Add-Ons',
+                addon_fridge: 'Refrigerator Cleaning (+150 THB)',
+                addon_ironing: 'Garment Ironing (+200 THB)',
+                addon_glass: 'Sliding Door & Balcony Glass (+250 THB)',
+                addon_kitchen: 'Intensive Kitchen Grease Cleaning (+300 THB)',
+                sec_schedule: 'Preferred Schedule & Unit Details',
+                lbl_date: 'Service Date *',
+                lbl_slot: 'Time Slot *',
+                slot_morning: 'Morning (09:00 onwards)',
+                slot_afternoon: 'Afternoon (13:00 onwards)',
+                slot_evening: 'Evening (16:00 onwards)',
+                slot_custom: 'Other (Custom Time)',
+                lbl_custom_time: 'Specify Preferred Time *',
+                custom_time_hint: 'Choose the exact hour and minute you prefer',
+                custom_time_unset: 'Custom time',
+                time_suffix_th: '',
+                lbl_condo_name: 'Condominium Name *',
+                ph_condo_name: 'Enter condominium name',
+                lbl_unit_no: 'Building / Floor / Unit No. *',
+                ph_unit_no: 'Enter building, floor, and unit number',
+                sec_customer: 'Contact Information',
+                lbl_name: 'Full Name *',
+                lbl_phone: 'Phone Number *',
+                ph_phone: '08X-XXX-XXXX',
+                lbl_line: 'LINE ID (Optional)',
+                lbl_key: 'Key / Card Handover',
+                key_present: 'Customer present on-site',
+                key_juristic: 'Leave with Juristic Office',
+                lbl_note: 'Additional Notes',
+                ph_note: 'Add special instructions or building access notes',
+                consent_title: 'Consent to Data Disclosure',
+                consent_desc: 'I consent to the company collecting, using, and disclosing the information submitted in this form for contact, coordination, and condo housekeeping service fulfillment.',
+                consent_required_msg: 'Please check the data disclosure consent box before submitting your booking request.',
+                submit_booking_btn: '<i class="fa-solid fa-calendar-check mr-2"></i> Submit Condo Booking Request',
+                sum_heading: 'Condo Booking Summary',
+                sum_avail_maids: 'Available Staff:',
+                sum_plan: 'Type:',
+                sum_room: 'Room Size:',
+                sum_duration: 'Estimated Duration:',
+                sum_datetime: 'Date & Slot:',
+                sum_location: 'Condo / Unit:',
+                sum_est_price: 'Estimated Price:',
+                sum_disclaimer: '* Estimated price for planning purposes. Our team will confirm your schedule and details.',
+                confirmed_badge: '<i class="fa-solid fa-circle-check mr-1"></i> Booking Request Prepared',
+                copy_summary_btn: '<i class="fa-regular fa-copy mr-1.5"></i> Copy Summary for LINE / Chat',
+                hour_unit: 'hrs',
+                baht_unit: 'THB',
+                person_unit: 'staff',
+                no_date: 'Date not selected',
+                copied_msg: 'Booking summary copied',
+                updated_popup_msg: 'Updated to latest',
+                popup_close_btn: 'OK'
+            }
+        };
+
+        let activeLang = 'th';
+
+        function isConsentChecked() {
+            return Boolean(document.getElementById('consent-disclosure')?.checked);
+        }
+
+        function handleConsentChange() {
+            const checked = isConsentChecked();
+            const errEl = document.getElementById('consent-error-msg');
+            const boxEl = document.getElementById('consent-box');
+            if (checked) {
+                if (errEl) errEl.classList.add('hidden');
+                if (boxEl) {
+                    boxEl.classList.remove('border-red-400', 'bg-red-50/70');
+                    boxEl.classList.add('border-amber-300', 'bg-amber-50/80');
+                }
+            }
+            recalculateEstimate();
+        }
+
+        function handleSlotChange() {
+            const slotVal = document.getElementById('booking-slot')?.value || '09:00';
+            const wrapper = document.getElementById('custom-time-wrapper');
+            const customInput = document.getElementById('custom-booking-time');
+            const isCustom = slotVal === 'custom';
+
+            if (wrapper) {
+                wrapper.classList.toggle('hidden', !isCustom);
+            }
+            if (customInput) {
+                customInput.required = isCustom;
+                if (isCustom && !customInput.value) {
+                    customInput.focus();
+                }
+            }
+            recalculateEstimate();
+        }
+
+        function getFormattedSlotDisplay(slotVal, slotOptionText, customTimeVal, dict) {
+            if (slotVal === 'custom') {
+                if (customTimeVal) {
+                    const suffix = dict.time_suffix_th ? ` ${dict.time_suffix_th}` : '';
+                    return activeLang === 'en'
+                        ? `${dict.custom_time_unset}: ${customTimeVal}`
+                        : `${dict.custom_time_unset} (${customTimeVal}${suffix})`;
+                }
+                return dict.custom_time_unset;
+            }
+            return slotOptionText;
+        }
+
+        function readConfirmedBookings() {
+            try {
+                const raw = localStorage.getItem(BOOKINGS_STORAGE_KEY);
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (_) {
+                return [];
+            }
+        }
+
+        function saveConfirmedBooking(entry) {
+            const list = readConfirmedBookings();
+            list.push(entry);
+            try {
+                localStorage.setItem(BOOKINGS_STORAGE_KEY, JSON.stringify(list));
+            } catch (_) {
+                // เงียบไว้หากไม่สามารถเขียน localStorage ได้
+            }
+        }
+
+        // หักเฉพาะยอดที่ "ยืนยันจองแล้ว" ในวันและช่วงเวลาเดียวกัน (ไม่หักคนเปิดฟอร์มค้างไว้)
+        function getConfirmedStaffUsed(dateVal, slotKey) {
+            const confirmedList = readConfirmedBookings();
+            let localConfirmedStaff = 0;
+
+            if (dateVal) {
+                localConfirmedStaff = confirmedList
+                    .filter((b) => b.bookingDate === dateVal && (!slotKey || b.bookingSlotKey === slotKey))
+                    .reduce((sum, b) => sum + (Number(b.staffUsed) || 1), 0);
+            }
+
+            return (Number(sheetBookedCount) || 0) + localConfirmedStaff;
+        }
+
+        function getRequiredStaffForForm(roomKey, bathVal) {
+            if (roomKey === 'duplex' || bathVal >= 3) return 2;
+            return 1;
+        }
+
+        function updateStaffAvailabilityUI(dateVal, slotKey, roomKey, bathVal) {
+            const dict = I18N[activeLang] || I18N.th;
+            const totalSheetStaff = Math.max(0, Number(sheetTotalMaids) || 0);
+            const confirmedUsed = getConfirmedStaffUsed(dateVal, slotKey);
+            const needStaff = getRequiredStaffForForm(roomKey, bathVal);
+
+            // ยอดพร้อมเริ่มงานจริงหลังหักเฉพาะคิวที่ยืนยันจองแล้ว
+            const availableNow = Math.max(0, totalSheetStaff - confirmedUsed);
+
+            const heroNumEl = document.getElementById('hero-available-maids');
+            const sheetBaseEl = document.getElementById('sheet-base-maids');
+            const needEl = document.getElementById('current-booking-need');
+            const remBadgeEl = document.getElementById('form-remaining-maids');
+            const sumAvailEl = document.getElementById('sum-avail-val');
+            const submitBtn = document.getElementById('submit-booking-btn');
+
+            if (heroNumEl) heroNumEl.textContent = String(availableNow);
+            if (sheetBaseEl) sheetBaseEl.textContent = String(totalSheetStaff);
+            if (needEl) needEl.textContent = String(needStaff);
+
+            if (remBadgeEl) {
+                remBadgeEl.textContent = activeLang === 'en'
+                    ? `${availableNow} ${dict.person_unit} available`
+                    : `พร้อมรับงาน ${availableNow} ${dict.person_unit}`;
+                remBadgeEl.className = availableNow >= needStaff && availableNow > 0
+                    ? 'inline-block px-4 py-2 rounded-xl bg-amber-500 text-blue-950 font-extrabold text-base sm:text-lg shadow-sm'
+                    : 'inline-block px-4 py-2 rounded-xl bg-red-100 text-red-700 border border-red-300 font-extrabold text-base sm:text-lg';
+            }
+
+            if (sumAvailEl) {
+                sumAvailEl.textContent = activeLang === 'en'
+                    ? `${availableNow} / ${totalSheetStaff} ${dict.person_unit}`
+                    : `${availableNow} / ${totalSheetStaff} ${dict.person_unit}`;
+            }
+
+            if (submitBtn) {
+                const hasStaff = availableNow >= needStaff && availableNow > 0;
+                const canSubmit = hasStaff && isConsentChecked();
+                submitBtn.disabled = !canSubmit;
+                submitBtn.setAttribute('aria-disabled', String(!canSubmit));
+                submitBtn.classList.toggle('opacity-50', !canSubmit);
+                submitBtn.classList.toggle('cursor-not-allowed', !canSubmit);
+            }
+
+            return {
+                totalSheetStaff,
+                confirmedUsed,
+                needStaff,
+                availableNow
+            };
+        }
+
+        function applySheetStaffPayload(data) {
+            if (!data || typeof data !== 'object') return;
+            if (typeof data.availableMaids === 'number') {
+                sheetTotalMaids = Math.max(0, data.availableMaids);
+            } else if (typeof data.totalRegistered === 'number') {
+                sheetTotalMaids = Math.max(0, data.totalRegistered);
+            }
+            if (typeof data.confirmedBookedCount === 'number') {
+                sheetBookedCount = Math.max(0, data.confirmedBookedCount);
+            } else if (typeof data.bookedCount === 'number') {
+                sheetBookedCount = Math.max(0, data.bookedCount);
+            }
+            recalculateEstimate();
+        }
+
+        function fetchStaffViaJsonp(timeoutMs = 4500) {
+            return new Promise((resolve) => {
+                if (!CONDO_BOOKING_API_URL) return resolve(false);
+                const cbName = `servexCondoStaffCb_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+                const script = document.createElement('script');
+                let settled = false;
+
+                const cleanup = () => {
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                    try { delete window[cbName]; } catch (_) { window[cbName] = undefined; }
+                };
+
+                const timer = setTimeout(() => {
+                    if (!settled) {
+                        settled = true;
+                        cleanup();
+                        resolve(false);
+                    }
+                }, timeoutMs);
+
+                window[cbName] = (data) => {
+                    if (settled) return;
+                    settled = true;
+                    clearTimeout(timer);
+                    cleanup();
+                    applySheetStaffPayload(data);
+                    resolve(true);
+                };
+
+                const dateVal = encodeURIComponent(document.getElementById('booking-date')?.value || '');
+                const slotEl = document.getElementById('booking-slot');
+                const slotVal = slotEl?.value || '09:00';
+                const customTimeVal = document.getElementById('custom-booking-time')?.value || '';
+                const slotKey = encodeURIComponent(slotVal === 'custom' && customTimeVal ? `custom:${customTimeVal}` : slotVal);
+                const sep = CONDO_BOOKING_API_URL.includes('?') ? '&' : '?';
+                script.src = `${CONDO_BOOKING_API_URL}${sep}action=condo_availability&date=${dateVal}&slot=${slotKey}&callback=${encodeURIComponent(cbName)}&_=${Date.now()}`;
+                script.onerror = () => {
+                    if (!settled) {
+                        settled = true;
+                        clearTimeout(timer);
+                        cleanup();
+                        resolve(false);
+                    }
+                };
+                document.body.appendChild(script);
+            });
+        }
+
+        async function syncAvailableMaidsFromSheet(notify = false) {
+            const icon = document.getElementById('sync-maids-icon');
+            if (icon) icon.classList.add('fa-spin');
+
+            try {
+                if (!CONDO_BOOKING_API_URL) {
+                    recalculateEstimate();
+                    if (notify) openUpdatePopup((I18N[activeLang] || I18N.th).updated_popup_msg);
+                    return;
+                }
+
+                const okJsonp = await fetchStaffViaJsonp(4500);
+                if (!okJsonp) {
+                    const dateVal = encodeURIComponent(document.getElementById('booking-date')?.value || '');
+                    const slotEl = document.getElementById('booking-slot');
+                    const slotVal = slotEl?.value || '09:00';
+                    const customTimeVal = document.getElementById('custom-booking-time')?.value || '';
+                    const slotKey = encodeURIComponent(slotVal === 'custom' && customTimeVal ? `custom:${customTimeVal}` : slotVal);
+                    const sep = CONDO_BOOKING_API_URL.includes('?') ? '&' : '?';
+                    const res = await fetch(`${CONDO_BOOKING_API_URL}${sep}action=condo_availability&date=${dateVal}&slot=${slotKey}&_=${Date.now()}`, {
+                        method: 'GET',
+                        cache: 'no-store'
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        applySheetStaffPayload(data);
+                    }
+                }
+                if (notify) openUpdatePopup((I18N[activeLang] || I18N.th).updated_popup_msg);
+            } catch (_) {
+                // ใช้ค่าล่าสุดที่มีอยู่
+            } finally {
+                if (icon) icon.classList.remove('fa-spin');
+            }
+        }
+
+        function getBookingDetails() {
+            const dict = I18N[activeLang] || I18N.th;
+            const planVal = document.querySelector('input[name="planType"]:checked')?.value || 'onetime';
+            const roomKey = document.getElementById('room-size')?.value || 'studio';
+            const bathVal = parseInt(document.getElementById('bathroom-count')?.value || '1', 10);
+            const roomCfg = ROOM_CONFIG[roomKey] || ROOM_CONFIG.studio;
+
+            const extraBathHours = bathVal > 1 ? (bathVal - 1) * 0.5 : 0;
+            const extraBathPrice = bathVal > 1 ? (bathVal - 1) * 100 : 0;
+
+            let addonsPrice = 0;
+            const addonLabels = [];
+            document.querySelectorAll('input[name="addons"]:checked').forEach((cb) => {
+                addonsPrice += parseInt(cb.getAttribute('data-price') || '0', 10);
+                const labelText = cb.parentElement?.innerText?.trim();
+                if (labelText) addonLabels.push(labelText);
+            });
+
+            const oneTimePrice = roomCfg.price + extraBathPrice + addonsPrice;
+            const isMonthly = planVal === 'monthly';
+            const totalPrice = isMonthly ? Math.round(oneTimePrice * 4 * 0.9) : oneTimePrice;
+            const totalHours = roomCfg.hours + extraBathHours;
+
+            const dateVal = document.getElementById('booking-date')?.value || '';
+            const slotEl = document.getElementById('booking-slot');
+            const slotVal = slotEl?.value || '09:00';
+            const slotOptionText = slotEl?.options[slotEl.selectedIndex]?.text || '';
+            const customTimeVal = document.getElementById('custom-booking-time')?.value.trim() || '';
+            const slotText = getFormattedSlotDisplay(slotVal, slotOptionText, customTimeVal, dict);
+            const slotKey = slotVal === 'custom' && customTimeVal ? `custom:${customTimeVal}` : slotVal;
+
+            const condoName = document.getElementById('condo-name')?.value.trim() || '';
+            const unitNo = document.getElementById('unit-no')?.value.trim() || '';
+            const customerName = document.getElementById('customer-name')?.value.trim() || '';
+            const customerPhone = document.getElementById('customer-phone')?.value.trim() || '';
+            const customerLine = document.getElementById('customer-line')?.value.trim() || '-';
+            const keyEl = document.getElementById('key-handover');
+            const keyText = keyEl?.options[keyEl.selectedIndex]?.text || '';
+            const note = document.getElementById('booking-note')?.value.trim() || '-';
+
+            const staffInfo = updateStaffAvailabilityUI(dateVal, slotKey, roomKey, bathVal);
+
+            return {
+                dict,
+                planVal,
+                planLabel: isMonthly ? dict.plan_monthly_title : dict.plan_onetime_title,
+                roomLabel: activeLang === 'en' ? roomCfg.en : roomCfg.th,
+                bathVal,
+                totalHours,
+                totalPrice,
+                dateVal,
+                slotVal,
+                slotKey,
+                customTimeVal,
+                slotText,
+                condoName,
+                unitNo,
+                addonLabels,
+                customerName,
+                customerPhone,
+                customerLine,
+                keyText,
+                note,
+                staffInfo
+            };
+        }
+
+        function recalculateEstimate() {
+            const planVal = document.querySelector('input[name="planType"]:checked')?.value || 'onetime';
+            const cardOne = document.getElementById('plan-card-onetime');
+            const cardMon = document.getElementById('plan-card-monthly');
+            if (cardOne && cardMon) {
+                cardOne.className = `relative flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition ${planVal === 'onetime' ? 'border-2 border-amber-500 bg-amber-50/40' : 'border-slate-200 hover:border-blue-900/40 bg-white'}`;
+                cardMon.className = `relative flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition ${planVal === 'monthly' ? 'border-2 border-amber-500 bg-amber-50/40' : 'border-slate-200 hover:border-blue-900/40 bg-white'}`;
+            }
+
+            const d = getBookingDetails();
+            document.getElementById('sum-plan-val').textContent = d.planLabel;
+            document.getElementById('sum-room-val').textContent = d.roomLabel;
+            document.getElementById('sum-duration-val').textContent = `${d.totalHours} ${d.dict.hour_unit}`;
+            document.getElementById('sum-datetime-val').textContent = d.dateVal ? `${d.dateVal} • ${d.slotText}` : d.dict.no_date;
+            document.getElementById('sum-location-val').textContent = (d.condoName || d.unitNo) ? `${d.condoName} (${d.unitNo})` : '-';
+            document.getElementById('sum-price-val').textContent = `${d.totalPrice.toLocaleString()} ${d.dict.baht_unit}`;
+        }
+
+        function buildBookingMessage(refCode, d) {
+            const leftAfterConfirm = Math.max(0, d.staffInfo.availableNow - d.staffInfo.needStaff);
+            const lines = [
+                `[${refCode}] จองแม่บ้านคอนโด (Bangkok Servex)`,
+                `• รูปแบบ: ${d.planLabel}`,
+                `• ขนาดห้อง: ${d.roomLabel}`,
+                `• แม่บ้านที่ใช้คิวนี้: ${d.staffInfo.needStaff} คน (คงเหลือหลังยืนยัน ${leftAfterConfirm} คน)`,
+                `• เวลาปฏิบัติงานโดยประมาณ: ${d.totalHours} ${d.dict.hour_unit}`,
+                `• วัน-เวลา: ${d.dateVal || '-'} (${d.slotText})`,
+                `• โครงการ / ห้อง: ${d.condoName} / ${d.unitNo}`,
+                `• บริการเสริม: ${d.addonLabels.length ? d.addonLabels.join(', ') : '-'}`,
+                `• การรับ-ส่งกุญแจ: ${d.keyText}`,
+                `• ผู้ติดต่อ: ${d.customerName} (${d.customerPhone})`,
+                `• LINE ID: ${d.customerLine}`,
+                `• หมายเหตุ: ${d.note}`,
+                `• ยินยอมเปิดเผยข้อมูล: ยินยอมแล้ว`,
+                `• ราคาประเมินเบื้องต้น: ${d.totalPrice.toLocaleString()} ${d.dict.baht_unit}`
+            ];
+            return lines.join('\n');
+        }
+
+        async function handleBookingSubmit(event) {
+            event.preventDefault();
+
+            if (!isConsentChecked()) {
+                const errEl = document.getElementById('consent-error-msg');
+                const boxEl = document.getElementById('consent-box');
+                const cbEl = document.getElementById('consent-disclosure');
+                if (errEl) errEl.classList.remove('hidden');
+                if (boxEl) {
+                    boxEl.classList.remove('border-amber-300', 'bg-amber-50/80');
+                    boxEl.classList.add('border-red-400', 'bg-red-50/70');
+                }
+                if (cbEl) {
+                    cbEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    cbEl.focus();
+                }
+                recalculateEstimate();
+                return;
+            }
+
+            const d = getBookingDetails();
+            if (d.staffInfo.availableNow < d.staffInfo.needStaff) return;
+
+            const refCode = `SVX-CDO-${Date.now().toString().slice(-6)}`;
+
+            // บันทึกและหักคิวจริงเฉพาะเมื่อผู้ใช้กดยืนยันคำขอจองแล้วเท่านั้น
+            saveConfirmedBooking({
+                refCode,
+                status: 'confirmed',
+                consentAccepted: true,
+                bookingDate: d.dateVal,
+                bookingSlotKey: d.slotKey,
+                bookingSlot: d.slotText,
+                customTime: d.customTimeVal,
+                staffUsed: d.staffInfo.needStaff,
+                planType: d.planVal
+            });
+
+            const summaryText = buildBookingMessage(refCode, d);
+            recalculateEstimate();
+
+            if (CONDO_BOOKING_API_URL) {
+                try {
+                    await fetch(CONDO_BOOKING_API_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            refCode,
+                            status: 'confirmed',
+                            consentAccepted: true,
+                            category: 'condo',
+                            planType: d.planVal,
+                            roomSize: d.roomLabel,
+                            staffUsed: d.staffInfo.needStaff,
+                            estimatedHours: d.totalHours,
+                            estimatedPrice: d.totalPrice,
+                            bookingDate: d.dateVal,
+                            bookingSlot: d.slotText,
+                            customTime: d.customTimeVal,
+                            condoName: d.condoName,
+                            unitNo: d.unitNo,
+                            addons: d.addonLabels.join(', '),
+                            keyHandover: d.keyText,
+                            customerName: d.customerName,
+                            customerPhone: d.customerPhone,
+                            customerLine: d.customerLine,
+                            note: d.note
+                        })
+                    });
+                } catch (_) {
+                    // เงียบไว้หากยังไม่ได้เปิดใช้งาน endpoint
+                }
+            }
+
+            document.getElementById('booking-ref-code').textContent = refCode;
+            document.getElementById('booking-summary-text').textContent = summaryText;
+            document.getElementById('booking-result-box').classList.remove('hidden');
+            document.getElementById('booking-result-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function copyBookingSummary() {
+            const txt = document.getElementById('booking-summary-text')?.textContent || '';
+            const msg = (I18N[activeLang] || I18N.th).copied_msg;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(txt).then(() => openUpdatePopup(msg)).catch(() => openUpdatePopup(msg));
+            } else {
+                openUpdatePopup(msg);
+            }
+        }
+
+        function openUpdatePopup(msg) {
+            const popup = document.getElementById('update-popup');
+            const text = document.getElementById('update-popup-text');
+            if (!popup || !text) return;
+            text.textContent = msg;
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
+            clearTimeout(window.popupTimer);
+            window.popupTimer = setTimeout(() => {
+                closeUpdatePopup();
+            }, 1800);
+        }
+
+        function closeUpdatePopup() {
+            const popup = document.getElementById('update-popup');
+            if (!popup) return;
+            clearTimeout(window.popupTimer);
+            popup.classList.add('hidden');
+            popup.classList.remove('flex');
+        }
+
+        function setLanguage(lang) {
+            activeLang = lang === 'en' ? 'en' : 'th';
+            document.documentElement.lang = activeLang;
+            const dict = I18N[activeLang];
+            document.title = dict.page_title;
+
+            const btnTh = document.getElementById('btn-lang-th');
+            const btnEn = document.getElementById('btn-lang-en');
+            if (activeLang === 'th') {
+                btnTh.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition';
+                btnEn.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition';
+            } else {
+                btnEn.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold bg-amber-500 text-blue-950 transition';
+                btnTh.className = 'px-2.5 py-1.5 rounded-md text-xs font-semibold text-slate-700 hover:text-blue-950 transition';
+            }
+
+            const officeLink = document.getElementById('switch-to-office-link');
+            if (officeLink) {
+                officeLink.href = `./housekeeping_office.html?lang=${encodeURIComponent(activeLang)}`;
+            }
+
+            document.querySelectorAll('[data-i18n]').forEach((el) => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.innerHTML = dict[key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (dict[key]) {
+                    el.setAttribute('placeholder', dict[key]);
+                }
+            });
+
+            const closeBtn = document.getElementById('update-popup-close');
+            if (closeBtn && dict.popup_close_btn) {
+                closeBtn.textContent = dict.popup_close_btn;
+            }
+
+            recalculateEstimate();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlLang = new URLSearchParams(window.location.search).get('lang');
+            setLanguage(urlLang === 'en' ? 'en' : 'th');
+            handleSlotChange();
+            syncAvailableMaidsFromSheet(false);
+        });
+    </script>
+</body>
+</html>
